@@ -1,0 +1,463 @@
+# EXECUTION-FLOW.md
+
+Sequência lógica da **fase de execução** — parte de onde o planejamento termina
+(`SDD.md`/`UX-SPEC.md`/`TASK.md` aprovados pelo usuário + `GUARDRAILS.md` aprovado
+pelo Gestor, ver `PLANNING-FLOW.md`) e vai até o deploy em produção, fechando o
+ciclo de volta ao Gestor.
+
+Este documento cobre a lógica dos **comandos** da fase de execução —
+`/executar` (Executor implementa, QA testa e DevSecOps audita, tarefa a tarefa, no
+mesmo fluxo), `/revisar` (Coordenador revisa a arquitetura do projeto inteiro) e
+`/deploy` (Validador publica) — e do comando somente-leitura
+`/listar` (todas as tarefas em aberto, em ordem sugerida de execução). Antes
+deles, `/organizar` (Executor) quebra o `TASK.md` em `.md/.taskplan/<ID>.md`. Nenhum
+deles dispara o próximo automaticamente: **o usuário é o orquestrador**, decide
+quando rodar cada um. Este documento não redefine os agentes consolidados
+(`.claude/agents/gestor.md`, `coordenador.md`, `executor.md`, `validador.md`) nem
+a convenção de artefatos (`PIPELINE-CONVENTIONS.md`) — só ordena o que cada um já
+declara, em nível de comando.
+
+> Modelo anterior (12 agentes, um único `/executar` que fazia implementação + QA +
+> DevSecOps + DevOps encadeados por lote) descontinuado — ver nota no topo de
+> `PIPELINE-CONVENTIONS.md`. Os agentes `backend`, `frontend`, `mobile`, `qa`,
+> `devsecops`, `devops`, `tech-lead` continuam existindo como arquivos, mas não são
+> mais acionados por este fluxo.
+
+**Pré-requisito bloqueante**: este projeto precisa ser um repositório git antes de
+`/executar` rodar de verdade — a validação por tarefa (QA e DevSecOps, ver Comando 1)
+depende de `git diff`.
+
+**Isolamento por worktree (obrigatório, primeiro passo da Seção 0 de cada
+comando)**: cada chamada de um comando de execução (`/executar`,
+`/deploy`) roda numa worktree git dedicada à
+sessão, nunca direto na árvore principal — isso evita que duas sessões rodando
+comandos de execução ao mesmo tempo pisem uma na outra (edição concorrente de
+`TASK.md`, `BLOCKERS.md`, código).
+
+**Exceção dos comandos de execução por modo** (`/executar`, `/testar`, `/validar`):
+`--tarefa <ID>` **sempre** usa worktree própria (regra abaixo). `--continuar [N]` **não**
+usa worktree: roda direto na `main` da árvore principal e, por padrão, a cada tarefa
+faz um commit na `main` (só os arquivos dela) antes de partir para a próxima; com
+**`--nocommit`** não commita nada (o usuário commita e dá o push no fim) e o diff de
+cada tarefa é um snapshot da árvore (`taskplan.py diff <ID>`); `--nocommit` só existe
+com `--continuar`. Tarefa que bloqueia deixa o código parcial sem commit e o registra no
+`## Bloqueio`. Os demais modos (vazio, `--lote`) seguem a regra geral abaixo.
+O `taskplan.py` resolve sempre a raiz da **árvore principal** (reservas, Status locais,
+`TASK.md`), mesmo quando roda dentro de uma worktree.
+
+1. Garanta/entre numa worktree dedicada a esta sessão (skill
+   `superpowers:using-git-worktrees` ou tool `EnterWorktree`) antes de ler ou
+   escrever qualquer artefato — nome sugerido: `execucao/<comando>-<lote-ou-
+   tarefa>`. Se esta sessão já estiver numa worktree aberta para o mesmo
+   lote/tarefa (chamada anterior ainda em andamento), reaproveite-a — não crie
+   outra.
+2. Todo agente disparado dentro da chamada (`executor`, `validador`) herda essa
+   mesma worktree — nunca disperse instâncias paralelas da mesma rodada em
+   worktrees diferentes (ver "Unidade de trabalho: o lote" abaixo — todas as
+   tarefas de um lote precisam ver o mesmo `git diff`).
+3. **Encerramento limpo** (fim da tarefa/encadeamento, ou publicação, sem
+   bloqueio pendente): antes de apresentar o resumo final, integre a worktree de
+   volta ao branch principal (merge/rebase), remova a worktree (`ExitWorktree`
+   ou equivalente) e **apague a branch local já integrada** com `git branch -d
+   <branch>` (da árvore principal, depois de remover a worktree — remover a
+   worktree não apaga a branch; use `-d`, nunca `-D`, e se o `-d` recusar pare e
+   avise). Vale para qualquer branch de fluxo (`execucao/*`, `fix/*`,
+   `worktree-*`). Esse merge é o que torna `TASK.md`/`BLOCKERS.md`/
+   `DEPLOY.md` atualizados visíveis para `/listar` e para a
+   próxima chamada de qualquer comando — inclusive de outra sessão.
+4. **Encerramento por bloqueio** (tarefa `Bloqueada`, achado crítico, etc.):
+   **não integre** a worktree — deixe-a como está para inspeção, e informe o
+   caminho dela no resumo de bloqueio (Seção "Bloqueio e escalonamento" abaixo).
+5. `/listar` é somente-leitura e não escreve nada — podem
+   ler direto da árvore principal, sem precisar de worktree própria.
+
+---
+
+## Checagem de contexto (Comando 1 — antes de tudo)
+
+Escopo: `/executar`, `/testar` e `/validar` (inclusive em modo `--continuar`)
+— não se aplica a `/deploy` nem `/listar`.
+
+Antes de qualquer outro passo — antes até do pré-requisito bloqueante e do
+isolamento por worktree da seção anterior —, rode `/context` para medir o uso
+atual da sessão.
+
+- **Contexto > 250 mil tokens**: **não inicie a execução**. Pare aqui, sem
+  criar/entrar em worktree, sem ler `TASK.md` além do necessário para montar o
+  alerta, e sem disparar qualquer agente. Devolva ao usuário um alerta de
+  contexto cheio: uso atual (em mil tokens), o teto de 250 mil, e a sugestão de
+  iniciar uma nova sessão/conversa antes de rodar o comando de novo.
+- **Contexto <= 250 mil tokens**: siga normalmente para os pré-requisitos
+  bloqueantes e o isolamento por worktree.
+- **`/executar --lote` / `--continuar`**: a checagem não vale só para a primeira
+  chamada — repita-a antes de iniciar CADA tarefa nova da cadeia. Se o teto for
+  cruzado no meio, não interrompa à força uma tarefa em andamento, mas não comece
+  outra acima do teto — pare com o mesmo alerta, informando quantas tarefas já
+  fecharam nesta chamada.
+- **`--continuar --nocontext`** (nos três comandos): a checagem de contexto é **pulada por
+  inteiro** (nem a primeira, nem a repetição entre tarefas) — a fila roda sem o
+  teto de 250 mil. Sem `--nocontext`, `--continuar` respeita o teto normalmente.
+  `--nocontext` não é aceito fora de `--continuar`.
+
+---
+
+## Convenção de IDs e da pasta `.md/.taskplan`
+
+- **`TASK.md` é a fonte de verdade e fica sempre atualizado**: status, dependências,
+  tarefas novas e tarefas divididas são gravados nele. **`.md/.taskplan/`** guarda
+  só o **detalhamento de cada tarefa** (plano de execução, plano de teste, plano
+  de validação de segurança) para que os agentes leiam o arquivo da tarefa em vez
+  de ler o `TASK.md` inteiro. Um não substitui o outro.
+- **Um arquivo por tarefa**: `.md/.taskplan/<ID>.md`.
+- **`TP-0000`** — tarefas iniciais. **O `/definir` já grava o `TASK.md` com esse
+  ID** (`TP-` + 4 dígitos sequenciais: `TP-0001`, `TP-0002`…), na coluna ID e nas
+  dependências; o `/organizar` usa o mesmo número no nome do arquivo em
+  `.taskplan`. `TASK.md` **já produzidos** com `T-nnn` (padrão antigo) **não são
+  migrados**: `T-001` continua `T-001` lá e vale `TP-0001` na chave comum
+  (`T-372` → `TP-0372`); `T-001` e `TP-0001` são a mesma tarefa, e todo comando
+  aceita qualquer uma das formas.
+- **`SPK-0000`** (spike) e **`BK-0000`** (bloqueio) — também são tarefas, com arquivo em `.md/.taskplan/` e
+  linha no `TASKPLAN.md`, mas do **Coordenador** (resolvidas com o usuário, sem QA nem DevSecOps; coluna
+  Agente do `TASKPLAN.md`). O `SPK` nasce no `/definir` e as tarefas que dependem dele o citam na coluna Dep.
+  O `BK` é aberto por quem encontra o bloqueio (em geral o Executor) e a tarefa bloqueada passa a depender
+  dele; o `taskplan.py proxima` nunca entrega `BK`/`SPK` ao Executor. **`/executar --tarefa BK-…`/`SPK-…`**
+  aciona o **Coordenador num loop com o usuário** (Seção 7 de `commands/executar.md`), sem Executor/QA/DevSecOps; ao
+  aprovar, `taskplan.py desbloquear` fecha o item e devolve as tarefas à fila. **`/organizar --migrar`** padroniza um
+  projeto antigo (T-nnn, IDs semânticos, `BLOCKERS.md`) para esse padrão.
+- **`RTP-0000`** — **toda** tarefa de refatoração nova (achado simples/débito do
+  QA ou do DevSecOps, criada pelo `/executar`, pelo `/planejar --tarefa` ou pelo
+  Validador no fechamento de lote). Contador próprio e sequencial: próximo número
+  livre entre as linhas do `TASK.md` e os arquivos de `.taskplan`
+  (`taskplan.py proximo-id RTP`). Entram no `TASK.md`, no grupo
+  `Refatoração Lote-X`, com esse ID — nunca `T-nnn` nem `TP-nnnn`.
+- **Reserva por sessão (várias sessões ao mesmo tempo)**: o cabeçalho de cada
+  `.md/.taskplan/<ID>.md` tem uma linha `Reserva:`. Valores: `Livre` (ou ausente) ·
+  `Em execução | Em QA | Em DevSecOps — sessão <token> — desde <data-hora> —
+  atualizado <data-hora>` · `Bloqueada` · `Concluída`. Quem pega a tarefa grava a
+  reserva **antes** de disparar qualquer agente, confirma relendo o arquivo (se o
+  token gravado não for o seu, outra sessão chegou primeiro: desista e pegue a
+  próxima) e atualiza `Etapa`/`atualizado` a cada etapa. Uma segunda sessão do
+  `/executar` **pula** toda tarefa reservada e pega a seguinte elegível. A reserva
+  vive na árvore principal (`.md/.taskplan/`, ver `executar.md`, Seção 3), nunca na
+  cópia de uma worktree, para as outras sessões a enxergarem na hora.
+- **O `/executar` não lê o `TASK.md`** (grande e caro em tokens): fila, dependências
+  e estado vêm do `.md/TASKPLAN.md`, o detalhe vem de `.md/.taskplan/<ID>.md`, e
+  toda consulta/escrita passa por `.claude/scripts/taskplan.py` (`proxima`,
+  `reservar`, `etapa`, `status`, `nova`, `deps-substituir`…), que altera só a linha
+  afetada do `TASK.md`. Quem lê o `TASK.md` inteiro é o `/organizar`.
+- **`.md/TASKPLAN.md`**: gerado pelo `/organizar` (`python .claude/scripts/taskplan.py
+  gerar`) com **todas** as tarefas na ordem de execução e o estado de cada uma —
+  Não executada · Em execução · Executada (aguarda teste) · Em teste · Testada
+  (aguarda segurança) · Em validação de segurança · Aprovada (100%) — mais Bloqueada
+  e Dividida, mais **Despriorizada** (decisão do usuário via `/despriorizar`: a versão de teste sai sem a tarefa, a de
+  distribuição não; fica sempre no fim da lista e é ignorada por `/executar`, `/testar` e `/validar`; o Status anterior
+  fica guardado no próprio Status do `TASK.md` e volta com `/despriorizar --desfazer`). É uma **visão derivada** (do Status do `TASK.md` e da `Reserva:` do
+  arquivo da tarefa); o `/executar` troca o estado da linha a cada etapa
+  (`taskplan.py set`) e regera o arquivo ao abrir tarefas novas.
+- **Divisão**: tarefa que precisa ser quebrada durante a execução vira
+  `TP-0000a`, `TP-0000b`… (ou `RTP-0000a`…): mantém prefixo e número e acrescenta
+  uma letra. Dividir de novo uma parte acrescenta outra letra (`TP-0000aa`,
+  `TP-0000ab`). A original fica no `TASK.md` com Status `Dividida (→ TP-0000a,
+  TP-0000b)` e seu arquivo é mantido, com a nota da divisão; conta como resolvida
+  só quando **todas** as partes tiverem `QA ✔ · Sec ✔`. Dependentes dela passam a
+  depender das partes.
+
+---
+
+## Unidade de trabalho: a tarefa (e o lote como agrupador)
+
+A unidade de execução, teste e validação é a **tarefa**, com seus planos em
+`.md/.taskplan/<ID>.md`. O **lote** (coluna `Lote` do `TASK.md`, atribuído pelo
+Coordenador em `/definir`) continua como agrupador: serve a `--lote N` e define o
+que o `/deploy` publica — um lote está pronto quando todas as suas tarefas têm
+`QA ✔ · Sec ✔`. O `/deploy` processa um lote específico ou o conjunto de lotes
+prontos ainda não publicados — ver Comando 2.
+
+---
+
+## Comando 1: `/executar`, `/testar` e `/validar` — três etapas independentes
+
+| Comando | Agente | Pega tarefas em | Deixa a tarefa em |
+|---|---|---|---|
+| `/executar` | `executor` | `Não executada` (ou `Em execução`/devolvida), com **dependências `Aprovada`** | `Executada (aguarda teste)` |
+| `/testar` | `validador`, chapéu QA | `Executada (aguarda teste)` / `Em teste` (dependências não checadas) | `Testada (aguarda segurança)` (`QA ✔`) — ou devolvida ao `/executar` |
+| `/validar` | `validador`, chapéu DevSecOps | `Testada (aguarda segurança)` / `Em validação de segurança` (dependências não checadas) | `Aprovada` (`QA ✔ · Sec ✔`) — ou devolvida ao `/executar` |
+
+Detalhe operacional em `.claude/commands/executar.md` (mecânica comum), `testar.md` e
+`validar.md` (só as diferenças); aqui ficam as regras do fluxo.
+
+- **Um comando nunca chama o outro.** Cada um só faz a sua etapa, escreve o resultado em
+  `.md/.taskplan/<ID>.md` e no `TASKPLAN.md` (estado) e termina sugerindo o próximo passo; quem
+  roda o próximo comando é o usuário. A fila de cada um vem de
+  `taskplan.py proxima --etapa exe|qa|sec`.
+- **Mesmo comportamento nos três**: `--tarefa <ID>`, `--lote N`, `--continuar [N]`,
+  `--nocontext` (ver "Checagem de contexto"), `--nocommit`, `--paralelo [N]` e `--lotes-distintos` funcionam igual, assim
+  como a reserva por sessão, o bloqueio, a worktree em `--tarefa` e a `main` em `--continuar`.
+- **Paralelismo opcional — `--paralelo [N]`** (só `--lote`/`--continuar`; N de 2 a 20, sem N = 5; padrão **1**, um
+  agente por vez): a rodada aciona até N agentes ao mesmo tempo, cada um com uma tarefa elegível diferente
+  (`taskplan.py proxima --n N`; no `/executar` as dependências já estão resolvidas). Com **`--lotes-distintos`**
+  a rodada pega no máximo uma tarefa por lote, o que reduz (mas não elimina) o risco de duas tarefas editarem o
+  mesmo arquivo. Esse risco existe em qualquer rodada paralela: o diff de uma tarefa pode incluir edição de
+  outra, e o QA/Sec precisam tratar os arquivos compartilhados (listados em `## 4`) com cuidado; se a suíte do
+  `/testar` mostrar interferência (banco, portas), rode sem `--paralelo`. Para o Executor valem as regras de
+  edição segura do `executor.md` (só `Edit`, ler antes de editar, nunca desfazer alteração alheia, testes só do
+  próprio escopo). O teto é 20 agentes (o que já foi exercitado em testes de execução, QA e validação).
+- **Estado só nos arquivos das tarefas durante a rodada**: `iniciar`/`concluir` gravam a reserva e o
+  `Status-local:` no `.md/.taskplan/<ID>.md`; `proxima`/`tarefa` os leem por cima do `TASKPLAN.md`.
+  **`TASK.md` e `TASKPLAN.md` não são reescritos a cada tarefa**: o `taskplan.py consolidar` roda **ao fim de toda
+  chamada** (e antes de `/listar` e `/deploy`) e grava os Status no `TASK.md` e regera o `TASKPLAN.md` uma vez.
+  Escritas que mudam a estrutura (`nova`, `bloquear`, `desbloquear`, `consolidar`…) são serializadas por uma
+  trava global.
+- **Fonte e canal da tarefa**: `.md/.taskplan/<ID>.md`, com as seções "1. Plano de
+  execução", "2. Plano de teste" e "3. Plano de validação de segurança". Sem o
+  arquivo (ou com seção `PENDENTE:`) a tarefa não roda — `/organizar` gera os
+  arquivos. O arquivo é o **canal entre os comandos**: o `/executar` grava em "4.
+  Resultado da execução"; o `/testar` lê o arquivo e grava em "5. Resultado do QA"; o
+  `/validar` lê e grava em "6. Resultado do DevSecOps"; reexecuções acrescentam `### Rodada n`
+  (nada é apagado); um bloqueio vai para `## Bloqueio`; achados de devolução vão para
+  `## Achados`. O `TASK.md` recebe só o Status.
+- **Diff da tarefa**: o `/testar` e o `/validar` leem `python .claude/scripts/taskplan.py diff <ID>` — o
+  snapshot `antes..depois` gravado pelo `/executar --nocommit`, ou, sem snapshot, os commits cuja mensagem
+  começa pelo ID (`TP-0001: …`). O `/executar` commita o código (salvo `--nocommit`); os outros dois commitam
+  só seus relatórios.
+- **Desempenho do Executor**: leitura mínima (plano + arquivos citados + trecho do SDD), testes só do escopo da
+  tarefa (a suíte completa é do `/testar`) e retorno de até 4 linhas ao orquestrador — ver `executor.md`.
+- **Status por tarefa**: `Pendente` → `Em andamento` → `Concluída · aguarda QA` →
+  `Concluída · QA ✔` → `Concluída · QA ✔ · Sec ✔`. A tarefa só conta como pronta (e só libera
+  as dependentes do `/executar`) com os dois marcadores. Como o `/executar` exige dependência
+  `Aprovada`, uma camada de dependentes só entra depois de `/testar` e `/validar` da camada anterior.
+- **Achado crítico** (QA: compromete o critério de aceite central, exige mudança de
+  escopo/arquitetura ou quebra outra tarefa; DevSecOps: severidade alta/crítica ou
+  compliance obrigatório não atendido): a tarefa volta para `Em andamento`, os
+  achados vão para `## Achados` e o próximo `/executar` a refaz (depois passa de novo
+  por `/testar` e `/validar`). Limite de **2 devoluções** somadas entre `/testar` e
+  `/validar`; o `concluir ... devolvida` conta sozinho e na 3ª responde `LIMITE`: a tarefa fica `Bloqueada` e
+  o usuário decide.
+- **Bloqueio crítico** (lacuna no SDD/UX-SPEC/TASK, 3ª devolução, dúvida de
+  produto/escopo, `BLOCKERS.md` `Aberto`…): o agente escreve a seção `## Bloqueio`
+  do arquivo da tarefa, o `TASK.md` fica `Bloqueada (<motivo>)`, a entrada vai para
+  `BLOCKERS.md` e o usuário é sinalizado. No modo vazio/`--tarefa` o comando
+  para; em **`--lote`/`--continuar` o bloqueio é só registrado e o comando segue
+  para a próxima tarefa elegível**. Ao final, o usuário roda `/listar`, vê as
+  bloqueadas e trata uma a uma; `/executar --tarefa <ID>` retoma cada uma (depois de
+  `desbloquear`, a tarefa volta à fila do `/executar`). Só interrompem o modo contínuo as
+  falhas que atingem **todas** as tarefas (contexto acima do teto, git ausente/corrompido,
+  ambiente quebrado).
+- **Reserva por sessão**: ver "Convenção de IDs"; o `/testar` e o `/validar` reservam com
+  `--etapa "Em QA"`/`"Em DevSecOps"`.
+- **Divisão**: tarefa grande demais (desvio de escopo/estimativa, canário de contexto
+  do Executor) é **quebrada** em `TP-0000a`, `TP-0000b`… pelo `/executar` — `TASK.md`
+  atualizado e arquivo em `.taskplan` para cada parte —, em vez de bloquear; ver convenção acima.
+- **Achado não crítico**: a tarefa segue aprovada naquela etapa e o `validador`
+  abre uma **nova tarefa em `Refatoração Lote-X`** (ID `RTP-0000`): ajusta o
+  `TASK.md` (linha completa + dependências) **e** cria o `.md/.taskplan/RTP-0000.md`
+  com os três planos. Só vale com as duas coisas feitas; a tarefa de origem não é reaberta.
+- **Veredito**: QA em `.md/QA-REPORT.md`, DevSecOps em `.md/SECURITY-REVIEW.md`, uma
+  entrada por tarefa.
+- **Lote pronto** = todas as suas tarefas com `QA ✔ · Sec ✔` (nenhuma
+  `Bloqueada`); é o que o `/deploy` publica.
+- **Encadeamento**: `--lote N` e `--continuar [N]` repetem a etapa tarefa a tarefa,
+  repetindo a checagem de contexto antes de cada tarefa nova (salvo `--nocontext`), sem parar
+  em bloqueio.
+- **Nunca** dispara `/deploy`.
+- **`/desenvolver` (orquestrador, exceção à regra acima)**: chama `/executar`, `/testar` e `/validar`, nessa ordem, cada
+  um com `--continuar` e os repasses (`--nocontext`, `--nocommit`, `--paralelo`, `--lotes-distintos`), enquanto
+  `taskplan.py fila` mostrar tarefas elegíveis para a etapa; ao esvaziar as três, repete a passada (a execução volta a
+  ter elegíveis porque o `/validar` aprovou dependências ou algo foi devolvido) até as filas acabarem, o `estado` do
+  `fila` parar de mudar (sem progresso), `--rodadas N` ou teto de contexto. Sem `--continuar`, uma passada só. É
+  retomável: todo o estado está em disco. Bloqueios não o interrompem; ao fim ele lista os `BK-`/`SPK-` que esperam o
+  usuário. Nunca dispara `/deploy`.
+
+---
+
+## Comando 1b: `/revisar` — revisão de arquitetura do projeto inteiro (Coordenador)
+
+`/testar` e `/validar` conferem **cada tarefa** contra o próprio critério de aceite e
+também o diff dela contra `.claude/CONVENCOES-DE-CODIGO.md`. O que só aparece
+somando as tarefas (a mesma lógica em vários módulos, a versão nova que copia a antiga, o
+arquivo que cresceu tarefa a tarefa, o SQL espalhado, o comentário que ficou falso, o
+cache do CI que nunca acerta) é papel do `/revisar`.
+
+| Dispara quando | Agente | Ação | Saída |
+|---|---|---|---|
+| Lote fechado; filas do `/desenvolver` vazias; antes de todo `/deploy`; sob demanda | `coordenador` (skill `architecture-health-review`) | O comando roda `.claude/scripts/saude.py` (números objetivos); o Coordenador confere o projeto inteiro contra o SDD.md (fronteiras e troca de dados), o GUARDRAILS.md e as convenções | Entrada em `.md/ARCH-REVIEW.md`; uma `RTP` por achado (grupo `Refatoração Lote-N` ou `Refatoração Revisão <data>`); `BK` quando o desenho do SDD precisa mudar |
+
+- **Não corrige código**: as `RTP` entram na fila normal e passam por `/executar` → `/testar`
+  → `/validar` como qualquer tarefa.
+- **Severidade**: tabela "Achados de qualidade de código e arquitetura" de
+  `finding-severity-classification`. Achado **Alto** aberto segura o `/deploy`.
+- **`/desenvolver`**: ao esvaziar as filas, roda o `/revisar` (até 2 vezes por chamada);
+  se ele abrir `RTP`, faz nova passada.
+- **`/deploy`**: exige revisão mais nova que o último código commitado (Seção 2a de
+  `commands/deploy.md`).
+
+---
+
+**Infra em paralelo (oportunista)**: se `.md/DEPLOY.md` ainda não existir e o
+`SDD.md` já estiver aprovado, este é um bom momento para disparar em paralelo o
+mesmo dispatch de preparação de infraestrutura do chapéu DevOps (Comando 2, Seção
+1) — sem esperar a primeira chamada de `/deploy`. Não pausa nem bloqueia o
+`/executar`.
+
+---
+
+## Comando 2: `/deploy` — Validador (QA + DevSecOps de confirmação → DevOps)
+
+| Dispara quando | Agente | Ação | Pausa obrigatória |
+|---|---|---|---|
+| Usuário roda `/deploy` | `validador` (confirmação final + chapéu DevOps) | Provisiona infra/CI-CD (1ª vez), confirma validação, publica | Sempre antes de produção; achado bloqueante na confirmação final |
+
+### 1. Preparação de infraestrutura (normalmente já feita antes da primeira chamada)
+
+Se `.md/DEPLOY.md` ainda não existir (nenhum deploy anterior): dispare `validador`
+(chapéu DevOps: `infrastructure-as-code-provisioning`,
+`cicd-pipeline-configuration`) a partir do `SDD.md`/`GUARDRAILS.md` já aprovados.
+Isso não depende de nenhum lote específico — é preparação de projeto.
+
+`validador.md` já declara que o chapéu DevOps prepara infra/CI-CD "em paralelo à
+implementação", assim que o `SDD.md` é aprovado pelo usuário — não precisa esperar
+o primeiro `/deploy`. Na prática, o orquestrador pode (e deve, quando fizer
+sentido) disparar esse mesmo dispatch de forma proativa durante uma sessão longa
+de `/executar --continuar`, assim que o `SDD.md` for aprovado (ver Comando 1) — puramente oportunista, não bloqueia nem pausa nada. Esta Seção 1
+continua existindo como rede de segurança: se por algum motivo isso não aconteceu
+antes, `/deploy` garante a preparação na primeira chamada, do jeito que já
+funcionava.
+
+### 2. Determinar o que vai ser publicado
+
+1. Lote-alvo: o nomeado em `$ARGUMENTS`, ou — se vazio — **todos** os lotes com
+   todas as tarefas `QA ✔ · Sec ✔` (Comando 1) que ainda não aparecem como
+   publicados em `.md/DEPLOY.md`.
+2. Se não houver nenhum lote pronto pendente de publicação, informe isso ao
+   usuário e pare — rode `/executar` primeiro.
+
+### Fidelidade ao mockup (projeto com interface)
+
+O mockup aprovado no `/definir` (`.md/mockup/`, UX-SPEC §0) é a fonte da aparência e a
+comparação `.claude/scripts/comparar-visual.mjs` (prints do mockup × app com as mesmas
+respostas de API, diferença pixel a pixel, limite padrão 1%) é conferida em quatro
+pontos: o **Executor** roda antes de devolver a tarefa de tela; o **QA** (`/testar`) roda
+de novo e olha os PNGs — fora do limite reprova; o **`/revisar`** roda todas as telas
+(regressão por componente compartilhado); o **`/deploy`** roda todas na validação final
+(Seção 3). Mudança de aparência começa no mockup, nunca só no código.
+
+### 2a. Revisão de arquitetura em dia
+
+O `/deploy` só segue se `.md/ARCH-REVIEW.md` tiver uma revisão mais nova que o último
+código commitado e nenhum achado **Alto** aberto (Comando 1b). Senão, para e sugere
+`/revisar --pre-deploy` ou `/executar`.
+
+### 2b. Auditoria de segurança de release (bloqueante)
+
+O `/validar` revisa o diff de cada tarefa; antes de publicar, o chapéu DevSecOps roda a
+**auditoria de release** (skill `security-release-audit`) sobre o projeto inteiro, com
+**evidência executada** por item:
+
+| Fase | O quê | Como |
+|---|---|---|
+| A | Dependências de produção, segredos no histórico git inteiro, SAST | `.claude/scripts/seguranca.py` (`pnpm/npm audit` ou `pip-audit`, `osv-scanner`, `gitleaks`, `semgrep`; Docker como alternativa) |
+| B | Threat model da release | `security-threat-model` → `.md/THREAT-MODEL.md` |
+| C | Teste ativo (DAST) contra a aplicação **local** | `seguranca.py --dast` com as sondas de `.md/.seguranca/sondas.json` + OWASP ZAP baseline |
+| D | Prova executada de cada requisito do SDD §7 e da configuração | testes/sondas/comandos |
+
+Crítico/Alto ou item NÃO EXECUTADO → **não publica**; a correção vira tarefa e passa pelo
+ciclo completo. Média/Baixa → `RTP` de débito. Só o usuário aceita risco, com motivo e
+prazo no `SECURITY-REVIEW.md`. `/deploy --auditar` roda só esta etapa.
+
+### 3. Validação final (chapéu QA + DevSecOps, de confirmação)
+
+Para cada lote a publicar: dispare `validador` (chapéus QA + DevSecOps) de novo,
+desta vez focado em **confirmar que nada mudou** desde o veredito registrado em
+`QA-REPORT.md`/`SECURITY-REVIEW.md` e em checar integração **entre lotes** que vão
+ser publicados juntos (regressão cruzada que uma validação por lote isolado não
+cobre). Se o lote já foi validado recentemente e nada mudou, esta etapa pode ser
+mais leve (confirmação), mas nunca é pulada.
+
+- **Achado bloqueante nesta confirmação**: **pare**, explique, informe que a
+  correção volta para `/executar` (a tarefa afetada refaz o ciclo completo antes
+  de tentar `/deploy` outra vez).
+
+### 4. Deploy em staging
+
+Com a validação final limpa: dispare `validador` (chapéu DevOps:
+`deployment-execution`, `observability-setup`,
+`non-functional-requirement-validation`) para staging, para o conjunto de lotes
+desta chamada — **sem pausa**.
+
+### 4a. Teste ativo contra staging
+
+Com o staging no ar, a Fase C da auditoria roda de novo contra ele (mesmas sondas):
+cabeçalhos, CORS, bindings e segredos reais só existem no ambiente publicado. Falha
+Crítica/Alta → para antes de produção. Sondas **nunca** rodam contra produção.
+
+### 5. Deploy em produção
+
+**Pare sempre aqui**, mesmo com tudo limpo, e peça confirmação explícita do
+usuário antes de disparar `validador` (chapéu DevOps) para produção. Isso vale
+para o conjunto publicado nesta chamada de `/deploy` — não é condicional a haver
+problema.
+
+### 6. Fechamento (Gate 4 do Gestor)
+
+Após deploy em produção confirmado: dispare `gestor` (registro de fechamento,
+Gate 4, sem poder de veto) para registrar em `.md/CTO-REVIEW.md` o resultado —
+sucesso, versão, lotes incluídos. Apresente o `deploy-report-drafting`
+(`.md/DEPLOY.md`) atualizado e a confirmação do Gate 4.
+
+---
+
+## Comando 3: `/listar` — somente leitura
+
+Traz **todas as tarefas ainda em aberto** do projeto, numa **ordem sugerida de
+execução**. A 1ª posição é a primeira tarefa elegível, a que `/executar --tarefa` pegaria
+se fosse apontada.
+
+1. **Fonte: `.md/TASKPLAN.md`** (sem ler o `TASK.md`; se não existir, sugere
+   `/organizar`). Em aberto = toda tarefa cujo Estado não é `Aprovada`. `Exe`/`QA`/
+   `Sec` são derivados do Estado (ex.: `Executada (aguarda teste)` = ✔ — —;
+   `Testada (aguarda segurança)` = ✔ ✔ —; `Em teste` = ✔ … —). Inclui as
+   `RTP-0000` (`Refatoração Lote-X`).
+2. **Ordem e numeração são as do `TASKPLAN.md`** (IDs como lá, `TP-0000`/`RTP-0000`/`SPK-`/`BK-`), que **já é a
+   fila final**: dependências antes dos dependentes e, para as bloqueadas, a que nenhuma tarefa em aberto espera
+   vai para o fim com o seu `BK` imediatamente antes, e a que tem dependentes fica no lugar com o `BK` logo antes
+   (BK primeiro, bloqueada depois). O comando não reordena nem renumera. É a **mesma fila do `/executar`**
+   (`taskplan.py proxima` devolve a primeira elegível dela); o próprio `taskplan.py` reordena a cada
+   `bloquear`/`desbloquear`/`status`, para o `/executar --continuar` não parar.
+3. Classifique cada uma: elegível (mesma regra do `taskplan.py proxima`), sem
+   plano, em execução, aguardando dependência, aguardando QA/Sec ou bloqueada.
+   Dependência inexistente ou ciclo vai para "Indeterminadas", sem forçar ordem.
+4. Apresente: resumo de contagens, destaque de bloqueio `Aberto` que afete a 1ª
+   tarefa elegível, **uma única tabela markdown** (colunas: #, tarefa, agente, título, lote,
+   Exe, QA, Sec, estado, classificação, observação — nunca lista com marcadores, texto corrido ou tabelas
+   extras; bloqueadas e indeterminadas entram na mesma tabela).
+
+Não dispara nenhum agente, não avança tarefa, não sugere próximo comando.
+
+---
+
+## Bloqueio e escalonamento (comum a todos os comandos)
+
+Sempre que um agente sinalizar bloqueio (relatório próprio ou nova entrada
+`Aberto` em `.md/BLOCKERS.md`), o registro é **duplo e feito por um único comando**, para a entrada e a tarefa
+nascerem ligadas: `python .claude/scripts/taskplan.py bloquear <ID da tarefa | -> --por "<quem>" --escala "<quem decide>" --motivo "<o que fazer, em uma linha>" [--impacto "..."] [--sugestao "..."] [--tipo bk|spk --pergunta "..." --timebox "1 d"]`.
+Ele (a) acrescenta a entrada `Em aberto` ao `.md/BLOCKERS.md` (que continua sendo o log de bloqueios), (b) abre o
+**`BK-nnnn`** (bloqueio) ou **`SPK-nnnn`** (spike, `--tipo spk`) em `.md/.taskplan/` com a descrição do que fazer
+e `Agente: coordenador`, (c) põe o BK/SPK na Dep da tarefa afetada e marca a tarefa `Bloqueada` e (d) reordena o
+`TASKPLAN.md`. `-` no lugar do ID abre um BK sem tarefa afetada. Ao resolver: `taskplan.py desbloquear <BK|SPK>
+"<resolução>"` (fecha o BK/SPK e a entrada do `BLOCKERS.md`, e devolve a tarefa à fila). Depois do registro:
+
+1. **Pare** e explique ao usuário: quem reportou, o que está bloqueado, e para
+   qual agente foi escalado (campo "Escala para" do agente que reportou).
+2. **Não dispare o agente de destino automaticamente** — o usuário decide o
+   próximo passo (rodar `/executar`/`/definir`/`/planejar` de novo sobre
+   o ponto afetado, pedir um parecer ad hoc ao Gestor, ou ajustar manualmente).
+3. Quando o usuário indicar que quer resolver, rode o comando correspondente —
+   nunca decida a resolução por conta própria.
+
+## Reset de contexto entre lotes/comandos
+
+Ao final de cada comando (fim de tarefa no `/executar`, publicação no `/deploy`), monte um **resumo compacto** a partir do que já existe
+nos artefatos — não crie arquivo novo. Esse resumo é o contexto que carrega para a
+próxima chamada do mesmo ou de outro comando; não recarregue o histórico detalhado
+de dispatches, revisões e fix-loops já fechados — releia os artefatos em disco
+quando precisar de detalhe específico do passado.
