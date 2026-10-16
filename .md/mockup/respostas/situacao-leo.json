@@ -1,0 +1,7 @@
+{
+  "familiaExiste": true,
+  "sessao": {
+    "membro": { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "sol" }
+  },
+  "versaoApp": "1.0.0"
+}

@@ -1,0 +1,6 @@
+{
+  "aparelhos": [
+    { "id": "a-03", "rotulo": "Android · Chrome", "vinculadoEm": "2026-09-14", "ultimoUso": "2026-10-16" },
+    { "id": "a-04", "rotulo": "Windows · Edge", "vinculadoEm": "2026-09-14", "ultimoUso": "2026-10-15" }
+  ]
+}

@@ -1,0 +1,170 @@
+/*
+ * tokens.css: Tarefas da Casa, direção B "Lápis de Cor" (aprovada na etapa B2, 2026-10-16).
+ * Única definição de cor, tipografia, espaço, raio, sombra e tamanho. A implementação copia
+ * este arquivo SEM ALTERAR (frontend/src/estilos/tokens.css). Valor novo = token novo aqui,
+ * nunca número solto em componente.
+ *
+ * Breakpoints (não podem ser variáveis CSS em media query; use os números):
+ *   celular  < 600px  ·  tablet 600px–1023px  ·  computador >= 1024px
+ */
+
+/* Fontes auto-hospedadas (SIL Open Font License 1.1; ver fontes/LICENCA.txt).
+   Os arquivos woff2 vêm do pacote Fontsource 5.3.0, subconjunto latin (cobre pt-BR). */
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 400; font-display: swap; src: url("fontes/nunito-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 600; font-display: swap; src: url("fontes/nunito-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 700; font-display: swap; src: url("fontes/nunito-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 800; font-display: swap; src: url("fontes/nunito-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Baloo 2"; font-style: normal; font-weight: 700; font-display: swap; src: url("fontes/baloo-2-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Baloo 2"; font-style: normal; font-weight: 800; font-display: swap; src: url("fontes/baloo-2-latin-800-normal.woff2") format("woff2"); }
+
+:root {
+  /* ---- Cores ---- */
+  --cor-fundo: #FFF8E6;            /* fundo da página */
+  --cor-superficie: #FFFFFF;       /* cartões, campos, barra de navegação */
+  --cor-texto: #1A1F3D;            /* texto principal */
+  --cor-texto-2: #4A5577;          /* texto secundário; borda de campo */
+  --cor-primaria: #2B4ACC;         /* ação principal ("Feito", "Salvar", "Entrar") */
+  --cor-sobre-primaria: #FFFFFF;
+  --cor-destaque: #FFCC33;         /* placar, aba ativa, ação do aviso */
+  --cor-sobre-destaque: #1A1F3D;
+  --cor-contorno: #1A1F3D;         /* contornos "adesivo", anel de foco */
+  --cor-tag-fundo: #EEE6FF;        /* etiqueta de tempo ("Ficou de ontem") */
+  --cor-tag-texto: #4A2B88;
+  --cor-trilho: #FFFFFF;           /* trilho da barra do placar */
+  --cor-erro: #A3241A;             /* SÓ erro de formulário/sistema e ação de perigo; nunca tarefa atrasada (RN-17) */
+  --cor-erro-fundo: #FDECEA;
+  --cor-sobre-erro: #FFFFFF;
+  --cor-aviso-fundo: #1A1F3D;      /* snackbar */
+  --cor-aviso-texto: #FFFFFF;
+  --cor-teste-fundo: #1A1F3D;      /* faixa "AMBIENTE DE TESTE" (G3) */
+  --cor-teste-texto: #FFCC33;
+  --cor-gestao-borda: #C9CDDB;     /* decorativa: bordas leves nas telas de gestão */
+  --cor-esqueleto: #EFE6CC;        /* decorativa: blocos do estado carregando */
+  --cor-veu: rgba(26, 31, 61, .55);/* fundo atrás de folha/diálogo */
+  /* Fundos dos avatares (decorativos; o desenho é sempre --cor-texto) */
+  --cor-avatar-amarelo: #FFCC33;
+  --cor-avatar-azul: #BFD0FF;
+  --cor-avatar-lilas: #EEE6FF;
+  --cor-avatar-verde: #C8F0D8;
+  --cor-avatar-pessego: #FFD6CC;
+
+  /* ---- Tipografia ---- */
+  --fonte-texto: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fonte-titulo: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --peso-normal: 400;
+  --peso-medio: 600;
+  --peso-forte: 700;
+  --peso-extra: 800;
+  --tam-pequeno: 1rem;         /* 16px: mínimo do app (RNF-11) */
+  --tam-base: 1.0625rem;       /* 17px */
+  --tam-item: 1.1875rem;       /* 19px: nome da tarefa */
+  --tam-h2: 1.5rem;            /* 24px */
+  --tam-h1: 2.25rem;           /* 36px */
+  --tam-numero: 2rem;          /* 32px: % do placar */
+  --tam-numero-grande: 3rem;   /* 48px: cartões da Casa */
+  --tam-codigo: 3rem;          /* 48px: código de vínculo */
+  --altura-linha: 1.45;
+  --altura-linha-titulo: 1.15;
+
+  /* ---- Espaçamento (escala de 4px) ---- */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-7: 28px;
+  --esp-8: 32px;
+  --esp-10: 40px;
+  --esp-12: 48px;
+
+  /* ---- Raios ---- */
+  --raio-pequeno: 8px;
+  --raio-campo: 14px;
+  --raio-cartao: 20px;
+  --raio-pilula: 999px;
+
+  /* ---- Bordas e sombras ---- */
+  --borda-forte: 2px;
+  --borda-leve: 1.5px;
+  --sombra-solida: 0 4px 0 var(--cor-contorno);
+  --sombra-botao: 0 3px 0 var(--cor-contorno);
+  --sombra-gestao: 0 2px 0 var(--cor-gestao-borda);
+  --sombra-botao-leve: 0 2px 0 var(--cor-contorno);   /* botões nas telas de gestão */
+  --sombra-aviso: 0 6px 20px rgba(26, 31, 61, .25);
+
+  /* ---- Tamanhos ---- */
+  --alvo-min: 48px;            /* alvo de toque mínimo (RNF-11) */
+  --alvo-feito: 52px;          /* botão "Feito" e "⋯" */
+  --icone: 24px;
+  --icone-pequeno: 18px;
+  --avatar-p: 40px;
+  --avatar-m: 56px;
+  --avatar-g: 88px;
+  --nav-altura: 60px;          /* item da barra inferior */
+  --nav-largura: 248px;        /* barra lateral no computador */
+  --coluna-leitura: 640px;
+  --coluna-formulario: 480px;
+  --coluna-lateral: 340px;
+  --foco-largura: 3px;
+  --foco-recuo: 3px;
+
+  /* ---- Espaços finos (fora da escala de 4px, usados em ajustes óticos) ---- */
+  --esp-0-5: 2px;
+  --esp-1-5: 6px;
+  --esp-2-5: 10px;
+  --esp-3-5: 14px;
+  --esp-4-5: 18px;
+  --esp-16: 64px;
+
+  /* ---- Tipografia complementar ---- */
+  --tam-subtitulo: 1.25rem;          /* 20px: título das pendências antigas */
+  --altura-linha-compacta: 1.25;
+  --altura-linha-numero: 1.1;
+  --altura-linha-unica: 1;
+  --espaco-letra-codigo: .08em;
+  --espaco-letra-campo-codigo: .12em;
+  --espaco-letra-rotulo: .06em;
+  --sublinhado-recuo: 3px;
+  --largura-texto-estado: 36ch;
+
+  /* ---- Alturas e larguras de componentes ---- */
+  --linha-fina: 1px;
+  --largura-feito: 112px;
+  --altura-campo: 52px;
+  --altura-campo-codigo: 64px;
+  --altura-opcao: 56px;
+  --altura-opcao-membro: 60px;
+  --altura-linha-lista: 68px;
+  --altura-botao-grande: 76px;
+  --altura-resumo: 56px;
+  --altura-resumo-grupo: 52px;
+  --altura-barra-placar: 16px;
+  --altura-barra-fina: 12px;
+  --circulo-expandir: 32px;
+  --circulo-passo: 36px;
+  --icone-grande: 40px;
+  --marcador: 22px;
+  --avatar-seletor: 64px;
+  --alca-largura: 48px;
+  --alca-altura: 5px;
+  --lateral-topo: 112px;           /* alinha a coluna lateral do Hoje com a faixa do placar */
+  --coluna-larga: 960px;           /* T17 no computador */
+  --altura-max-folha: 90vh;
+
+  /* ---- Esqueletos (estado carregando) ---- */
+  --esqueleto-placar: 92px;
+  --esqueleto-item: 80px;
+  --esqueleto-cartao: 120px;
+  --esqueleto-linha: 60px;
+  --esqueleto-titulo: 28px;
+  --esqueleto-texto: 18px;
+  --esqueleto-codigo: 72px;
+
+  /* ---- Camadas e opacidade ---- */
+  --z-nav: 10;
+  --z-aviso: 20;
+  --z-veu: 30;
+  --z-teste: 40;
+  --opacidade-desabilitado: .45;
+}

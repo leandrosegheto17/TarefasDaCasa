@@ -1,0 +1,7 @@
+{
+  "erro": "email_em_uso",
+  "mensagem": "Confira os campos marcados.",
+  "campos": {
+    "email": "Este e-mail já está em uso."
+  }
+}

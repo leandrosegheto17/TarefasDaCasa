@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T02 Criar família · erro (campos inválidos)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="layout layout--simples">
+  <main class="principal">
+    <header class="cabecalho cabecalho--voltar">
+      <a class="botao-voltar" href="t01-entrada--primeiro-uso.html" aria-label="Voltar"><span class="icone i-voltar" aria-hidden="true"></span></a>
+      <h1>Criar família</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="alerta alerta--erro" role="alert"><span class="icone i-alerta" aria-hidden="true"></span><p>Confira os campos marcados.</p></div>
+      <div class="campo"><label for="nome-familia">Nome da família</label><input id="nome-familia" type="text" value="Família Souza"></div>
+      <div class="campo"><label for="apelido">Seu apelido</label><input id="apelido" type="text" value="Leo"></div>
+      <div class="campo campo--erro">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" value="leo@exemplo" aria-invalid="true" aria-describedby="email-erro">
+        <p class="erro" id="email-erro"><span class="icone icone--pequeno i-alerta" aria-hidden="true"></span>Digite um e-mail válido, como nome@exemplo.com.</p>
+      </div>
+      <div class="campo campo--erro">
+        <label for="senha">Senha</label>
+        <div class="campo-senha"><input id="senha" type="password" value="1234" aria-invalid="true" aria-describedby="senha-erro senha-ajuda"><button class="mostrar" type="button" aria-label="Mostrar senha" aria-pressed="false"><span class="icone i-olho" aria-hidden="true"></span></button></div>
+        <p class="erro" id="senha-erro"><span class="icone icone--pequeno i-alerta" aria-hidden="true"></span>A senha precisa ter pelo menos 8 caracteres.</p>
+        <p class="ajuda" id="senha-ajuda">Pelo menos 8 caracteres.</p>
+      </div>
+      <div class="campo campo--erro">
+        <label for="codigo-instalacao">Código de instalação</label>
+        <input id="codigo-instalacao" type="text" value="lar-0000" aria-invalid="true" aria-describedby="ci-erro ci-ajuda">
+        <p class="erro" id="ci-erro"><span class="icone icone--pequeno i-alerta" aria-hidden="true"></span>Código de instalação incorreto.</p>
+        <p class="ajuda" id="ci-ajuda">Está nas configurações do servidor. Só é pedido desta vez.</p>
+      </div>
+      <button class="botao botao--principal botao--bloco" type="submit">Criar família</button>
+    </form>
+  </main>
+</div>
+</body>
+</html>

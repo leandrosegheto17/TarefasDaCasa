@@ -1,0 +1,18 @@
+{
+  "tarefas": [
+    { "id": "t-03", "nome": "Arrumar a cama", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": { "id": "m-bia", "apelido": "Bia", "avatar": "estrela" }, "arquivada": false },
+    { "id": "t-09", "nome": "Dar comida ao gato", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": null, "arquivada": false },
+    { "id": "t-12", "nome": "Fazer o café da manhã", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex"] }, "atribuido": { "id": "m-leo", "apelido": "Leo", "avatar": "sol" }, "arquivada": false },
+    { "id": "t-04", "nome": "Guardar os brinquedos", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": { "id": "m-bia", "apelido": "Bia", "avatar": "estrela" }, "arquivada": false },
+    { "id": "t-08", "nome": "Lavar a louça do almoço", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": null, "arquivada": false },
+    { "id": "t-06", "nome": "Levar o lixo para fora", "periodicidade": { "tipo": "dias", "dias": ["seg", "qua", "sex"] }, "atribuido": { "id": "m-leo", "apelido": "Leo", "avatar": "sol" }, "arquivada": false },
+    { "id": "t-07", "nome": "Limpar a geladeira", "periodicidade": { "tipo": "semanal_flexivel" }, "atribuido": { "id": "m-leo", "apelido": "Leo", "avatar": "sol" }, "arquivada": false },
+    { "id": "t-05", "nome": "Limpar o banheiro", "periodicidade": { "tipo": "dias", "dias": ["qui"] }, "atribuido": { "id": "m-leo", "apelido": "Leo", "avatar": "sol" }, "arquivada": false },
+    { "id": "t-01", "nome": "Pendurar a roupa", "periodicidade": { "tipo": "dias", "dias": ["seg", "qua"] }, "atribuido": null, "arquivada": false },
+    { "id": "t-10", "nome": "Pôr a mesa do jantar", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": { "id": "m-davi", "apelido": "Davi", "avatar": "foguete" }, "arquivada": false },
+    { "id": "t-02", "nome": "Regar as plantas", "periodicidade": { "tipo": "dias", "dias": ["ter", "qui", "sab"] }, "atribuido": { "id": "m-bia", "apelido": "Bia", "avatar": "estrela" }, "arquivada": false },
+    { "id": "t-11", "nome": "Tirar o prato da mesa", "periodicidade": { "tipo": "dias", "dias": ["seg", "ter", "qua", "qui", "sex", "sab", "dom"] }, "atribuido": { "id": "m-bia", "apelido": "Bia", "avatar": "estrela" }, "arquivada": false },
+    { "id": "t-13", "nome": "Varrer a varanda", "periodicidade": { "tipo": "dias", "dias": ["sex"] }, "atribuido": null, "arquivada": false },
+    { "id": "t-14", "nome": "Tirar o pó da estante", "periodicidade": { "tipo": "dias", "dias": ["sab"] }, "atribuido": { "id": "m-davi", "apelido": "Davi", "avatar": "foguete" }, "arquivada": true }
+  ]
+}

@@ -1,0 +1,110 @@
+/* Direção A: Varal. Calma, quente, arredondada. Pré-tokens da etapa B2: não é o tokens.css final. */
+:root {
+  --fundo: #FAF7F2;
+  --superficie: #FFFFFF;
+  --texto: #1F2B2E;
+  --texto-2: #5C6B70;
+  --primaria: #1F6B5C;
+  --sobre-primaria: #FFFFFF;
+  --borda: #DDD4C4;
+  --tag-fundo: #F2E6D4;
+  --tag-texto: #5C4A2B;
+  --trilho: #E6E0D4;
+  --aviso-fundo: #1F2B2E;
+  --aviso-texto: #FFFFFF;
+  --aviso-acao: #F2E6D4;
+  --foco: #1F6B5C;
+  --fonte: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --raio: 16px;
+  --raio-botao: 12px;
+  --sombra: 0 1px 2px rgba(31, 43, 46, .06), 0 2px 8px rgba(31, 43, 46, .05);
+}
+
+* { box-sizing: border-box; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--fonte); font-size: 1.0625rem; line-height: 1.45; color: var(--texto); background: var(--fundo); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+.icone { width: 22px; height: 22px; flex: none; }
+
+.faixa-teste { display: none; }
+
+.layout { min-height: 100vh; padding-bottom: 96px; }
+.principal, .lateral { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+
+/* Barra de navegação: inferior no celular */
+.barra-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--superficie); border-top: 1px solid var(--borda); padding-bottom: env(safe-area-inset-bottom); }
+.barra-nav .marca { display: none; }
+.barra-nav ul { display: flex; margin: 0; padding: 0 4px; list-style: none; }
+.barra-nav li { flex: 1; }
+.barra-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 64px; color: var(--texto-2); text-decoration: none; font-size: 1rem; font-weight: 700; border-radius: var(--raio-botao); }
+.barra-nav a[aria-current="page"] { color: var(--primaria); }
+.barra-nav a[aria-current="page"] .icone { stroke-width: 2.6; }
+
+/* Cabeçalho */
+.cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 0 12px; }
+.cabecalho h1 { margin: 0; font-size: 2rem; font-weight: 800; letter-spacing: -.01em; }
+.data { margin: 0; color: var(--texto-2); font-weight: 600; }
+.avatar { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; font-weight: 800; font-size: 1.25rem; color: var(--texto); background: var(--tag-fundo); border: 2px solid var(--superficie); box-shadow: 0 0 0 1px var(--borda); }
+
+/* Faixa do placar */
+.faixa-placar { background: var(--superficie); border-radius: var(--raio); padding: 16px; box-shadow: var(--sombra); margin-bottom: 8px; }
+.placar-texto { margin: 0 0 10px; font-weight: 700; color: var(--texto); }
+.placar-texto strong { color: var(--primaria); font-size: 1.5rem; font-weight: 800; margin-left: 4px; }
+.placar-barra { height: 12px; background: var(--trilho); border-radius: 999px; overflow: hidden; }
+.placar-barra span { display: block; height: 100%; background: var(--primaria); border-radius: 999px; }
+
+/* Seções e itens */
+.secao { margin-top: 24px; }
+.secao h2 { margin: 0 0 10px; font-size: 1.25rem; font-weight: 800; }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.item-ocorrencia { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 16px; background: var(--superficie); border-radius: var(--raio); box-shadow: var(--sombra); }
+.item-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.item-nome { font-weight: 700; font-size: 1.125rem; }
+.rotulo-tempo { display: inline-flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 700; color: var(--tag-texto); background: var(--tag-fundo); border-radius: 999px; padding: 2px 10px 2px 8px; }
+.rotulo-tempo .icone { width: 18px; height: 18px; }
+.rotulo-semana { display: inline-flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 600; color: var(--texto-2); }
+.rotulo-semana .icone { width: 18px; height: 18px; }
+.item-acoes { display: flex; align-items: center; gap: 8px; }
+.botao-feito { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; min-width: 104px; padding: 0 16px; border: 0; border-radius: var(--raio-botao); background: var(--primaria); color: var(--sobre-primaria); font: inherit; font-weight: 800; cursor: pointer; }
+.botao-mais { display: inline-grid; place-items: center; width: 48px; height: 48px; border: 1.5px solid var(--texto-2); border-radius: var(--raio-botao); background: transparent; color: var(--texto-2); cursor: pointer; }
+.espaco-mais { width: 48px; height: 48px; flex: none; }
+
+/* Feitas hoje */
+.item-feito { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; border: 1px dashed var(--borda); border-radius: var(--raio); }
+.item-feito .item-texto { gap: 0; }
+.estado-feito { display: inline-flex; align-items: center; gap: 6px; color: var(--texto-2); font-weight: 600; }
+.botao-desfazer { min-height: 48px; padding: 0 14px; border: 0; background: transparent; color: var(--primaria); font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; border-radius: var(--raio-botao); }
+
+/* Pendências de semanas anteriores */
+.pendencias { margin-top: 24px; background: var(--superficie); border-radius: var(--raio); box-shadow: var(--sombra); }
+.pendencias > summary, .grupo > summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 56px; padding: 0 16px; cursor: pointer; list-style: none; font-weight: 800; }
+.pendencias > summary::-webkit-details-marker, .grupo > summary::-webkit-details-marker { display: none; }
+.pendencias > summary::after, .grupo > summary::after { content: "+"; font-size: 1.5rem; color: var(--texto-2); }
+.pendencias[open] > summary::after, .grupo[open] > summary::after { content: "–"; }
+.pendencias-corpo { padding: 0 12px 12px; display: grid; gap: 8px; }
+.grupo { border-top: 1px solid var(--borda); }
+.grupo > summary { font-weight: 700; min-height: 52px; padding: 0 4px; }
+.grupo .lista { padding: 4px 0 8px; }
+.grupo .item-ocorrencia { box-shadow: none; border: 1px solid var(--borda); }
+.botao-secundario { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--primaria); border-radius: var(--raio-botao); background: var(--superficie); color: var(--primaria); font: inherit; font-weight: 800; cursor: pointer; margin: 0 0 8px; }
+
+/* Aviso (snackbar) */
+.aviso { position: fixed; left: 16px; right: 16px; bottom: 80px; z-index: 20; max-width: 480px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 4px 4px 16px; border-radius: var(--raio-botao); background: var(--aviso-fundo); color: var(--aviso-texto); font-weight: 700; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); }
+.aviso button { min-height: 48px; padding: 0 16px; border: 0; background: transparent; color: var(--aviso-acao); font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; border-radius: var(--raio-botao); }
+.aviso button:focus-visible { outline-color: var(--aviso-acao); }
+
+/* Computador */
+@media (min-width: 1024px) {
+  .layout { display: grid; grid-template-columns: 248px minmax(0, 640px) 340px; justify-content: center; column-gap: 32px; padding: 0 24px 0 0; }
+  .barra-nav { position: sticky; top: 0; height: 100vh; border-top: 0; border-right: 1px solid var(--borda); padding: 24px 16px; }
+  .barra-nav .marca { display: block; font-weight: 800; font-size: 1.25rem; color: var(--primaria); margin: 0 0 24px 12px; }
+  .barra-nav ul { flex-direction: column; gap: 4px; padding: 0; }
+  .barra-nav a { flex-direction: row; justify-content: flex-start; gap: 12px; min-height: 48px; padding: 0 12px; }
+  .barra-nav a[aria-current="page"] { background: var(--fundo); }
+  .principal, .lateral { max-width: none; margin: 0; padding: 0; }
+  .principal { padding-bottom: 48px; }
+  .lateral { padding-top: 104px; }
+  .lateral .secao:first-child { margin-top: 0; }
+  .aviso { bottom: 24px; left: auto; right: 24px; }
+}

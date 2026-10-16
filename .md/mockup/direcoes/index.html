@@ -1,0 +1,147 @@
+<title>Direções do Tarefas da Casa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Galeria neutra: cartões por direção com molduras de celular e computador, tabelas de contraste. */
+  :root {
+    --tinta: #1F2328; --tinta-2: #57606A; --linha: #D0D7DE; --fundo: #F6F8FA; --cartao: #FFFFFF; --link: #0B5CAD;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --tinta: #E6EDF3; --tinta-2: #9DA7B3; --linha: #30363D; --fundo: #0D1117; --cartao: #161B22; --link: #6CB6FF; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --tinta: #E6EDF3; --tinta-2: #9DA7B3; --linha: #30363D; --fundo: #0D1117; --cartao: #161B22; --link: #6CB6FF; color-scheme: dark; }
+
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--tinta); background: var(--fundo); line-height: 1.5; font-size: 15px; }
+  .pagina { max-width: 1400px; margin: 0 auto; padding-block: 24px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 24px; }
+  a { color: var(--link); }
+  h1 { margin: 0 0 8px; font-size: 1.75rem; text-wrap: balance; }
+  h2 { margin: 0; font-size: 1.4rem; text-wrap: balance; }
+  .sub, .descricao { margin: 0; color: var(--tinta-2); max-width: 70ch; }
+  .comum ul { margin: 8px 0 0; padding-left: 20px; color: var(--tinta-2); display: grid; gap: 4px; }
+  section.direcao { background: var(--cartao); border: 1px solid var(--linha); border-radius: 12px; padding-block: 20px; padding-inline: 20px; display: grid; gap: 16px; min-width: 0; }
+  .amostras { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+  figure { margin: 0; max-width: 100%; min-width: 0; }
+  figcaption { font-weight: 600; margin-bottom: 8px; }
+  figcaption a { font-weight: 400; margin-left: 8px; }
+  .rolagem { max-width: 100%; overflow-x: auto; }
+  .moldura { overflow: hidden; border: 1px solid var(--linha); border-radius: 8px; background: #FFFFFF; }
+  .moldura iframe { border: 0; transform-origin: 0 0; display: block; }
+  .celular { width: 293px; height: 633px; }
+  .celular iframe { width: 390px; height: 844px; transform: scale(.75); }
+  .pc { width: 640px; height: 400px; }
+  .pc iframe { width: 1280px; height: 800px; transform: scale(.5); }
+  table { border-collapse: collapse; font-size: .9375rem; width: 100%; min-width: 560px; font-variant-numeric: tabular-nums; }
+  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+  th, td { border-bottom: 1px solid var(--linha); padding: 6px 10px; text-align: left; vertical-align: middle; }
+  th { color: var(--tinta-2); font-weight: 600; }
+  .amostra { display: inline-block; width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--linha); vertical-align: middle; margin-right: 4px; }
+  .ok { font-weight: 600; }
+  .recomendacao p { margin: 8px 0 0; max-width: 75ch; }
+  code { font-size: .9em; }
+</style>
+
+<div class="pagina">
+<header>
+  <h1>Tarefas da Casa: direções visuais da tela Hoje (T06)</h1>
+  <p class="sub">Etapa B2 do <code>/definir</code>, 2026-10-16. São três caminhos de aparência para a mesma tela, com os mesmos dados e o mesmo HTML. Só mudam cores, tipografia, forma e densidade. Escolha um, ou peça uma mistura (por exemplo, "cores da A com os botões da B"). O mockup completo de todas as telas (B3) sai da direção escolhida.</p>
+</header>
+
+<div class="comum">
+  <strong>Igual nas três direções (vem do UX-SPEC, não está em escolha):</strong>
+  <ul>
+    <li><strong>Celular:</strong> a visão da <strong>Bia (criança, 3 abas)</strong>, com o aviso "Feito! Desfazer" aberto. <strong>Computador:</strong> a visão do <strong>Leo (responsável, 4 abas)</strong>, com as pendências antigas abertas e "Marcar todas como 'Não precisou'". As duas páginas são responsivas: o link "tela cheia" mostra cada uma no tamanho que a janela tiver.</li>
+    <li>"Para você" e "Da casa" sem nenhum nome de membro. Atraso descrito pela tarefa ("Ficou de ontem"), nunca pela pessoa, com ícone e texto, sem vermelho (RN-17).</li>
+    <li>"Feito" com 1 toque, sempre com ícone + texto. O "⋯" só aparece quando aquele papel tem opção (a Bia não pode pular tarefa de outra pessoa).</li>
+    <li>Alvos de toque ≥ 48 px, texto ≥ 16 px, foco visível, contraste WCAG 2.2 AA conferido (tabelas abaixo).</li>
+    <li>Nesta etapa, as fontes vêm do Google Fonts. No mockup final (B3), as fontes passam a ser hospedadas no próprio app.</li>
+  </ul>
+</div>
+
+<section class="direcao" aria-labelledby="d-a">
+  <h2 id="d-a">A · Varal</h2>
+  <p class="descricao">Calma e acolhedora. Fundo creme, verde-petróleo como cor de ação, cartões brancos com sombra suave e a etiqueta de atraso em areia. Tipografia Nunito, arredondada. É a mais equilibrada: funciona bem para a criança de 7 anos e não parece infantil para o adulto que cadastra pelo computador.</p>
+  <div class="amostras">
+    <figure><figcaption>Celular · Bia <a href="a-varal/hoje-crianca.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura celular"><iframe src="a-varal/hoje-crianca.html" title="Direção A, celular, visão da criança" loading="lazy"></iframe></div></div></figure>
+    <figure><figcaption>Computador · Leo <a href="a-varal/hoje-responsavel.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura pc"><iframe src="a-varal/hoje-responsavel.html" title="Direção A, computador, visão do responsável" loading="lazy"></iframe></div></div></figure>
+  </div>
+  <div class="rolagem">
+  <table>
+    <caption>Contraste: Direção A (mínimo: 4,5:1 para texto, 3:1 para texto grande e elementos de interface)</caption>
+    <thead><tr><th>Uso</th><th>Frente</th><th>Fundo</th><th>Razão</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Texto principal na página</td><td><span class="amostra" style="background:#1F2B2E"></span>#1F2B2E</td><td><span class="amostra" style="background:#FAF7F2"></span>#FAF7F2</td><td>13,8:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Texto principal no cartão</td><td>#1F2B2E</td><td><span class="amostra" style="background:#FFFFFF"></span>#FFFFFF</td><td>14,5:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Texto secundário (data, abas inativas, "Esta semana")</td><td><span class="amostra" style="background:#5C6B70"></span>#5C6B70</td><td>#FAF7F2 / #FFFFFF</td><td>5,3:1 / 5,5:1</td><td class="ok">AA</td></tr>
+      <tr><td>"Feito" (texto branco no botão)</td><td>#FFFFFF</td><td><span class="amostra" style="background:#1F6B5C"></span>#1F6B5C</td><td>6,3:1</td><td class="ok">AA</td></tr>
+      <tr><td>Aba ativa, % do placar, botão secundário</td><td>#1F6B5C</td><td>#FFFFFF</td><td>6,3:1</td><td class="ok">AA</td></tr>
+      <tr><td>"Desfazer" na página, anel de foco</td><td>#1F6B5C</td><td>#FAF7F2</td><td>6,0:1</td><td class="ok">AA</td></tr>
+      <tr><td>Etiqueta "Ficou de ontem"</td><td><span class="amostra" style="background:#5C4A2B"></span>#5C4A2B</td><td><span class="amostra" style="background:#F2E6D4"></span>#F2E6D4</td><td>6,9:1</td><td class="ok">AA</td></tr>
+      <tr><td>Letra do avatar</td><td>#1F2B2E</td><td>#F2E6D4</td><td>11,7:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Aviso "Feito!"</td><td>#FFFFFF</td><td>#1F2B2E</td><td>14,5:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>"Desfazer" no aviso</td><td>#F2E6D4</td><td>#1F2B2E</td><td>11,7:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Barra do placar (preenchido × trilho)</td><td>#1F6B5C</td><td><span class="amostra" style="background:#E6E0D4"></span>#E6E0D4</td><td>4,8:1</td><td class="ok">≥ 3:1</td></tr>
+      <tr><td>Contorno do botão "⋯"</td><td>#5C6B70</td><td>#FFFFFF</td><td>5,5:1</td><td class="ok">≥ 3:1</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="direcao" aria-labelledby="d-b">
+  <h2 id="d-b">B · Lápis de Cor</h2>
+  <p class="descricao">Brincalhona e enérgica. Fundo amarelo-claro, azul forte como cor de ação, amarelo-sol no placar e na aba ativa. Cartões e botões têm contorno escuro e sombra sólida, no estilo "adesivo", e os botões são pílulas maiores (52 px). Títulos em Baloo 2 e texto em Nunito. Fala mais diretamente com as crianças, mas pesa mais nas telas de gestão do adulto.</p>
+  <div class="amostras">
+    <figure><figcaption>Celular · Bia <a href="b-lapis-de-cor/hoje-crianca.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura celular"><iframe src="b-lapis-de-cor/hoje-crianca.html" title="Direção B, celular, visão da criança" loading="lazy"></iframe></div></div></figure>
+    <figure><figcaption>Computador · Leo <a href="b-lapis-de-cor/hoje-responsavel.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura pc"><iframe src="b-lapis-de-cor/hoje-responsavel.html" title="Direção B, computador, visão do responsável" loading="lazy"></iframe></div></div></figure>
+  </div>
+  <div class="rolagem">
+  <table>
+    <caption>Contraste: Direção B</caption>
+    <thead><tr><th>Uso</th><th>Frente</th><th>Fundo</th><th>Razão</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Texto principal na página</td><td><span class="amostra" style="background:#1A1F3D"></span>#1A1F3D</td><td><span class="amostra" style="background:#FFF8E6"></span>#FFF8E6</td><td>14,9:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Texto principal no cartão</td><td>#1A1F3D</td><td>#FFFFFF</td><td>15,7:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Texto secundário</td><td><span class="amostra" style="background:#4A5577"></span>#4A5577</td><td>#FFF8E6 / #FFFFFF</td><td>6,9:1 / 7,3:1</td><td class="ok">AA (AAA no branco)</td></tr>
+      <tr><td>"Feito" (texto branco no botão)</td><td>#FFFFFF</td><td><span class="amostra" style="background:#2B4ACC"></span>#2B4ACC</td><td>7,1:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Placar, aba ativa, avatar (texto no amarelo)</td><td>#1A1F3D</td><td><span class="amostra" style="background:#FFCC33"></span>#FFCC33</td><td>10,4:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Etiqueta "Ficou de ontem"</td><td><span class="amostra" style="background:#4A2B88"></span>#4A2B88</td><td><span class="amostra" style="background:#EEE6FF"></span>#EEE6FF</td><td>8,7:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Aviso "Feito!"</td><td>#FFFFFF</td><td>#1A1F3D</td><td>15,7:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>"Desfazer" no aviso (botão amarelo)</td><td>#1A1F3D</td><td>#FFCC33</td><td>10,4:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Barra do placar (preenchido × trilho branco / × faixa amarela)</td><td>#2B4ACC</td><td>#FFFFFF / #FFCC33</td><td>7,1:1 / 4,7:1</td><td class="ok">≥ 3:1</td></tr>
+      <tr><td>Contornos de cartão e botão, anel de foco</td><td>#1A1F3D</td><td>#FFFFFF / #FFF8E6 / #FFCC33</td><td>15,7 / 14,9 / 10,4:1</td><td class="ok">≥ 3:1</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="direcao" aria-labelledby="d-c">
+  <h2 id="d-c">C · Caderno</h2>
+  <p class="descricao">Sóbria e organizada. Fundo branco, linhas divisórias em vez de cartões, azul-tinta para navegação e destaque, e um verde escuro só no "Feito". O % aparece grande, à esquerda. Tipografia Atkinson Hyperlegible, criada para leitura fácil, ótima para quem está aprendendo a ler. É mais densa (cabe mais na tela) e ótima para o adulto, mas é menos convidativa para a criança.</p>
+  <div class="amostras">
+    <figure><figcaption>Celular · Bia <a href="c-caderno/hoje-crianca.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura celular"><iframe src="c-caderno/hoje-crianca.html" title="Direção C, celular, visão da criança" loading="lazy"></iframe></div></div></figure>
+    <figure><figcaption>Computador · Leo <a href="c-caderno/hoje-responsavel.html" target="_blank">tela cheia</a></figcaption><div class="rolagem"><div class="moldura pc"><iframe src="c-caderno/hoje-responsavel.html" title="Direção C, computador, visão do responsável" loading="lazy"></iframe></div></div></figure>
+  </div>
+  <div class="rolagem">
+  <table>
+    <caption>Contraste: Direção C</caption>
+    <thead><tr><th>Uso</th><th>Frente</th><th>Fundo</th><th>Razão</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Texto principal</td><td><span class="amostra" style="background:#111A2B"></span>#111A2B</td><td>#FFFFFF / <span class="amostra" style="background:#F5F5F0"></span>#F5F5F0</td><td>17,4:1 / 16,3:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Texto secundário, etiqueta "Ficou de ontem" (com contorno)</td><td><span class="amostra" style="background:#5A6670"></span>#5A6670</td><td>#FFFFFF / #F5F5F0</td><td>5,9:1 / 5,5:1</td><td class="ok">AA</td></tr>
+      <tr><td>Navegação ativa, %, "Desfazer", anel de foco</td><td><span class="amostra" style="background:#1F3D99"></span>#1F3D99</td><td>#FFFFFF / #F5F5F0</td><td>9,6:1 / 9,0:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>"Feito" (texto branco no botão)</td><td>#FFFFFF</td><td><span class="amostra" style="background:#1F6B44"></span>#1F6B44</td><td>6,5:1</td><td class="ok">AA</td></tr>
+      <tr><td>Letra do avatar</td><td>#FFFFFF</td><td>#1F3D99</td><td>9,6:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Aviso "Feito!"</td><td>#FFFFFF</td><td>#111A2B</td><td>17,4:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>"Desfazer" no aviso</td><td><span class="amostra" style="background:#99BBFF"></span>#99BBFF</td><td>#111A2B</td><td>9,0:1</td><td class="ok">AA (AAA)</td></tr>
+      <tr><td>Barra do placar (preenchido × trilho)</td><td>#1F3D99</td><td><span class="amostra" style="background:#DDDDDD"></span>#DDDDDD</td><td>7,1:1</td><td class="ok">≥ 3:1</td></tr>
+      <tr><td>Botão "Feito" contra a página</td><td>#1F6B44</td><td>#FFFFFF</td><td>6,5:1</td><td class="ok">≥ 3:1</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="descricao">Observação: as linhas divisórias (#DDDDDD) são decorativas e ficam abaixo de 3:1, o que é permitido porque não identificam controles. Os botões têm forma e cor próprias.</p>
+</section>
+
+<section class="recomendacao">
+  <h2>Recomendação do Coordenador</h2>
+  <p><strong>A · Varal como base</strong>, com dois empréstimos da B: o botão "Feito" maior (52 px) e a aba ativa com fundo colorido. A A é a única que funciona igualmente bem para a criança no celular e para o adulto no computador. A etiqueta de atraso em tom de areia é a forma mais neutra de mostrar "Ficou de ontem" (RN-17). A B é ótima para as crianças, mas cansa nas telas de gestão. A C é a mais clara para o adulto, mas a lista em linhas é menos convidativa para quem tem 7 anos. Se a prioridade for leitura fácil, dá para trocar a Nunito da A pela Atkinson Hyperlegible da C sem mudar mais nada.</p>
+</section>
+</div>

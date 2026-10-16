@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T06 Hoje · vazio (nada para hoje)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="layout layout--hoje">
+  <nav class="barra-nav" aria-label="Principal">
+    <span class="marca">Tarefas da Casa</span>
+    <ul>
+      <li><a href="t06-hoje--vazio.html" aria-current="page"><span class="icone i-hoje" aria-hidden="true"></span>Hoje</a></li>
+      <li><a href="t08-casa--sucesso.html"><span class="icone i-casa" aria-hidden="true"></span>Casa</a></li>
+      <li><a href="t10-eu--sucesso.html"><span class="icone i-eu" aria-hidden="true"></span>Eu</a></li>
+    </ul>
+  </nav>
+  <main class="principal">
+    <header class="cabecalho">
+      <div><h1>Hoje</h1><p class="data">sexta, 16 de outubro</p></div>
+      <img class="avatar avatar--m" src="../avatares/estrela.svg" alt="Bia">
+    </header>
+    <section class="faixa-placar" aria-label="Placar da semana">
+      <p class="placar-texto"><span>Semana até agora:</span> <strong>100%</strong></p>
+      <div class="placar-barra" role="progressbar" aria-label="Semana até agora" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span style="width:100%"></span></div>
+    </section>
+    <section class="estado-vazio">
+      <span class="ilustracao"><span class="icone icone--grande i-feito" aria-hidden="true"></span></span>
+      <h2>Tudo certo por hoje</h2>
+      <p>Não tem mais nada para fazer agora.</p>
+    </section>
+  </main>
+  <aside class="lateral" aria-label="Feitas hoje">
+    <section class="secao" aria-labelledby="s-feitas">
+      <h2 id="s-feitas">Feitas hoje por você</h2>
+      <ul class="lista">
+        <li class="item-feito">
+          <div class="item-texto"><span class="item-nome">Arrumar a cama</span><span class="estado-feito"><span class="icone icone--pequeno i-feito" aria-hidden="true"></span>Feito</span></div>
+          <button class="botao-desfazer" type="button" aria-label="Desfazer: Arrumar a cama">Desfazer</button>
+        </li>
+        <li class="item-feito">
+          <div class="item-texto"><span class="item-nome">Guardar os brinquedos</span><span class="estado-feito"><span class="icone icone--pequeno i-feito" aria-hidden="true"></span>Feito</span></div>
+          <button class="botao-desfazer" type="button" aria-label="Desfazer: Guardar os brinquedos">Desfazer</button>
+        </li>
+      </ul>
+    </section>
+  </aside>
+</div>
+</body>
+</html>

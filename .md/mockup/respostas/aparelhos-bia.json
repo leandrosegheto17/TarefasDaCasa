@@ -1,0 +1,6 @@
+{
+  "aparelhos": [
+    { "id": "a-01", "rotulo": "iPhone · Safari", "vinculadoEm": "2026-09-22", "ultimoUso": "2026-10-16" },
+    { "id": "a-02", "rotulo": "iPad · Safari", "vinculadoEm": "2026-10-03", "ultimoUso": "2026-10-12" }
+  ]
+}

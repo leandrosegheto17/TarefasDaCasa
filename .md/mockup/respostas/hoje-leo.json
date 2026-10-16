@@ -1,0 +1,39 @@
+{
+  "data": "2026-10-16",
+  "membro": { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "sol" },
+  "placar": { "percentual": 75, "semTarefasPrevistas": false },
+  "temTarefas": true,
+  "podeConcluirPorOutro": true,
+  "paraVoce": [
+    { "id": "o-202", "tarefa": "Limpar o banheiro", "dataPrevista": "2026-10-15", "estado": "atrasada", "diasAtraso": 1, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-205", "tarefa": "Levar o lixo para fora", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-207", "tarefa": "Limpar a geladeira", "dataPrevista": "2026-10-18", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": true, "podePular": true }
+  ],
+  "daCasa": [
+    { "id": "o-201", "tarefa": "Pendurar a roupa", "dataPrevista": "2026-10-14", "estado": "atrasada", "diasAtraso": 2, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-101", "tarefa": "Regar as plantas", "dataPrevista": "2026-10-15", "estado": "atrasada", "diasAtraso": 1, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-102", "tarefa": "Arrumar a cama", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-103", "tarefa": "Guardar os brinquedos", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-203", "tarefa": "Lavar a louça do almoço", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-204", "tarefa": "Dar comida ao gato", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true },
+    { "id": "o-206", "tarefa": "Pôr a mesa do jantar", "dataPrevista": "2026-10-16", "estado": "pendente", "diasAtraso": 0, "semanalFlexivel": false, "podePular": true }
+  ],
+  "feitasHoje": [
+    { "id": "o-302", "tarefa": "Fazer o café da manhã", "estado": "concluida", "podeDesfazer": true },
+    { "id": "o-303", "tarefa": "Varrer a varanda", "estado": "pulada", "podeDesfazer": true }
+  ],
+  "pendenciasAntigas": {
+    "total": 3,
+    "grupos": [
+      { "tarefaId": "t-01", "tarefa": "Pendurar a roupa", "quantidade": 2, "podePularTodas": true,
+        "ocorrencias": [
+          { "id": "o-401", "dataPrevista": "2026-10-05", "podePular": true },
+          { "id": "o-402", "dataPrevista": "2026-10-07", "podePular": true }
+        ] },
+      { "tarefaId": "t-02", "tarefa": "Regar as plantas", "quantidade": 1, "podePularTodas": true,
+        "ocorrencias": [
+          { "id": "o-403", "dataPrevista": "2026-10-10", "podePular": true }
+        ] }
+    ]
+  }
+}

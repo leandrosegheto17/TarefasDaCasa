@@ -1,0 +1,16 @@
+Fontes do Tarefas da Casa (mockup e app)
+
+- Nunito: Copyright The Nunito Project Authors. Licença: SIL Open Font License 1.1.
+- Baloo 2: Copyright Ek Type. Licença: SIL Open Font License 1.1.
+
+Texto completo da licença: https://openfontlicense.org/open-font-license-official-text/
+Cópias do texto vindas dos pacotes: LICENCA-nunito-OFL.txt e LICENCA-baloo-2-OFL.txt
+(criadas por baixar-fontes.ps1 ou baixar-fontes.sh).
+
+Arquivos esperados nesta pasta (Fontsource 5.3.0, subconjunto latin):
+  nunito-latin-400-normal.woff2
+  nunito-latin-600-normal.woff2
+  nunito-latin-700-normal.woff2
+  nunito-latin-800-normal.woff2
+  baloo-2-latin-700-normal.woff2
+  baloo-2-latin-800-normal.woff2

@@ -1,0 +1,14 @@
+{
+  "data": "2026-10-16",
+  "membro": { "id": "m-bia", "apelido": "Bia", "papel": "crianca", "avatar": "estrela" },
+  "placar": { "percentual": 100, "semTarefasPrevistas": false },
+  "temTarefas": true,
+  "podeConcluirPorOutro": false,
+  "paraVoce": [],
+  "daCasa": [],
+  "feitasHoje": [
+    { "id": "o-102", "tarefa": "Arrumar a cama", "estado": "concluida", "podeDesfazer": true },
+    { "id": "o-103", "tarefa": "Guardar os brinquedos", "estado": "concluida", "podeDesfazer": true }
+  ],
+  "pendenciasAntigas": { "total": 0, "grupos": [] }
+}

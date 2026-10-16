@@ -1,0 +1,9 @@
+{
+  "erro": "dados_invalidos",
+  "mensagem": "Confira os campos marcados.",
+  "campos": {
+    "email": "Digite um e-mail válido, como nome@exemplo.com.",
+    "senha": "A senha precisa ter pelo menos 8 caracteres.",
+    "codigoInstalacao": "Código de instalação incorreto."
+  }
+}

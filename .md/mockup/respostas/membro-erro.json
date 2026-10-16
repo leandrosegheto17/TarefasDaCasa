@@ -1,0 +1,7 @@
+{
+  "erro": "apelido_em_uso",
+  "mensagem": "Confira os campos marcados.",
+  "campos": {
+    "apelido": "Já existe alguém com esse apelido na família. Escolha outro."
+  }
+}

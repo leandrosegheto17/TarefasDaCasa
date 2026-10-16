@@ -1,0 +1,8 @@
+{
+  "familiaExiste": true,
+  "sessao": {
+    "membro": { "id": "m-carla", "apelido": "Carla", "papel": "responsavel", "avatar": "flor" },
+    "precisaCriarAcesso": true
+  },
+  "versaoApp": "1.0.0"
+}

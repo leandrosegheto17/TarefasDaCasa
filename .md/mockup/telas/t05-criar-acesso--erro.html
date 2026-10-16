@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T05 Criar acesso do adulto · erro (e-mail em uso)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="layout layout--simples">
+  <main class="principal">
+    <header class="perfil">
+      <img class="avatar avatar--m" src="../avatares/flor.svg" alt="">
+      <h1>Olá, Carla! Crie seu acesso</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="alerta alerta--erro" role="alert"><span class="icone i-alerta" aria-hidden="true"></span><p>Confira os campos marcados.</p></div>
+      <div class="campo campo--erro">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" value="leo@exemplo.com.br" autocomplete="email" aria-invalid="true" aria-describedby="email-erro">
+        <p class="erro" id="email-erro"><span class="icone icone--pequeno i-alerta" aria-hidden="true"></span>Este e-mail já está em uso.</p>
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <div class="campo-senha"><input id="senha" type="password" value="flores2026" autocomplete="new-password" aria-describedby="senha-ajuda"><button class="mostrar" type="button" aria-label="Mostrar senha" aria-pressed="false"><span class="icone i-olho" aria-hidden="true"></span></button></div>
+        <p class="ajuda" id="senha-ajuda">Pelo menos 8 caracteres.</p>
+      </div>
+      <button class="botao botao--principal botao--bloco" type="submit">Salvar e entrar</button>
+    </form>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "membros": [
+    { "id": "m-bia", "apelido": "Bia", "papel": "crianca", "avatar": "estrela", "aparelhos": 2 },
+    { "id": "m-carla", "apelido": "Carla", "papel": "responsavel", "avatar": "flor", "aparelhos": 1 },
+    { "id": "m-davi", "apelido": "Davi", "papel": "crianca", "avatar": "foguete", "aparelhos": 0 },
+    { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "sol", "aparelhos": 2 }
+  ]
+}

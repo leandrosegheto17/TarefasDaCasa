@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T04 Entrar com código · formulário</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="layout layout--simples">
+  <main class="principal">
+    <header class="cabecalho cabecalho--voltar">
+      <a class="botao-voltar" href="t01-entrada--sucesso.html" aria-label="Voltar"><span class="icone i-voltar" aria-hidden="true"></span></a>
+      <h1>Entrar com código</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="campo campo-codigo">
+        <label for="codigo">Código</label>
+        <p class="ajuda" id="codigo-ajuda">Peça o código a um responsável.</p>
+        <input id="codigo" type="text" maxlength="9" autocomplete="one-time-code" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-describedby="codigo-ajuda">
+      </div>
+      <button class="botao botao--principal botao--bloco" type="submit" disabled>Entrar</button>
+    </form>
+  </main>
+</div>
+</body>
+</html>

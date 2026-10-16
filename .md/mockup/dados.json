@@ -1,0 +1,27 @@
+{
+  "_sobre": "Dados de exemplo exibidos no mockup B3. A fonte exata de cada tela é o arquivo em respostas/ indicado no telas.json; este arquivo resume a família fictícia para quem lê.",
+  "dataDeReferencia": "2026-10-16 (sexta-feira), fuso America/Sao_Paulo. Semana aberta: 12 a 18/10.",
+  "familia": "Família Souza",
+  "membros": [
+    { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "sol", "email": "leo@exemplo.com.br", "aparelhos": ["Android · Chrome", "Windows · Edge"] },
+    { "id": "m-carla", "apelido": "Carla", "papel": "responsavel", "avatar": "flor", "email": "carla@exemplo.com.br", "aparelhos": 1 },
+    { "id": "m-bia", "apelido": "Bia", "papel": "crianca", "avatar": "estrela", "aparelhos": ["iPhone · Safari", "iPad · Safari"] },
+    { "id": "m-davi", "apelido": "Davi", "papel": "crianca", "avatar": "foguete", "aparelhos": [] }
+  ],
+  "tarefas": "13 ativas + 1 arquivada (respostas/tarefas.json)",
+  "placar": { "semanaAtual": "75%", "semanaAnterior": "82% (5 a 11/10)", "concluidasNaSemana": 38, "historico": ["82%", "77%", "64%", "Sem tarefas previstas"] },
+  "codigoDeVinculo": "K7MP-3RXW (Bia, 9:41 restantes)",
+  "atividade": "4 de 12 semanas com todo mundo ativo (respostas/atividade.json)",
+  "respostas": [
+    "situacao.json", "situacao-primeiro-uso.json", "situacao-bia.json", "situacao-leo.json", "situacao-carla-sem-acesso.json",
+    "hoje-bia.json", "hoje-leo.json", "hoje-bia-vazio.json", "hoje-leo-primeiro-uso.json", "hoje-bia-sem-tarefas.json",
+    "casa.json", "casa-vazio.json", "semanas.json", "semanas-vazio.json", "contribuicoes-bia.json",
+    "tarefas.json", "tarefas-vazio.json", "membros.json", "membros-um-responsavel.json",
+    "aparelhos-bia.json", "aparelhos-leo.json", "aparelhos-vazio.json", "codigo.json", "codigo-expirado.json",
+    "atividade.json", "atividade-vazio.json",
+    "erro-servidor.json (500)", "erro-sem-conexao.json (503, gerada pelo service worker)", "erro-sessao-encerrada.json (401)",
+    "criar-familia-erro.json (400)", "entrar-email-erro.json (401)", "entrar-email-bloqueado.json (429)",
+    "entrar-codigo-erro.json (400)", "entrar-codigo-bloqueado.json (429)", "entrar-codigo-responsavel.json (200)",
+    "criar-acesso-erro.json (409)", "ocorrencia-conflito.json (409)", "tarefa-erro.json (400)", "membro-erro.json (409)"
+  ]
+}

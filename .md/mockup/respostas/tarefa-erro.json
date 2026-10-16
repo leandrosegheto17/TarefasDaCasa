@@ -1,0 +1,8 @@
+{
+  "erro": "dados_invalidos",
+  "mensagem": "Confira os campos marcados.",
+  "campos": {
+    "nome": "Escreva o nome da tarefa.",
+    "dias": "Escolha pelo menos um dia."
+  }
+}

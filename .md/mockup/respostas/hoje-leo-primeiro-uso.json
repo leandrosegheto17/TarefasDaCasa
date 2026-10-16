@@ -1,0 +1,11 @@
+{
+  "data": "2026-10-16",
+  "membro": { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "sol" },
+  "placar": { "percentual": null, "semTarefasPrevistas": true },
+  "temTarefas": false,
+  "podeConcluirPorOutro": true,
+  "paraVoce": [],
+  "daCasa": [],
+  "feitasHoje": [],
+  "pendenciasAntigas": { "total": 0, "grupos": [] }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T13 Tarefa · nova (formulário)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body class="gestao">
+<div class="layout">
+  <nav class="barra-nav" aria-label="Principal">
+    <span class="marca">Tarefas da Casa</span>
+    <ul>
+      <li><a href="t06-hoje--sucesso-responsavel.html"><span class="icone i-hoje" aria-hidden="true"></span>Hoje</a></li>
+      <li><a href="t08-casa--sucesso.html"><span class="icone i-casa" aria-hidden="true"></span>Casa</a></li>
+      <li><a href="t11-gerenciar--sucesso.html" aria-current="page"><span class="icone i-gerenciar" aria-hidden="true"></span>Gerenciar</a></li>
+      <li><a href="t10-eu--sucesso.html"><span class="icone i-eu" aria-hidden="true"></span>Eu</a></li>
+    </ul>
+  </nav>
+  <main class="principal">
+    <header class="cabecalho cabecalho--voltar">
+      <a class="botao-voltar" href="t12-tarefas--sucesso.html" aria-label="Voltar para Tarefas"><span class="icone i-voltar" aria-hidden="true"></span></a>
+      <h1>Nova tarefa</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="campo">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" maxlength="60" aria-describedby="nome-ajuda">
+        <p class="ajuda" id="nome-ajuda">Até 60 caracteres.</p>
+      </div>
+      <fieldset class="campo">
+        <legend>Quando</legend>
+        <div class="opcoes-escolha">
+          <label class="opcao-escolha"><input type="radio" name="quando" value="dias" checked>Em dias da semana</label>
+          <label class="opcao-escolha"><input type="radio" name="quando" value="semanal_flexivel">1 vez por semana, qualquer dia</label>
+        </div>
+      </fieldset>
+      <fieldset class="campo">
+        <legend>Dias da semana</legend>
+        <div class="seletor-dias">
+          <button type="button" aria-pressed="false" aria-label="segunda-feira">Seg</button>
+          <button type="button" aria-pressed="false" aria-label="terça-feira">Ter</button>
+          <button type="button" aria-pressed="false" aria-label="quarta-feira">Qua</button>
+          <button type="button" aria-pressed="false" aria-label="quinta-feira">Qui</button>
+          <button type="button" aria-pressed="false" aria-label="sexta-feira">Sex</button>
+          <button type="button" aria-pressed="false" aria-label="sábado">Sáb</button>
+          <button type="button" aria-pressed="false" aria-label="domingo">Dom</button>
+        </div>
+        <button class="botao botao--terciario atalho-dias" type="button">Todos os dias</button>
+      </fieldset>
+      <fieldset class="campo">
+        <legend>Quem</legend>
+        <ul class="seletor-membro">
+          <li><label class="opcao-membro"><span class="avatar-qualquer"><span class="icone i-familia" aria-hidden="true"></span></span>Qualquer um<input type="radio" name="quem" value="" checked></label></li>
+          <li><label class="opcao-membro"><img class="avatar" src="../avatares/estrela.svg" alt="">Bia<input type="radio" name="quem" value="m-bia"></label></li>
+          <li><label class="opcao-membro"><img class="avatar" src="../avatares/flor.svg" alt="">Carla<input type="radio" name="quem" value="m-carla"></label></li>
+          <li><label class="opcao-membro"><img class="avatar" src="../avatares/foguete.svg" alt="">Davi<input type="radio" name="quem" value="m-davi"></label></li>
+          <li><label class="opcao-membro"><img class="avatar" src="../avatares/sol.svg" alt="">Leo<input type="radio" name="quem" value="m-leo"></label></li>
+        </ul>
+      </fieldset>
+      <button class="botao botao--principal botao--bloco" type="submit">Salvar</button>
+    </form>
+  </main>
+</div>
+</body>
+</html>

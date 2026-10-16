@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T07 Opções da ocorrência · carregando ("Não precisou" enviando)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="veu">
+  <section class="folha" role="dialog" aria-modal="true" aria-labelledby="f-titulo">
+    <div class="alca" aria-hidden="true"></div>
+    <h2 id="f-titulo">Regar as plantas</h2>
+    <div class="campo">
+      <label for="motivo">Motivo (opcional)</label>
+      <input id="motivo" type="text" maxlength="80" value="Choveu ontem" readonly aria-describedby="motivo-ajuda">
+      <p class="ajuda" id="motivo-ajuda">Até 80 caracteres.</p>
+    </div>
+    <div class="acoes-pilha">
+      <button class="botao botao--principal botao--bloco" type="button" aria-busy="true"><span class="icone i-carregando" aria-hidden="true"></span>Não precisou</button>
+      <button class="botao botao--terciario botao--bloco" type="button" disabled>Cancelar</button>
+    </div>
+  </section>
+</div>
+</body>
+</html>

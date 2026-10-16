@@ -1,0 +1,11 @@
+{
+  "data": "2026-10-16",
+  "membro": { "id": "m-bia", "apelido": "Bia", "papel": "crianca", "avatar": "estrela" },
+  "placar": { "percentual": null, "semTarefasPrevistas": true },
+  "temTarefas": false,
+  "podeConcluirPorOutro": false,
+  "paraVoce": [],
+  "daCasa": [],
+  "feitasHoje": [],
+  "pendenciasAntigas": { "total": 0, "grupos": [] }
+}

@@ -1,0 +1,9 @@
+{
+  "semanaAtual": { "inicio": "2026-10-12", "fim": "2026-10-18", "concluidas": 9 },
+  "anteriores": [
+    { "inicio": "2026-10-05", "fim": "2026-10-11", "concluidas": 13 },
+    { "inicio": "2026-09-28", "fim": "2026-10-04", "concluidas": 11 },
+    { "inicio": "2026-09-21", "fim": "2026-09-27", "concluidas": 10 },
+    { "inicio": "2026-09-14", "fim": "2026-09-20", "concluidas": 2 }
+  ]
+}

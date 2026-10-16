@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T15 Membro · adicionar adulto (formulário)</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body class="gestao">
+<div class="layout">
+  <nav class="barra-nav" aria-label="Principal">
+    <span class="marca">Tarefas da Casa</span>
+    <ul>
+      <li><a href="t06-hoje--sucesso-responsavel.html"><span class="icone i-hoje" aria-hidden="true"></span>Hoje</a></li>
+      <li><a href="t08-casa--sucesso.html"><span class="icone i-casa" aria-hidden="true"></span>Casa</a></li>
+      <li><a href="t11-gerenciar--sucesso.html" aria-current="page"><span class="icone i-gerenciar" aria-hidden="true"></span>Gerenciar</a></li>
+      <li><a href="t10-eu--sucesso.html"><span class="icone i-eu" aria-hidden="true"></span>Eu</a></li>
+    </ul>
+  </nav>
+  <main class="principal">
+    <header class="cabecalho cabecalho--voltar">
+      <a class="botao-voltar" href="t14-familia--sucesso.html" aria-label="Voltar para Família"><span class="icone i-voltar" aria-hidden="true"></span></a>
+      <h1>Adicionar adulto</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="campo">
+        <label for="apelido">Apelido</label>
+        <input id="apelido" type="text" maxlength="20" aria-describedby="apelido-ajuda">
+        <p class="ajuda" id="apelido-ajuda">De 1 a 20 caracteres.</p>
+      </div>
+      <p class="nota"><span class="icone i-info" aria-hidden="true"></span>Depois de salvar, aparece um código para essa pessoa entrar e criar o próprio acesso.</p>
+      <button class="botao botao--principal botao--bloco" type="submit">Salvar e gerar código</button>
+    </form>
+  </main>
+</div>
+</body>
+</html>

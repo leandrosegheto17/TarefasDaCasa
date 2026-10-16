@@ -1,0 +1,5 @@
+{
+  "erro": "bloqueado",
+  "mensagem": "Muitas tentativas. Tente de novo em 10 minutos.",
+  "segundosRestantes": 600
+}

@@ -1,0 +1,71 @@
+{
+  "_sobre": "Dados de exemplo das direções B2 (T06 Hoje), no formato preliminar de GET /api/hoje (SDD §2.6). Iguais nas três direções. Não é o respostas/*.json final: o formato exato do contrato será fixado no B3.",
+  "_data_de_referencia": "2026-10-16 (sexta-feira), fuso America/Sao_Paulo",
+  "familia": {
+    "membros": [
+      { "id": "m-leo", "apelido": "Leo", "papel": "responsavel", "avatar": "L" },
+      { "id": "m-carla", "apelido": "Carla", "papel": "responsavel", "avatar": "C" },
+      { "id": "m-bia", "apelido": "Bia", "papel": "crianca", "avatar": "B" },
+      { "id": "m-davi", "apelido": "Davi", "papel": "crianca", "avatar": "D" }
+    ]
+  },
+  "hoje_bia": {
+    "membro": { "apelido": "Bia", "papel": "crianca" },
+    "data": "2026-10-16",
+    "placar": { "percentual": 75, "motivoSemPercentual": null },
+    "paraVoce": [
+      { "id": "o-101", "tarefa": "Regar as plantas", "estado": "atrasada", "diasAtraso": 1, "dataPrevista": "2026-10-15", "semanal": false, "podePular": true },
+      { "id": "o-102", "tarefa": "Arrumar a cama", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-103", "tarefa": "Guardar os brinquedos", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true }
+    ],
+    "daCasa": [
+      { "id": "o-201", "tarefa": "Pendurar a roupa", "estado": "atrasada", "diasAtraso": 2, "dataPrevista": "2026-10-14", "semanal": false, "podePular": true },
+      { "id": "o-202", "tarefa": "Limpar o banheiro", "estado": "atrasada", "diasAtraso": 1, "dataPrevista": "2026-10-15", "semanal": false, "podePular": false },
+      { "id": "o-203", "tarefa": "Lavar a louça do almoço", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-204", "tarefa": "Dar comida ao gato", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-205", "tarefa": "Levar o lixo para fora", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": false },
+      { "id": "o-206", "tarefa": "Pôr a mesa do jantar", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": false },
+      { "id": "o-207", "tarefa": "Limpar a geladeira", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-18", "semanal": true, "podePular": false }
+    ],
+    "feitasHoje": [
+      { "id": "o-301", "tarefa": "Tirar o prato da mesa", "estado": "concluida", "podeDesfazer": true }
+    ],
+    "pendenciasAntigas": [
+      { "tarefa": "Pendurar a roupa", "quantidade": 2, "podePularTodas": false, "ocorrencias": [
+        { "id": "o-401", "dataPrevista": "2026-10-08", "podePular": true },
+        { "id": "o-402", "dataPrevista": "2026-10-10", "podePular": true } ] },
+      { "tarefa": "Regar as plantas", "quantidade": 1, "podePularTodas": false, "ocorrencias": [
+        { "id": "o-403", "dataPrevista": "2026-10-11", "podePular": true } ] }
+    ]
+  },
+  "hoje_leo": {
+    "membro": { "apelido": "Leo", "papel": "responsavel" },
+    "data": "2026-10-16",
+    "placar": { "percentual": 75, "motivoSemPercentual": null },
+    "paraVoce": [
+      { "id": "o-202", "tarefa": "Limpar o banheiro", "estado": "atrasada", "diasAtraso": 1, "dataPrevista": "2026-10-15", "semanal": false, "podePular": true },
+      { "id": "o-205", "tarefa": "Levar o lixo para fora", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-207", "tarefa": "Limpar a geladeira", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-18", "semanal": true, "podePular": true }
+    ],
+    "daCasa": [
+      { "id": "o-201", "tarefa": "Pendurar a roupa", "estado": "atrasada", "diasAtraso": 2, "dataPrevista": "2026-10-14", "semanal": false, "podePular": true },
+      { "id": "o-101", "tarefa": "Regar as plantas", "estado": "atrasada", "diasAtraso": 1, "dataPrevista": "2026-10-15", "semanal": false, "podePular": true },
+      { "id": "o-102", "tarefa": "Arrumar a cama", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-103", "tarefa": "Guardar os brinquedos", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-203", "tarefa": "Lavar a louça do almoço", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-204", "tarefa": "Dar comida ao gato", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true },
+      { "id": "o-206", "tarefa": "Pôr a mesa do jantar", "estado": "pendente", "diasAtraso": 0, "dataPrevista": "2026-10-16", "semanal": false, "podePular": true }
+    ],
+    "feitasHoje": [
+      { "id": "o-302", "tarefa": "Fazer o café da manhã", "estado": "concluida", "podeDesfazer": true },
+      { "id": "o-303", "tarefa": "Varrer a varanda", "estado": "pulada", "podeDesfazer": true }
+    ],
+    "pendenciasAntigas": [
+      { "tarefa": "Pendurar a roupa", "quantidade": 2, "podePularTodas": true, "ocorrencias": [
+        { "id": "o-401", "dataPrevista": "2026-10-08", "podePular": true },
+        { "id": "o-402", "dataPrevista": "2026-10-10", "podePular": true } ] },
+      { "tarefa": "Regar as plantas", "quantidade": 1, "podePularTodas": true, "ocorrencias": [
+        { "id": "o-403", "dataPrevista": "2026-10-11", "podePular": true } ] }
+    ]
+  }
+}

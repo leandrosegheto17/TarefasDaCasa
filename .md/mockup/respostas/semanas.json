@@ -1,0 +1,8 @@
+{
+  "semanas": [
+    { "inicio": "2026-10-05", "fim": "2026-10-11", "percentual": 82, "semTarefasPrevistas": false },
+    { "inicio": "2026-09-28", "fim": "2026-10-04", "percentual": 77, "semTarefasPrevistas": false },
+    { "inicio": "2026-09-21", "fim": "2026-09-27", "percentual": 64, "semTarefasPrevistas": false },
+    { "inicio": "2026-09-14", "fim": "2026-09-20", "percentual": null, "semTarefasPrevistas": true }
+  ]
+}

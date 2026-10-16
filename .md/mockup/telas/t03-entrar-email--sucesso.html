@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T03 Entrar com e-mail · formulário</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+</head>
+<body>
+<div class="layout layout--simples">
+  <main class="principal">
+    <header class="cabecalho cabecalho--voltar">
+      <a class="botao-voltar" href="t01-entrada--sucesso.html" aria-label="Voltar"><span class="icone i-voltar" aria-hidden="true"></span></a>
+      <h1>Entrar com e-mail</h1>
+    </header>
+    <form class="formulario" novalidate>
+      <div class="campo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" inputmode="email"></div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <div class="campo-senha"><input id="senha" type="password" autocomplete="current-password"><button class="mostrar" type="button" aria-label="Mostrar senha" aria-pressed="false"><span class="icone i-olho" aria-hidden="true"></span></button></div>
+      </div>
+      <button class="botao botao--principal botao--bloco" type="submit">Entrar</button>
+      <p class="nota"><span class="icone i-info" aria-hidden="true"></span>Esqueceu a senha? Peça a outro responsável um código de acesso.</p>
+    </form>
+  </main>
+</div>
+</body>
+</html>
