@@ -1,6 +1,6 @@
 # Fundação — Especificação
 
-> Feature 1 de 5 (AD-001). **Spec aprovada pelo usu�rio em 2026-10-27.** Entrada: [necessidade.md](../../produto/necessidade.md) (D-01 a D-06) e [padrao-ljs.md](../../produto/padrao-ljs.md). O design desta feature é a arquitetura comum do projeto. Referência de outro app no mesmo padrão: `C:\Leandro\Projetos\GestaoDaPelada_LJS\.specs\features\fundacao\` (liberada em 2026-10-26). Ela serve só de consulta e não é fonte de requisito.
+> Feature 1 de 5 (AD-001). **Spec aprovada pelo usuário em 2026-10-27.** Entrada: [necessidade.md](../../produto/necessidade.md) (D-01 a D-06) e [padrao-ljs.md](../../produto/padrao-ljs.md). O design desta feature é a arquitetura comum do projeto. Referência de outro app no mesmo padrão: `C:\Leandro\Projetos\GestaoDaPelada_LJS\.specs\features\fundacao\` (liberada em 2026-10-26). Ela serve só de consulta e não é fonte de requisito.
 
 ## Problem Statement
 
