@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Semana · Tarefas da Casa</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../componentes.css">
+<style>
+  .semana { display: grid; gap: var(--esp-5); }
+  .semana__nav { display: flex; align-items: center; gap: var(--esp-2); }
+  .detalhe h2 { font: var(--peso-forte) var(--texto-g)/1.2 var(--fonte-titulo); margin: 0; }
+</style>
+</head>
+<body>
+<header class="faixa"><div class="faixa__dentro recuo">
+  <div><p class="faixa__apoio">26 de outubro a 1º de novembro</p><h1 class="faixa__titulo">Quem fez o quê</h1></div>
+  <div class="anel">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="anel__trilho" cx="36" cy="36" r="30"/><circle class="anel__valor" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="69.4"/></svg>
+    <div><strong class="anel__numero">12 de 19</strong><p class="anel__legenda">feitas até agora na semana</p></div>
+  </div>
+</div></header>
+
+<main class="pagina recuo semana">
+  <div class="semana__nav">
+    <a class="botao botao--secundario" href="#">← Semana anterior</a>
+    <button class="botao botao--secundario" disabled>Próxima semana →</button>
+  </div>
+
+  <div class="tabela-rolagem" tabindex="0" role="region" aria-label="Tarefas feitas por pessoa e por dia">
+    <table class="tabela-semana">
+      <thead>
+        <tr><th scope="col">Pessoa</th><th scope="col">Seg 26</th><th scope="col" class="hoje">Ter 27 · hoje</th><th scope="col">Qua 28</th><th scope="col">Qui 29</th><th scope="col">Sex 30</th><th scope="col">Sáb 31</th><th scope="col">Dom 1º</th><th scope="col">Semana</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Ana</th><td>2/2</td><td class="hoje">2/3</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td>4/5</td></tr>
+        <tr><th scope="row">Bruno</th><td>1/2</td><td class="hoje">0/3</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td>1/5</td></tr>
+        <tr><th scope="row">Pedro</th><td>2/2</td><td class="hoje">2/3</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td>4/5</td></tr>
+        <tr><th scope="row">Sofia</th><td>2/2</td><td class="hoje">1/2</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td>3/4</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><th scope="row">Família</th><td>7/8</td><td class="hoje">5/11</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td class="vazio">—</td><td>12/19</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <section class="cartao detalhe" aria-labelledby="t-detalhe">
+    <h2 id="t-detalhe">Segunda, 26 de outubro</h2>
+    <ol class="lista-tarefas">
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Dar comida ao Biscoito</strong><span class="item-tarefa__meta">Pedro · 07:25</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Comprar pão</strong><span class="item-tarefa__meta">Ana · 07:50</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Arrumar o quarto</strong><span class="item-tarefa__meta">Pedro · 08:10</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Louça do almoço</strong><span class="item-tarefa__meta">Ana · 13:30</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Guardar os brinquedos</strong><span class="item-tarefa__meta">Sofia · Ana marcou às 18:45</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Pôr a mesa do jantar</strong><span class="item-tarefa__meta">Sofia · Ana marcou às 19:40</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Louça do jantar</strong><span class="item-tarefa__meta">Era do Bruno · feita pela Ana às 21:30</span></div><span class="selo selo--sucesso">Feita</span></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Limpar o filtro do ar</strong><span class="item-tarefa__meta">Bruno · todo mês, dia 25</span></div><span class="selo selo--alerta">Não feita</span></li>
+    </ol>
+  </section>
+</main>
+
+<nav class="nav-principal" aria-label="Principal">
+  <a href="hoje.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hoje</a>
+  <a href="semana.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Semana</a>
+  <a href="nova-tarefa.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Tarefas</a>
+  <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2 1-4 3-4s3 1.5 3 4"/></svg>Casa</a>
+</nav>
+</body>
+</html>

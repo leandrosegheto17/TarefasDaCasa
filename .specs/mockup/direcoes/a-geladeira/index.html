@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direção A · Ímã de geladeira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Direção A: acolhedora e espaçada. Uma cor por pessoa, como ímãs na geladeira; cartões grandes por pessoa. */
+:root {
+  color-scheme: light;
+  --fundo: #eef3f7; --superficie: #ffffff; --texto: #1d2a36; --texto-suave: #4f6070; --borda: #c9d5df;
+  --primaria: #1f6fb2; --primaria-texto: #ffffff; --sucesso: #1d7a46; --sucesso-fundo: #e2f3e8; --alerta: #9a4a00; --alerta-fundo: #fdeedc;
+  --p-ana: #c2410c; --p-bruno: #1f6fb2; --p-pedro: #6d28d9; --p-sofia: #be185d;
+  --fonte-titulo: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --fonte-base: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --raio: 18px; --sombra: 0 2px 0 rgba(29, 42, 54, .08);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--texto); font: 400 16px/1.5 var(--fonte-base); }
+.topo { padding: 20px max(16px, env(safe-area-inset-left, 0px)) 8px max(16px, env(safe-area-inset-right, 0px)); max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
+.topo h1 { font: 600 32px/1.1 var(--fonte-titulo); margin: 0; }
+.topo .dia { color: var(--texto-suave); margin: 0 0 4px; font-weight: 600; }
+.placar { display: flex; align-items: center; gap: 12px; background: var(--superficie); border-radius: 999px; padding: 8px 16px 8px 8px; box-shadow: var(--sombra); }
+.placar .num { font: 600 20px/1 var(--fonte-titulo); background: var(--sucesso-fundo); color: var(--sucesso); border-radius: 999px; padding: 10px 14px; font-variant-numeric: tabular-nums; }
+main { max-width: 1180px; margin: 0 auto; padding: 8px max(16px, env(safe-area-inset-right, 0px)) 112px max(16px, env(safe-area-inset-left, 0px)); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; align-items: start; }
+.pessoa { background: var(--superficie); border-radius: var(--raio); box-shadow: var(--sombra); overflow: hidden; border-top: 8px solid var(--cor); }
+.pessoa header { display: flex; align-items: center; gap: 12px; padding: 14px 16px 6px; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--cor); color: #fff; display: grid; place-items: center; font: 600 20px/1 var(--fonte-titulo); flex: none; }
+.pessoa h2 { font: 600 22px/1.2 var(--fonte-titulo); margin: 0; }
+.pessoa .sub { margin: 0; color: var(--texto-suave); font-size: 14px; }
+ul { list-style: none; margin: 0; padding: 4px 8px 10px; }
+li { display: flex; align-items: center; gap: 12px; padding: 10px 8px; border-radius: 12px; }
+li + li { border-top: 1px dashed var(--borda); }
+.marcar { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--cor); background: var(--superficie); cursor: pointer; display: grid; place-items: center; }
+.marcar svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 3.5; fill: none; opacity: 0; }
+.marcar[aria-pressed="true"] { background: var(--cor); }
+.marcar[aria-pressed="true"] svg { opacity: 1; }
+.marcar:focus-visible { outline: 3px solid var(--texto); outline-offset: 3px; }
+.tarefa { min-width: 0; flex: 1; }
+.tarefa strong { display: block; font-weight: 700; }
+li.feita .tarefa strong { text-decoration: line-through; color: var(--texto-suave); }
+.meta { font-size: 14px; color: var(--texto-suave); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.selo { font-size: 13px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--alerta-fundo); color: var(--alerta); }
+.nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--superficie); border-top: 1px solid var(--borda); display: flex; justify-content: center; gap: 4px; padding: 8px max(16px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.nav a { min-width: 76px; min-height: 52px; display: grid; place-items: center; gap: 2px; text-decoration: none; color: var(--texto-suave); font-weight: 700; font-size: 13px; border-radius: 14px; padding: 4px 12px; }
+.nav a[aria-current="page"] { background: var(--sucesso-fundo); color: var(--sucesso); }
+.nav svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <div>
+    <p class="dia">Terça-feira, 27 de outubro</p>
+    <h1>Hoje na nossa casa</h1>
+  </div>
+  <div class="placar" aria-live="polite"><span class="num" id="placar">5 de 11</span> tarefas feitas</div>
+</header>
+<main>
+  <section class="pessoa" style="--cor: var(--p-ana)">
+    <header><span class="avatar" aria-hidden="true">A</span><div><h2>Ana</h2><p class="sub">2 de 3 feitas</p></div></header>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Comprar pão"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Comprar pão</strong><span class="meta"><span>Todo dia</span><span>Feita às 07:40</span></span></div></li>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Louça do almoço"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Louça do almoço</strong><span class="meta"><span>Todo dia</span><span>Feita às 13:12</span></span></div></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Trocar a roupa de cama"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Trocar a roupa de cama</strong><span class="meta"><span>Toda terça</span></span></div></li>
+    </ul>
+  </section>
+  <section class="pessoa" style="--cor: var(--p-bruno)">
+    <header><span class="avatar" aria-hidden="true">B</span><div><h2>Bruno</h2><p class="sub">0 de 3 feitas</p></div></header>
+    <ul>
+      <li><button class="marcar" aria-pressed="false" aria-label="Limpar o filtro do ar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Limpar o filtro do ar</strong><span class="meta"><span>Todo mês, dia 25</span><span class="selo">Atrasada 2 dias</span></span></div></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Levar o lixo"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Levar o lixo</strong><span class="meta"><span>Ter, qui e sáb</span></span></div></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Louça do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Louça do jantar</strong><span class="meta"><span>Todo dia</span></span></div></li>
+    </ul>
+  </section>
+  <section class="pessoa" style="--cor: var(--p-pedro)">
+    <header><span class="avatar" aria-hidden="true">P</span><div><h2>Pedro</h2><p class="sub">2 de 3 feitas</p></div></header>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Dar comida ao Biscoito"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Dar comida ao Biscoito</strong><span class="meta"><span>Todo dia</span><span>Feita às 07:30</span></span></div></li>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Arrumar o quarto"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Arrumar o quarto</strong><span class="meta"><span>Todo dia</span><span>Feita às 08:05</span></span></div></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Varrer a varanda"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Varrer a varanda</strong><span class="meta"><span>Toda terça</span></span></div></li>
+    </ul>
+  </section>
+  <section class="pessoa" style="--cor: var(--p-sofia)">
+    <header><span class="avatar" aria-hidden="true">S</span><div><h2>Sofia</h2><p class="sub">1 de 2 feitas · quem marca é a Ana</p></div></header>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Guardar os brinquedos"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Guardar os brinquedos</strong><span class="meta"><span>Todo dia</span><span>Ana marcou às 19:00</span></span></div></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Pôr a mesa do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Pôr a mesa do jantar</strong><span class="meta"><span>Todo dia</span></span></div></li>
+    </ul>
+  </section>
+</main>
+<nav class="nav" aria-label="Principal">
+  <a href="#" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hoje</a>
+  <a href="#"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Semana</a>
+  <a href="#"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Tarefas</a>
+  <a href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2 1-4 3-4s3 1.5 3 4"/></svg>Casa</a>
+</nav>
+<script>
+document.querySelectorAll('.marcar').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', on); b.closest('li').classList.toggle('feita', on);
+    document.getElementById('placar').textContent = document.querySelectorAll('.marcar[aria-pressed="true"]').length + ' de 11';
+  });
+});
+</script>
+</body>
+</html>

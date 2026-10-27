@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de estilo · Tarefas da Casa</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="componentes.css">
+<style>
+  .guia { max-width: var(--largura-max); margin: 0 auto; padding-block: var(--esp-6) var(--esp-12); display: grid; gap: var(--esp-8); }
+  .guia h2 { font: var(--peso-forte) var(--texto-g)/1.2 var(--fonte-titulo); margin: 0 0 var(--esp-3); }
+  .guia h3 { font-size: var(--texto-p); text-transform: uppercase; letter-spacing: .06em; color: var(--cor-texto-suave); margin: var(--esp-4) 0 var(--esp-2); }
+  .linha { display: flex; flex-wrap: wrap; gap: var(--esp-3); align-items: center; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--esp-4); align-items: start; }
+  .amostra { display: grid; gap: var(--esp-1); font-size: var(--texto-p); }
+  .amostra i { display: block; height: var(--alvo-toque); border-radius: var(--raio-p); border: var(--borda-fina) solid var(--cor-borda); }
+  .contraste { border-collapse: collapse; width: 100%; min-width: 520px; font-variant-numeric: tabular-nums; }
+  .contraste th, .contraste td { text-align: left; padding: var(--esp-2) var(--esp-3); border-bottom: var(--borda-fina) solid var(--cor-borda); }
+  .exemplo { padding: 2px var(--esp-2); border-radius: var(--raio-selo); font-weight: var(--peso-forte); }
+</style>
+</head>
+<body>
+<header class="faixa"><div class="faixa__dentro recuo">
+  <div><p class="faixa__apoio">Direção C · Rotina em colunas</p><h1 class="faixa__titulo">Guia de estilo</h1></div>
+  <div class="anel">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="anel__trilho" cx="36" cy="36" r="30"/><circle class="anel__valor" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="102.8"/></svg>
+    <div><strong class="anel__numero">5 de 11</strong><p class="anel__legenda">anel de progresso</p></div>
+  </div>
+</div></header>
+
+<main class="guia recuo">
+  <section>
+    <h2>Cores</h2>
+    <div class="grade">
+      <div class="amostra"><i style="background: var(--cor-faixa)"></i>Faixa e primária · <code>--cor-faixa</code></div>
+      <div class="amostra"><i style="background: var(--cor-destaque)"></i>Destaque · <code>--cor-destaque</code></div>
+      <div class="amostra"><i style="background: var(--cor-fundo)"></i>Fundo · <code>--cor-fundo</code></div>
+      <div class="amostra"><i style="background: var(--cor-superficie)"></i>Superfície · <code>--cor-superficie</code></div>
+      <div class="amostra"><i style="background: var(--cor-sucesso)"></i>Feita · <code>--cor-sucesso</code></div>
+      <div class="amostra"><i style="background: var(--cor-alerta)"></i>Atrasada · <code>--cor-alerta</code></div>
+      <div class="amostra"><i style="background: var(--cor-erro)"></i>Erro · <code>--cor-erro</code></div>
+      <div class="amostra"><i style="background: var(--cor-borda-controle)"></i>Contorno de controle · <code>--cor-borda-controle</code></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tipografia</h2>
+    <p style="font: var(--peso-forte) var(--texto-gg)/1.1 var(--fonte-titulo); margin: 0">Sora 30 · títulos de página</p>
+    <p style="font: var(--peso-forte) var(--texto-g)/1.2 var(--fonte-titulo); margin: var(--esp-2) 0 0">Sora 19 · títulos de coluna e cartão</p>
+    <p style="margin: var(--esp-2) 0 0">Source Sans 3, 17 · texto corrido e nomes de tarefa. Pensado para ser lido de relance no celular.</p>
+    <p style="font-size: var(--texto-p); color: var(--cor-texto-suave); margin: var(--esp-1) 0 0">Source Sans 3, 14 · detalhes: repetição, hora em que foi feita, quem marcou.</p>
+  </section>
+
+  <section>
+    <h2>Botões</h2>
+    <div class="linha">
+      <button class="botao botao--primario">Salvar tarefa</button>
+      <button class="botao botao--secundario">Cancelar</button>
+      <button class="botao botao--texto">Ver a semana</button>
+      <button class="botao botao--primario" disabled>Salvando…</button>
+    </div>
+    <h3>Marcar feita</h3>
+    <div class="linha">
+      <button class="marcar" aria-pressed="false" aria-label="Pendente"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button> pendente
+      <button class="marcar" aria-pressed="true" aria-label="Feita"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button> feita
+      <button class="marcar" aria-pressed="false" aria-label="Sem permissão" disabled><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button> sem permissão
+    </div>
+    <h3>Abas e selos</h3>
+    <div class="linha">
+      <button class="aba" aria-selected="true">Ana</button><button class="aba" aria-selected="false">Bruno</button>
+      <span class="selo selo--alerta">Atrasada 2 dias</span><span class="selo selo--sucesso">Feita</span><span class="selo selo--neutro">Perfil sem login</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Campos</h2>
+    <div class="grade">
+      <div class="campo">
+        <label class="campo__rotulo" for="g1">O que precisa ser feito</label>
+        <input class="campo__controle" id="g1" value="Levar o lixo">
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="g2">Quem faz</label>
+        <select class="campo__controle" id="g2"><option>Bruno</option><option>Ana</option></select>
+        <p class="campo__ajuda">Perfis sem login aparecem na lista; quem marca é o adulto responsável.</p>
+      </div>
+      <div class="campo campo--erro">
+        <label class="campo__rotulo" for="g3">O que precisa ser feito</label>
+        <input class="campo__controle" id="g3" value="" aria-invalid="true" aria-describedby="g3e">
+        <p class="campo__erro" id="g3e">Escreva o nome da tarefa, por exemplo "Varrer a varanda".</p>
+      </div>
+    </div>
+    <fieldset class="opcoes" style="margin-top: var(--esp-4)">
+      <legend>Repete</legend>
+      <label class="opcao"><input type="radio" name="g-rep"><span>Não repete</span></label>
+      <label class="opcao"><input type="radio" name="g-rep" checked><span>Todo dia</span></label>
+      <label class="opcao"><input type="radio" name="g-rep"><span>Dias da semana</span></label>
+    </fieldset>
+  </section>
+
+  <section>
+    <h2>Lista de tarefas e cartão</h2>
+    <div class="grade">
+      <div class="coluna">
+        <h3 class="coluna__titulo" style="margin: 0">Pedro <span class="coluna__conta">1/2</span></h3>
+        <ol class="lista-tarefas">
+          <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Arrumar o quarto</strong><span class="item-tarefa__meta">Todo dia · feita às 08:05</span></div><button class="marcar" aria-pressed="true" aria-label="Arrumar o quarto"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+          <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Varrer a varanda</strong><span class="item-tarefa__meta">Toda terça</span></div><button class="marcar" aria-pressed="false" aria-label="Varrer a varanda"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+        </ol>
+      </div>
+      <div class="cartao"><h3 class="cartao__titulo">Cartão</h3><p style="margin: 0">Agrupa um bloco que se lê sozinho, como o detalhe de um dia na Semana.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Avisos</h2>
+    <div class="grade">
+      <div class="aviso aviso--sucesso" role="status"><p><strong>Tarefa salva</strong>Ela aparece na lista do Pedro a partir de amanhã.</p></div>
+      <div class="aviso aviso--alerta" role="status"><p><strong>Lembretes desligados</strong>Instale o app na tela inicial para receber os lembretes do dia.</p></div>
+      <div class="aviso aviso--erro" role="alert"><p><strong>Não deu para salvar</strong>Sem conexão agora. Tente de novo quando a internet voltar.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Estados</h2>
+    <div class="grade">
+      <div class="cartao estado">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+        <h3 class="estado__titulo">Nenhuma tarefa para hoje</h3>
+        <p class="estado__texto">Cadastre a primeira tarefa da casa e escolha quem faz.</p>
+        <a class="botao botao--primario" href="telas/nova-tarefa.html">Nova tarefa</a>
+      </div>
+      <div class="cartao" aria-busy="true" aria-label="Carregando tarefas">
+        <span class="esqueleto" style="height: var(--esp-6); width: 40%"></span>
+        <div class="lista-tarefas"><span class="esqueleto esqueleto--linha"></span><span class="esqueleto esqueleto--linha"></span><span class="esqueleto esqueleto--linha"></span></div>
+      </div>
+      <div class="cartao estado">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01"/></svg>
+        <h3 class="estado__titulo">Não deu para carregar as tarefas</h3>
+        <p class="estado__texto">O servidor não respondeu. Confira a internet e tente de novo.</p>
+        <button class="botao botao--secundario">Tentar de novo</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contraste dos pares usados</h2>
+    <div class="tabela-rolagem" tabindex="0" role="region" aria-label="Tabela de contraste">
+      <table class="contraste">
+        <thead><tr><th>Texto</th><th>Fundo</th><th>Razão</th><th>Mínimo</th></tr></thead>
+        <tbody>
+          <tr><td>texto</td><td>superfície</td><td>16,0:1</td><td>4,5:1</td></tr>
+          <tr><td>texto</td><td>fundo</td><td>14,3:1</td><td>4,5:1</td></tr>
+          <tr><td>texto-suave</td><td>superfície</td><td>7,5:1</td><td>4,5:1</td></tr>
+          <tr><td>texto-suave</td><td>fundo</td><td>6,7:1</td><td>4,5:1</td></tr>
+          <tr><td>faixa-texto</td><td>faixa</td><td>16,0:1</td><td>4,5:1</td></tr>
+          <tr><td>faixa-suave</td><td>faixa</td><td>9,8:1</td><td>4,5:1</td></tr>
+          <tr><td>destaque (nav ativa)</td><td>faixa</td><td>8,8:1</td><td>4,5:1</td></tr>
+          <tr><td>destaque-texto</td><td>destaque</td><td>8,8:1</td><td>4,5:1</td></tr>
+          <tr><td>primária-texto</td><td>primária</td><td>16,0:1</td><td>4,5:1</td></tr>
+          <tr><td>branco (✓)</td><td>sucesso</td><td>6,0:1</td><td>3:1</td></tr>
+          <tr><td>sucesso</td><td>sucesso-fundo</td><td>5,2:1</td><td>4,5:1</td></tr>
+          <tr><td>alerta</td><td>alerta-fundo</td><td>5,8:1</td><td>4,5:1</td></tr>
+          <tr><td>erro</td><td>erro-fundo</td><td>5,7:1</td><td>4,5:1</td></tr>
+          <tr><td>erro</td><td>superfície</td><td>6,6:1</td><td>4,5:1</td></tr>
+          <tr><td>contorno de controle</td><td>superfície</td><td>4,2:1</td><td>3:1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body>
+</html>

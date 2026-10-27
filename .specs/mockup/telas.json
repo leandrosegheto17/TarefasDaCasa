@@ -1,0 +1,7 @@
+{
+  "viewports": { "pc": { "width": 1280, "height": 800 }, "celular": { "width": 390, "height": 844 } },
+  "telas": [
+    { "id": "T1", "nome": "Página provisória", "estado": "sucesso", "mockup": "telas/provisoria.html", "rota": "/", "viewports": ["pc", "celular"], "esperar": "main" },
+    { "id": "T2", "nome": "Sem conexão", "estado": "erro", "mockup": "telas/offline.html", "rota": "/offline.html", "viewports": ["pc", "celular"], "esperar": "main" }
+  ]
+}

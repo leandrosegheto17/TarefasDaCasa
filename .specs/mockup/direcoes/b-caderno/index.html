@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direção B · Caderno da casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Direção B: sóbria e densa. Uma lista só, separada por período do dia; a pessoa aparece como etiqueta. Barra lateral no PC. */
+:root {
+  color-scheme: light;
+  --fundo: #f6f7f4; --superficie: #ffffff; --texto: #17201b; --texto-suave: #4d5a52; --borda: #d6ddd7;
+  --primaria: #1b6b4f; --primaria-texto: #ffffff; --primaria-fundo: #e1efe8; --alerta: #8a3b12; --alerta-fundo: #fbe9dd;
+  --fonte-titulo: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --fonte-base: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --raio: 8px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--texto); font: 400 16px/1.45 var(--fonte-base); }
+.app { display: grid; grid-template-columns: 1fr; min-height: 100vh; }
+.lateral { display: none; }
+@media (min-width: 900px) {
+  .app { grid-template-columns: 240px 1fr; }
+  .lateral { display: flex; flex-direction: column; gap: 4px; padding: 24px 16px; border-right: 1px solid var(--borda); background: var(--superficie); }
+  .lateral .marca { font: 700 20px/1.2 var(--fonte-titulo); margin: 0 8px 20px; }
+  .lateral a { padding: 10px 12px; border-radius: var(--raio); text-decoration: none; color: var(--texto); font-weight: 700; }
+  .lateral a[aria-current="page"] { background: var(--primaria-fundo); color: var(--primaria); }
+  .rodape-nav { display: none !important; }
+}
+.conteudo { padding: 20px max(16px, env(safe-area-inset-right, 0px)) 96px max(16px, env(safe-area-inset-left, 0px)); max-width: 820px; width: 100%; }
+.cab { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; border-bottom: 2px solid var(--texto); padding-bottom: 12px; }
+.cab h1 { font: 700 28px/1.1 var(--fonte-titulo); margin: 0; }
+.cab p { margin: 0; color: var(--texto-suave); }
+.barra { display: flex; align-items: center; gap: 10px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.barra .trilho { width: 140px; height: 10px; border-radius: 5px; background: var(--borda); overflow: hidden; }
+.barra .cheio { display: block; height: 100%; width: 45%; background: var(--primaria); }
+.filtros { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 4px; }
+.filtros button { font: 700 14px/1 var(--fonte-base); min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--borda); background: var(--superficie); color: var(--texto); cursor: pointer; }
+.filtros button[aria-pressed="true"] { background: var(--texto); color: var(--superficie); border-color: var(--texto); }
+h2 { font: 700 13px/1 var(--fonte-base); text-transform: uppercase; letter-spacing: .08em; color: var(--texto-suave); margin: 22px 0 6px; }
+ul { list-style: none; margin: 0; padding: 0; background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio); }
+li { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; padding: 8px 12px; min-height: 60px; }
+li + li { border-top: 1px solid var(--borda); }
+.marcar { width: 44px; height: 44px; border-radius: var(--raio); border: 2px solid var(--texto-suave); background: var(--superficie); cursor: pointer; display: grid; place-items: center; }
+.marcar svg { width: 22px; height: 22px; stroke: var(--primaria-texto); stroke-width: 3; fill: none; opacity: 0; }
+.marcar[aria-pressed="true"] { background: var(--primaria); border-color: var(--primaria); }
+.marcar[aria-pressed="true"] svg { opacity: 1; }
+.marcar:focus-visible, .filtros button:focus-visible { outline: 3px solid var(--primaria); outline-offset: 2px; }
+.tarefa { min-width: 0; }
+.tarefa strong { display: block; }
+li.feita .tarefa strong { color: var(--texto-suave); text-decoration: line-through; }
+.meta { font-size: 14px; color: var(--texto-suave); }
+.quem { font-size: 14px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--fundo); border: 1px solid var(--borda); white-space: nowrap; }
+.selo { color: var(--alerta); background: var(--alerta-fundo); font-weight: 700; padding: 1px 8px; border-radius: 4px; }
+.rodape-nav { position: fixed; left: 0; right: 0; bottom: 0; display: flex; background: var(--superficie); border-top: 1px solid var(--borda); padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.rodape-nav a { flex: 1; min-height: 48px; display: grid; place-items: center; text-decoration: none; color: var(--texto-suave); font-weight: 700; font-size: 14px; }
+.rodape-nav a[aria-current="page"] { color: var(--primaria); box-shadow: inset 0 3px 0 var(--primaria); }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="lateral" aria-label="Principal">
+    <p class="marca">Tarefas da Casa</p>
+    <a href="#" aria-current="page">Hoje</a><a href="#">Semana</a><a href="#">Tarefas</a><a href="#">Casa</a>
+  </nav>
+  <main class="conteudo">
+    <div class="cab">
+      <div><p>Terça-feira, 27 de outubro</p><h1>Hoje</h1></div>
+      <div class="barra" aria-live="polite"><span class="trilho"><span class="cheio" id="cheio"></span></span><span id="placar">5 de 11</span></div>
+    </div>
+    <div class="filtros" role="group" aria-label="Mostrar tarefas de">
+      <button aria-pressed="true">Todos</button><button aria-pressed="false">Ana</button><button aria-pressed="false">Bruno</button><button aria-pressed="false">Pedro</button><button aria-pressed="false">Sofia</button>
+    </div>
+    <h2>Atrasadas</h2>
+    <ul>
+      <li><button class="marcar" aria-pressed="false" aria-label="Limpar o filtro do ar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Limpar o filtro do ar</strong><span class="meta">Todo mês, dia 25 · <span class="selo">2 dias</span></span></div><span class="quem">Bruno</span></li>
+    </ul>
+    <h2>Manhã</h2>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Dar comida ao Biscoito"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Dar comida ao Biscoito</strong><span class="meta">Todo dia · feita às 07:30</span></div><span class="quem">Pedro</span></li>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Comprar pão"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Comprar pão</strong><span class="meta">Todo dia · feita às 07:40</span></div><span class="quem">Ana</span></li>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Arrumar o quarto"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Arrumar o quarto</strong><span class="meta">Todo dia · feita às 08:05</span></div><span class="quem">Pedro</span></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Trocar a roupa de cama"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Trocar a roupa de cama</strong><span class="meta">Toda terça</span></div><span class="quem">Ana</span></li>
+    </ul>
+    <h2>Tarde</h2>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Louça do almoço"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Louça do almoço</strong><span class="meta">Todo dia · feita às 13:12</span></div><span class="quem">Ana</span></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Varrer a varanda"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Varrer a varanda</strong><span class="meta">Toda terça</span></div><span class="quem">Pedro</span></li>
+    </ul>
+    <h2>Noite</h2>
+    <ul>
+      <li class="feita"><button class="marcar" aria-pressed="true" aria-label="Guardar os brinquedos"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Guardar os brinquedos</strong><span class="meta">Todo dia · Ana marcou às 19:00</span></div><span class="quem">Sofia</span></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Levar o lixo"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Levar o lixo</strong><span class="meta">Ter, qui e sáb</span></div><span class="quem">Bruno</span></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Pôr a mesa do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Pôr a mesa do jantar</strong><span class="meta">Todo dia</span></div><span class="quem">Sofia</span></li>
+      <li><button class="marcar" aria-pressed="false" aria-label="Louça do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><div class="tarefa"><strong>Louça do jantar</strong><span class="meta">Todo dia</span></div><span class="quem">Bruno</span></li>
+    </ul>
+  </main>
+</div>
+<nav class="rodape-nav" aria-label="Principal no celular">
+  <a href="#" aria-current="page">Hoje</a><a href="#">Semana</a><a href="#">Tarefas</a><a href="#">Casa</a>
+</nav>
+<script>
+document.querySelectorAll('.marcar').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', on); b.closest('li').classList.toggle('feita', on);
+    var n = document.querySelectorAll('.marcar[aria-pressed="true"]').length;
+    document.getElementById('placar').textContent = n + ' de 11';
+    document.getElementById('cheio').style.width = Math.round(n / 11 * 100) + '%';
+  });
+});
+</script>
+</body>
+</html>

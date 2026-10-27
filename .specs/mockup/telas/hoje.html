@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hoje · Tarefas da Casa</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../componentes.css">
+</head>
+<body>
+<header class="faixa"><div class="faixa__dentro recuo">
+  <div><p class="faixa__apoio">Terça-feira, 27 de outubro</p><h1 class="faixa__titulo">Rotina de hoje</h1></div>
+  <div class="anel" aria-live="polite">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="anel__trilho" cx="36" cy="36" r="30"/><circle class="anel__valor" id="valor" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="102.8"/></svg>
+    <div><strong class="anel__numero" id="placar">5 de 11</strong><p class="anel__legenda">feitas pela família</p></div>
+  </div>
+</div></header>
+
+<div class="abas abas--pessoas recuo" role="tablist" aria-label="Pessoa">
+  <button class="aba" role="tab" aria-selected="true" data-alvo="ana">Ana</button>
+  <button class="aba" role="tab" aria-selected="false" data-alvo="bruno">Bruno</button>
+  <button class="aba" role="tab" aria-selected="false" data-alvo="pedro">Pedro</button>
+  <button class="aba" role="tab" aria-selected="false" data-alvo="sofia">Sofia</button>
+</div>
+
+<main class="quadro quadro--pessoas recuo">
+  <section class="coluna" id="ana" aria-labelledby="t-ana">
+    <h2 class="coluna__titulo" id="t-ana">Ana <span class="coluna__conta">2/3</span></h2>
+    <ol class="lista-tarefas">
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Comprar pão</strong><span class="item-tarefa__meta">Todo dia · feita às 07:40</span></div><button class="marcar" aria-pressed="true" aria-label="Comprar pão"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Louça do almoço</strong><span class="item-tarefa__meta">Todo dia · feita às 13:12</span></div><button class="marcar" aria-pressed="true" aria-label="Louça do almoço"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Trocar a roupa de cama</strong><span class="item-tarefa__meta">Toda terça</span></div><button class="marcar" aria-pressed="false" aria-label="Trocar a roupa de cama"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="bruno" aria-labelledby="t-bruno" hidden>
+    <h2 class="coluna__titulo" id="t-bruno">Bruno <span class="coluna__conta">0/3</span></h2>
+    <ol class="lista-tarefas">
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Limpar o filtro do ar</strong><span class="item-tarefa__meta">Todo mês, dia 25</span><br><span class="selo selo--alerta">Atrasada 2 dias</span></div><button class="marcar" aria-pressed="false" aria-label="Limpar o filtro do ar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Levar o lixo</strong><span class="item-tarefa__meta">Ter, qui e sáb</span></div><button class="marcar" aria-pressed="false" aria-label="Levar o lixo"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Louça do jantar</strong><span class="item-tarefa__meta">Todo dia</span></div><button class="marcar" aria-pressed="false" aria-label="Louça do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="pedro" aria-labelledby="t-pedro" hidden>
+    <h2 class="coluna__titulo" id="t-pedro">Pedro <span class="coluna__conta">2/3</span></h2>
+    <ol class="lista-tarefas">
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Dar comida ao Biscoito</strong><span class="item-tarefa__meta">Todo dia · feita às 07:30</span></div><button class="marcar" aria-pressed="true" aria-label="Dar comida ao Biscoito"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Arrumar o quarto</strong><span class="item-tarefa__meta">Todo dia · feita às 08:05</span></div><button class="marcar" aria-pressed="true" aria-label="Arrumar o quarto"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Varrer a varanda</strong><span class="item-tarefa__meta">Toda terça</span></div><button class="marcar" aria-pressed="false" aria-label="Varrer a varanda"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="sofia" aria-labelledby="t-sofia" hidden>
+    <h2 class="coluna__titulo" id="t-sofia">Sofia <span class="coluna__conta">1/2</span></h2>
+    <p class="coluna__nota">Perfil sem login · quem marca é a Ana</p>
+    <ol class="lista-tarefas">
+      <li class="item-tarefa item-tarefa--feita"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Guardar os brinquedos</strong><span class="item-tarefa__meta">Todo dia · Ana marcou às 19:00</span></div><button class="marcar" aria-pressed="true" aria-label="Guardar os brinquedos"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="item-tarefa"><div class="item-tarefa__texto"><strong class="item-tarefa__nome">Pôr a mesa do jantar</strong><span class="item-tarefa__meta">Todo dia</span></div><button class="marcar" aria-pressed="false" aria-label="Pôr a mesa do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+</main>
+
+<nav class="nav-principal" aria-label="Principal">
+  <a href="hoje.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hoje</a>
+  <a href="semana.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Semana</a>
+  <a href="nova-tarefa.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Tarefas</a>
+  <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2 1-4 3-4s3 1.5 3 4"/></svg>Casa</a>
+</nav>
+
+<script>
+var C = 188.5;
+document.querySelectorAll('.marcar').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', on);
+    b.closest('.item-tarefa').classList.toggle('item-tarefa--feita', on);
+    var n = document.querySelectorAll('.marcar[aria-pressed="true"]').length;
+    document.getElementById('placar').textContent = n + ' de 11';
+    document.getElementById('valor').setAttribute('stroke-dashoffset', (C * (1 - n / 11)).toFixed(1));
+  });
+});
+document.querySelectorAll('.abas--pessoas .aba').forEach(function (t) {
+  t.addEventListener('click', function () {
+    document.querySelectorAll('.abas--pessoas .aba').forEach(function (o) { o.setAttribute('aria-selected', o === t); });
+    document.querySelectorAll('.quadro--pessoas .coluna').forEach(function (c) { c.hidden = c.id !== t.dataset.alvo; });
+  });
+});
+</script>
+</body>
+</html>

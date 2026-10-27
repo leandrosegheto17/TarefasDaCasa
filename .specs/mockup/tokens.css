@@ -1,0 +1,92 @@
+/* Tarefas da Casa: guia de estilo (direção C, "Rotina em colunas", escolhida em 2026-10-27).
+   Única fonte de cores, fontes, tamanhos, espaços, raios, sombras e quebras.
+   O app copia este arquivo byte a byte (FUN-26). Valor novo vira token aqui primeiro. */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
+
+:root {
+  color-scheme: light;
+
+  /* cores: base */
+  --cor-fundo: #f3f2ee;
+  --cor-superficie: #ffffff;
+  --cor-texto: #14213d;
+  --cor-texto-suave: #4a5470;
+  --cor-borda: #d9d7cf;
+  --cor-borda-controle: #767b8c;
+
+  /* cores: ação */
+  --cor-primaria: #14213d;
+  --cor-primaria-texto: #ffffff;
+  --cor-destaque: #f2b632;
+  --cor-destaque-texto: #14213d;
+  --cor-foco: #14213d;
+
+  /* cores: faixa do topo e navegação */
+  --cor-faixa: #14213d;
+  --cor-faixa-texto: #ffffff;
+  --cor-faixa-suave: #c3cbe0;
+  --cor-faixa-trilho: #3a4560;
+
+  /* cores: estado */
+  --cor-sucesso: #2a6f4e;
+  --cor-sucesso-texto: #ffffff;
+  --cor-sucesso-fundo: #e3f1e9;
+  --cor-alerta: #9b3b0d;
+  --cor-alerta-fundo: #fbe7da;
+  --cor-erro: #b42318;
+  --cor-erro-fundo: #fdecea;
+  --cor-esqueleto: #e6e4dd;
+
+  /* tipografia */
+  --fonte-titulo: "Sora", "Segoe UI", system-ui, sans-serif;
+  --fonte-base: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --texto-pp: 13px;
+  --texto-p: 14px;
+  --texto-m: 17px;
+  --texto-g: 19px;
+  --texto-gg: 30px;
+  --altura-linha: 1.45;
+  --peso-normal: 400;
+  --peso-medio: 600;
+  --peso-forte: 700;
+
+  /* espaçamento (escala) */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-8: 32px;
+  --esp-12: 48px;
+
+  /* tamanhos */
+  --alvo-toque: 44px;
+  --largura-max: 1240px;
+  --largura-form: 560px;
+  --anel: 64px;
+  --icone: 22px;
+  --icone-estado: 48px;
+  --texto-anel: 22px;
+  --texto-aba: 15px;
+  --reserva-nav: 104px;
+  --altura-nav-item: 52px;
+  --largura-nav-item: 140px;
+  --altura-texto-longo: 88px;
+  --altura-linha-tarefa: 60px;
+  --largura-tabela-semana: 620px;
+
+  /* forma */
+  --borda-fina: 1px;
+  --borda-controle: 2px;
+  --raio-p: 10px;
+  --raio-m: 12px;
+  --raio-pilula: 999px;
+  --raio-selo: 4px;
+  --borda-aviso: 4px;
+  --sombra-1: 0 1px 2px rgba(20, 33, 61, 0.08);
+  --sombra-2: 0 6px 20px rgba(20, 33, 61, 0.12);
+
+  /* quebras (referência; as media queries usam o valor) */
+  --quebra-quadro: 960px;
+}

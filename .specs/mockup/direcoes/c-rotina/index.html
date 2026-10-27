@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direção C · Rotina em colunas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Direção C: faixa do dia em azul-tinta com anel de progresso; no PC uma coluna por pessoa (quadro), no celular as pessoas viram abas. */
+:root {
+  color-scheme: light;
+  --fundo: #f3f2ee; --superficie: #ffffff; --texto: #14213d; --texto-suave: #4a5470; --borda: #d9d7cf;
+  --faixa: #14213d; --faixa-texto: #ffffff; --faixa-suave: #c3cbe0; --destaque: #f2b632; --destaque-texto: #14213d;
+  --feito: #2a6f4e; --alerta: #9b3b0d; --alerta-fundo: #fbe7da;
+  --fonte-titulo: "Sora", "Segoe UI", system-ui, sans-serif;
+  --fonte-base: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --raio: 12px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--texto); font: 400 17px/1.45 var(--fonte-base); }
+.faixa { background: var(--faixa); color: var(--faixa-texto); }
+.faixa .dentro { max-width: 1240px; margin: 0 auto; padding: 20px max(16px, env(safe-area-inset-right, 0px)) 22px max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.faixa p { margin: 0; color: var(--faixa-suave); font-weight: 600; }
+.faixa h1 { margin: 2px 0 0; font: 700 30px/1.1 var(--fonte-titulo); }
+.anel { display: flex; align-items: center; gap: 12px; }
+.anel svg { width: 64px; height: 64px; transform: rotate(-90deg); }
+.anel circle { fill: none; stroke-width: 8; }
+.anel .base { stroke: rgba(255, 255, 255, .18); }
+.anel .valor { stroke: var(--destaque); stroke-linecap: round; transition: stroke-dashoffset .3s; }
+.anel strong { font: 700 22px/1 var(--fonte-titulo); font-variant-numeric: tabular-nums; display: block; }
+.abas { display: flex; gap: 8px; overflow-x: auto; max-width: 1240px; margin: 0 auto; padding: 14px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+.abas button { flex: none; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--borda); background: var(--superficie); color: var(--texto); font: 700 15px/1 var(--fonte-base); cursor: pointer; }
+.abas button[aria-selected="true"] { background: var(--destaque); border-color: var(--destaque); color: var(--destaque-texto); }
+.quadro { max-width: 1240px; margin: 0 auto; padding: 14px max(16px, env(safe-area-inset-right, 0px)) 96px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 16px; }
+.coluna { background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio); padding: 14px; min-width: 0; }
+.coluna[hidden] { display: none; }
+@media (min-width: 960px) {
+  .abas { display: none; }
+  .quadro { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-top: 20px; }
+  .coluna[hidden] { display: block !important; }
+}
+.coluna h2 { font: 700 19px/1.2 var(--fonte-titulo); margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.coluna h2 span { font: 600 14px/1 var(--fonte-base); color: var(--texto-suave); font-variant-numeric: tabular-nums; }
+.coluna .nota { margin: 4px 0 0; font-size: 14px; color: var(--texto-suave); }
+ol { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+li { display: grid; grid-template-columns: 1fr 44px; gap: 10px; align-items: center; padding: 10px 10px 10px 12px; border-radius: 10px; background: var(--fundo); }
+li.feita { background: transparent; border: 1px dashed var(--borda); }
+.tarefa { min-width: 0; }
+.tarefa strong { display: block; font-weight: 700; }
+li.feita .tarefa strong { color: var(--texto-suave); text-decoration: line-through; }
+.meta { font-size: 14px; color: var(--texto-suave); }
+.selo { display: inline-block; margin-top: 2px; font-size: 13px; font-weight: 700; color: var(--alerta); background: var(--alerta-fundo); padding: 1px 8px; border-radius: 4px; }
+.marcar { width: 44px; height: 44px; border-radius: 10px; border: 2px solid var(--texto); background: var(--superficie); cursor: pointer; display: grid; place-items: center; }
+.marcar svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 3; fill: none; opacity: 0; }
+.marcar[aria-pressed="true"] { background: var(--feito); border-color: var(--feito); }
+.marcar[aria-pressed="true"] svg { opacity: 1; }
+.marcar:focus-visible, .abas button:focus-visible { outline: 3px solid var(--texto); outline-offset: 2px; }
+.nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--faixa); display: flex; justify-content: center; padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.nav a { flex: 0 1 140px; min-height: 48px; display: grid; place-items: center; color: var(--faixa-suave); text-decoration: none; font-weight: 700; }
+.nav a[aria-current="page"] { color: var(--destaque); }
+</style>
+</head>
+<body>
+<header class="faixa"><div class="dentro">
+  <div><p>Terça-feira, 27 de outubro</p><h1>Rotina de hoje</h1></div>
+  <div class="anel" aria-live="polite">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="base" cx="36" cy="36" r="30"/><circle class="valor" id="valor" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="102.8"/></svg>
+    <div><strong id="placar">5 de 11</strong><p>feitas pela família</p></div>
+  </div>
+</div></header>
+<div class="abas" role="tablist" aria-label="Pessoa">
+  <button role="tab" aria-selected="true" data-alvo="ana">Ana</button><button role="tab" aria-selected="false" data-alvo="bruno">Bruno</button><button role="tab" aria-selected="false" data-alvo="pedro">Pedro</button><button role="tab" aria-selected="false" data-alvo="sofia">Sofia</button>
+</div>
+<main class="quadro">
+  <section class="coluna" id="ana"><h2>Ana <span>2/3</span></h2>
+    <ol>
+      <li class="feita"><div class="tarefa"><strong>Comprar pão</strong><span class="meta">Todo dia · 07:40</span></div><button class="marcar" aria-pressed="true" aria-label="Comprar pão"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="feita"><div class="tarefa"><strong>Louça do almoço</strong><span class="meta">Todo dia · 13:12</span></div><button class="marcar" aria-pressed="true" aria-label="Louça do almoço"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li><div class="tarefa"><strong>Trocar a roupa de cama</strong><span class="meta">Toda terça</span></div><button class="marcar" aria-pressed="false" aria-label="Trocar a roupa de cama"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="bruno" hidden><h2>Bruno <span>0/3</span></h2>
+    <ol>
+      <li><div class="tarefa"><strong>Limpar o filtro do ar</strong><span class="meta">Todo mês, dia 25</span><br><span class="selo">Atrasada 2 dias</span></div><button class="marcar" aria-pressed="false" aria-label="Limpar o filtro do ar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li><div class="tarefa"><strong>Levar o lixo</strong><span class="meta">Ter, qui e sáb</span></div><button class="marcar" aria-pressed="false" aria-label="Levar o lixo"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li><div class="tarefa"><strong>Louça do jantar</strong><span class="meta">Todo dia</span></div><button class="marcar" aria-pressed="false" aria-label="Louça do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="pedro" hidden><h2>Pedro <span>2/3</span></h2>
+    <ol>
+      <li class="feita"><div class="tarefa"><strong>Dar comida ao Biscoito</strong><span class="meta">Todo dia · 07:30</span></div><button class="marcar" aria-pressed="true" aria-label="Dar comida ao Biscoito"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li class="feita"><div class="tarefa"><strong>Arrumar o quarto</strong><span class="meta">Todo dia · 08:05</span></div><button class="marcar" aria-pressed="true" aria-label="Arrumar o quarto"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li><div class="tarefa"><strong>Varrer a varanda</strong><span class="meta">Toda terça</span></div><button class="marcar" aria-pressed="false" aria-label="Varrer a varanda"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+  <section class="coluna" id="sofia" hidden><h2>Sofia <span>1/2</span></h2><p class="nota">Quem marca é a Ana</p>
+    <ol>
+      <li class="feita"><div class="tarefa"><strong>Guardar os brinquedos</strong><span class="meta">Todo dia · Ana marcou às 19:00</span></div><button class="marcar" aria-pressed="true" aria-label="Guardar os brinquedos"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+      <li><div class="tarefa"><strong>Pôr a mesa do jantar</strong><span class="meta">Todo dia</span></div><button class="marcar" aria-pressed="false" aria-label="Pôr a mesa do jantar"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button></li>
+    </ol>
+  </section>
+</main>
+<nav class="nav" aria-label="Principal">
+  <a href="#" aria-current="page">Hoje</a><a href="#">Semana</a><a href="#">Tarefas</a><a href="#">Casa</a>
+</nav>
+<script>
+var C = 188.5;
+document.querySelectorAll('.marcar').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    b.setAttribute('aria-pressed', on); b.closest('li').classList.toggle('feita', on);
+    var n = document.querySelectorAll('.marcar[aria-pressed="true"]').length;
+    document.getElementById('placar').textContent = n + ' de 11';
+    document.getElementById('valor').setAttribute('stroke-dashoffset', (C * (1 - n / 11)).toFixed(1));
+  });
+});
+document.querySelectorAll('.abas button').forEach(function (t) {
+  t.addEventListener('click', function () {
+    document.querySelectorAll('.abas button').forEach(function (o) { o.setAttribute('aria-selected', o === t); });
+    document.querySelectorAll('.coluna').forEach(function (c) { c.hidden = c.id !== t.dataset.alvo; });
+  });
+});
+</script>
+</body>
+</html>

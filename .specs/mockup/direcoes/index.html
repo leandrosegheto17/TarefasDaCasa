@@ -1,0 +1,78 @@
+<title>Tarefas da Casa · Direções</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Galeria: uma faixa por direção, PC (1440, reduzido) ao lado do celular (390). Neutra para não competir com as direções. */
+:root {
+  --bg: #f4f5f6; --sup: #ffffff; --fg: #1b2026; --fg2: #545d68; --borda: #d5d9de; --acento: #1f5f8b;
+  --fonte: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #15181c; --sup: #1e2227; --fg: #e8ebee; --fg2: #a6afb9; --borda: #333a42; --acento: #7cb8e4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #15181c; --sup: #1e2227; --fg: #e8ebee; --fg2: #a6afb9; --borda: #333a42; --acento: #7cb8e4; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.5 var(--fonte); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+.topo, .direcao { max-width: 1320px; margin: 0 auto; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; text-wrap: balance; }
+.topo p { margin: 0; color: var(--fg2); max-width: 70ch; }
+.direcao { margin-top: 32px; border-top: 1px solid var(--borda); padding-top: 20px; }
+.direcao h2 { font-size: 22px; margin: 0; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.direcao h2 .letra { color: var(--acento); }
+.direcao .intencao { margin: 4px 0 0; color: var(--fg2); max-width: 75ch; }
+.direcao .abrir { color: var(--acento); font-weight: 700; }
+.telas { display: flex; gap: 20px; margin-top: 16px; align-items: flex-start; flex-wrap: wrap; }
+.pc { flex: 1 1 560px; min-width: 0; }
+.cel { flex: 0 0 auto; }
+.rotulo { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg2); margin: 0 0 6px; }
+.janela { position: relative; width: 100%; overflow: hidden; border: 1px solid var(--borda); border-radius: 10px; background: var(--sup); }
+.janela iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; }
+.cel .janela { width: 312px; height: 675px; border-radius: 28px; border-width: 6px; border-color: var(--fg); }
+.cel iframe { width: 390px; height: 844px; transform: scale(.8); }
+@media (max-width: 480px) { .cel .janela { width: 273px; height: 591px; } .cel iframe { transform: scale(.7); } }
+</style>
+
+<header class="topo">
+  <h1>Tarefas da Casa: três direções para a tela Hoje</h1>
+  <p>A mesma tela e os mesmos dados (família de exemplo com Ana, Bruno, Pedro e Sofia) em três aparências. Os botões de marcar funcionam. Escolha uma direção ou uma mistura, por exemplo "cores da A com a lista da B".</p>
+</header>
+
+<section class="direcao">
+  <h2><span class="letra">A</span> Ímã de geladeira</h2>
+  <p class="intencao">Acolhedora e espaçada. Cada pessoa tem uma cor e um cartão, como ímãs na geladeira, e as crianças se acham pela cor. Botões redondos grandes. <a class="abrir" href="a-geladeira/index.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="900"><iframe src="a-geladeira/index.html" title="Direção A no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="a-geladeira/index.html" title="Direção A no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="direcao">
+  <h2><span class="letra">B</span> Caderno da casa</h2>
+  <p class="intencao">Sóbria e densa. Uma lista só, na ordem do dia (atrasadas, manhã, tarde, noite), com o nome da pessoa como etiqueta e filtro por pessoa. Fonte feita para leitura fácil. <a class="abrir" href="b-caderno/index.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="900"><iframe src="b-caderno/index.html" title="Direção B no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="b-caderno/index.html" title="Direção B no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="direcao">
+  <h2><span class="letra">C</span> Rotina em colunas</h2>
+  <p class="intencao">Firme e organizada. Uma faixa azul-tinta com o anel de progresso do dia. No PC, uma coluna por pessoa, como um quadro; no celular, as pessoas viram abas. <a class="abrir" href="c-rotina/index.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="900"><iframe src="c-rotina/index.html" title="Direção C no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="c-rotina/index.html" title="Direção C no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<script>
+function ajustar() {
+  document.querySelectorAll('.pc .janela').forEach(function (j) {
+    var w = +j.dataset.largura, h = +j.dataset.altura, f = j.clientWidth / w;
+    var i = j.querySelector('iframe');
+    i.style.width = w + 'px'; i.style.height = h + 'px'; i.style.transform = 'scale(' + f + ')';
+    j.style.height = Math.round(h * f) + 'px';
+  });
+}
+ajustar();
+window.addEventListener('resize', ajustar);
+</script>

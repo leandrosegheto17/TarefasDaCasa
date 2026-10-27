@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nova tarefa · Tarefas da Casa</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../componentes.css">
+</head>
+<body>
+<header class="faixa"><div class="faixa__dentro recuo">
+  <div><p class="faixa__apoio">Tarefas da casa</p><h1 class="faixa__titulo">Nova tarefa</h1></div>
+</div></header>
+
+<main class="pagina recuo">
+  <form class="formulario" novalidate>
+    <div class="campo">
+      <label class="campo__rotulo" for="nome">O que precisa ser feito</label>
+      <input class="campo__controle" id="nome" name="nome" value="Regar as plantas" maxlength="60" autocomplete="off">
+      <p class="campo__ajuda">Até 60 letras. Ex.: Levar o lixo, Louça do jantar.</p>
+    </div>
+
+    <div class="campo">
+      <label class="campo__rotulo" for="responsavel">Quem faz</label>
+      <select class="campo__controle" id="responsavel" name="responsavel">
+        <option>Ana</option><option>Bruno</option><option selected>Pedro</option><option>Sofia (perfil sem login)</option>
+      </select>
+    </div>
+
+    <fieldset class="opcoes">
+      <legend>Repete</legend>
+      <label class="opcao"><input type="radio" name="repete" value="nao"><span>Não repete</span></label>
+      <label class="opcao"><input type="radio" name="repete" value="dia"><span>Todo dia</span></label>
+      <label class="opcao"><input type="radio" name="repete" value="semana" checked><span>Dias da semana</span></label>
+      <label class="opcao"><input type="radio" name="repete" value="mes"><span>Todo mês</span></label>
+    </fieldset>
+
+    <fieldset class="opcoes">
+      <legend>Em quais dias</legend>
+      <label class="opcao"><input type="checkbox" name="dia" value="seg" checked><span>Seg</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="ter"><span>Ter</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="qua" checked><span>Qua</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="qui"><span>Qui</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="sex" checked><span>Sex</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="sab"><span>Sáb</span></label>
+      <label class="opcao"><input type="checkbox" name="dia" value="dom"><span>Dom</span></label>
+    </fieldset>
+
+    <div class="campo">
+      <label class="campo__rotulo" for="obs">Observação (opcional)</label>
+      <textarea class="campo__controle" id="obs" name="obs" maxlength="200">As da varanda precisam de mais água no verão.</textarea>
+    </div>
+
+    <div class="acoes">
+      <button class="botao botao--primario" type="submit">Salvar tarefa</button>
+      <a class="botao botao--secundario" href="hoje.html">Cancelar</a>
+    </div>
+  </form>
+</main>
+
+<nav class="nav-principal" aria-label="Principal">
+  <a href="hoje.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hoje</a>
+  <a href="semana.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Semana</a>
+  <a href="nova-tarefa.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Tarefas</a>
+  <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2 1-4 3-4s3 1.5 3 4"/></svg>Casa</a>
+</nav>
+<script>document.querySelector('form').addEventListener('submit', function (e) { e.preventDefault(); });</script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 - **Data**: 2026-10-27
 - **Veredito**: construir
 - **Aprovado**: 2026-10-27, pelo usuário (fases 1 a 3)
+- **Mockup**: aprovado em 2026-10-27 — direção C "Rotina em colunas", só tema claro; `.specs/mockup/` (galeria: https://claude.ai/artifact/SCcivnZ8r7TvuNHahN9jba)
 - **Motivo de construir**: quero aprender (praticar o padrão LJS num app novo) e resolver a divisão de tarefas da família; há potencial de virar produto Free/Pro, ainda sem modelo de monetização definido.
 
 ## 1. Necessidade

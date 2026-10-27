@@ -1,0 +1,114 @@
+<title>Tarefas da Casa · Mockup</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Galeria neutra: guia de estilo e telas-chave, PC (reduzido) ao lado do celular. */
+:root {
+  --bg: #f4f5f6; --sup: #ffffff; --fg: #1b2026; --fg2: #545d68; --borda: #d5d9de; --acento: #1f5f8b;
+  --fonte: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #15181c; --sup: #1e2227; --fg: #e8ebee; --fg2: #a6afb9; --borda: #333a42; --acento: #7cb8e4; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #15181c; --sup: #1e2227; --fg: #e8ebee; --fg2: #a6afb9; --borda: #333a42; --acento: #7cb8e4; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.5 var(--fonte); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+.topo, .bloco { max-width: 1320px; margin: 0 auto; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; text-wrap: balance; }
+.topo p { margin: 0 0 6px; color: var(--fg2); max-width: 75ch; }
+.topo ul { margin: 8px 0 0; padding-left: 20px; color: var(--fg2); max-width: 75ch; }
+.bloco { margin-top: 32px; border-top: 1px solid var(--borda); padding-top: 20px; }
+.bloco h2 { font-size: 22px; margin: 0; }
+.bloco .intencao { margin: 4px 0 0; color: var(--fg2); max-width: 75ch; }
+a { color: var(--acento); font-weight: 700; }
+.telas { display: flex; gap: 20px; margin-top: 16px; align-items: flex-start; flex-wrap: wrap; }
+.pc { flex: 1 1 560px; min-width: 0; }
+.cel { flex: 0 0 auto; }
+.rotulo { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg2); margin: 0 0 6px; }
+.janela { position: relative; width: 100%; overflow: hidden; border: 1px solid var(--borda); border-radius: 10px; background: var(--sup); }
+.janela iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; }
+.cel .janela { width: 312px; height: 675px; border-radius: 28px; border-width: 6px; border-color: var(--fg); }
+.cel iframe { width: 390px; height: 844px; transform: scale(.8); }
+@media (max-width: 480px) { .cel .janela { width: 273px; height: 591px; } .cel iframe { transform: scale(.7); } }
+</style>
+
+<header class="topo">
+  <h1>Tarefas da Casa: guia de estilo e telas-chave</h1>
+  <p>Direção C (Rotina em colunas), escolhida em 27 de outubro de 2026. Tudo usa um único <code>tokens.css</code>, que o app vai copiar sem mudanças. Os dados são de uma família de exemplo.</p>
+  <ul>
+    <li><strong>Hoje</strong>, <strong>Semana</strong> e <strong>Nova tarefa</strong> mostram o núcleo do app (features 3 e 4).</li>
+    <li><strong>Página provisória</strong> e <strong>Sem conexão</strong> entram já na fundação e são comparadas no CI.</li>
+    <li>Só tema claro por enquanto.</li>
+  </ul>
+</header>
+
+<section class="bloco">
+  <h2>Guia de estilo</h2>
+  <p class="intencao">Cores, tipografia, botões, campos, lista de tarefas, avisos, estados vazio, carregando e erro, e a tabela de contraste. <a href="guia.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="2700"><iframe src="guia.html" title="Guia de estilo" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Hoje</h2>
+  <p class="intencao">Tarefas do dia por pessoa. No PC, uma coluna por pessoa; no celular, abas. O anel mostra quanto a família já fez. <a href="telas/hoje.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="900"><iframe src="telas/hoje.html" title="Hoje no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="telas/hoje.html" title="Hoje no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Semana</h2>
+  <p class="intencao">Quantas tarefas cada pessoa fez em cada dia e o detalhe de um dia, incluindo quem fez a tarefa de outra pessoa. No celular, a tabela rola de lado e o nome fica fixo. <a href="telas/semana.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="1100"><iframe src="telas/semana.html" title="Semana no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="telas/semana.html" title="Semana no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Nova tarefa</h2>
+  <p class="intencao">Nome, quem faz (inclusive perfis sem login), como repete e observação. <a href="telas/nova-tarefa.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="900"><iframe src="telas/nova-tarefa.html" title="Nova tarefa no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="telas/nova-tarefa.html" title="Nova tarefa no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Página provisória (fundação)</h2>
+  <p class="intencao">O que aparece em <code>tarefasdacasa.ljssoftware.com.br</code> até a landing da feature 2. <a href="telas/provisoria.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="700"><iframe src="telas/provisoria.html" title="Página provisória no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="telas/provisoria.html" title="Página provisória no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Sem conexão (fundação)</h2>
+  <p class="intencao">Página offline servida pelo service worker. <a href="telas/offline.html" target="_blank" rel="noopener">Abrir em tela cheia</a></p>
+  <div class="telas">
+    <div class="pc"><p class="rotulo">PC · 1440 px</p><div class="janela" data-largura="1440" data-altura="700"><iframe src="telas/offline.html" title="Sem conexão no PC" loading="lazy"></iframe></div></div>
+    <div class="cel"><p class="rotulo">Celular · 390 px</p><div class="janela"><iframe src="telas/offline.html" title="Sem conexão no celular" loading="lazy"></iframe></div></div>
+  </div>
+</section>
+
+<section class="bloco">
+  <h2>Histórico</h2>
+  <p class="intencao">As três direções da primeira rodada ficam guardadas só como registro e não servem de referência para a implementação: <a href="direcoes/a-geladeira/index.html" target="_blank" rel="noopener">A</a>, <a href="direcoes/b-caderno/index.html" target="_blank" rel="noopener">B</a> e <a href="direcoes/c-rotina/index.html" target="_blank" rel="noopener">C</a>.</p>
+</section>
+
+<script>
+function ajustar() {
+  document.querySelectorAll('.pc .janela').forEach(function (j) {
+    var w = +j.dataset.largura, h = +j.dataset.altura, f = j.clientWidth / w;
+    var i = j.querySelector('iframe');
+    i.style.width = w + 'px'; i.style.height = h + 'px'; i.style.transform = 'scale(' + f + ')';
+    j.style.height = Math.round(h * f) + 'px';
+  });
+}
+ajustar();
+window.addEventListener('resize', ajustar);
+</script>
