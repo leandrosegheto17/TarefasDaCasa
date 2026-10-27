@@ -1,6 +1,6 @@
 # Fundação — Especificação
 
-> Feature 1 de 5 (AD-001). **Spec aprovada pelo usuário em 2026-10-27.** Entrada: [necessidade.md](../../produto/necessidade.md) (D-01 a D-06) e [padrao-ljs.md](../../produto/padrao-ljs.md). O design desta feature é a arquitetura comum do projeto. Referência de outro app no mesmo padrão: `C:\Leandro\Projetos\GestaoDaPelada_LJS\.specs\features\fundacao\` (liberada em 2026-10-26). Ela serve só de consulta e não é fonte de requisito.
+> Feature 1 de 5 (AD-001). **Spec aprovada pelo usuário em 2026-10-27; FUN-44 e FUN-45 ajustados no Design, no mesmo dia, por decisão do usuário (backup no próprio repositório, que fica privado antes da publicação).** Entrada: [necessidade.md](../../produto/necessidade.md) (D-01 a D-06) e [padrao-ljs.md](../../produto/padrao-ljs.md). O design desta feature é a arquitetura comum do projeto. Referência de outro app no mesmo padrão: `C:\Leandro\Projetos\GestaoDaPelada_LJS\.specs\features\fundacao\` (liberada em 2026-10-26). Ela serve só de consulta e não é fonte de requisito.
 
 ## Problem Statement
 
@@ -31,8 +31,8 @@ O Tarefas da Casa nasce do zero no padrão LJS. Antes das regras de casa e taref
 
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --------------------- | --------------- | --------- | ---------- |
-| Repositório | `leandrosegheto17/TarefasDaCasa`, **público** | Decisão do usuário (2026-10-27) | y |
-| Repositório público e backup | O dump cifrado **não** fica como artefato do Actions de um repositório público. O destino privado do backup é escolhido no Design, custo zero, com fonte e data | Artefato de repositório público pode ser baixado por terceiros; mesmo cifrado, não deve ficar exposto. Decisão do usuário: manter público e mover o backup | y |
+| Repositório | `leandrosegheto17/TarefasDaCasa`, **público durante o desenvolvimento** (minutos do Actions); passa a **privado antes da publicação final** | Decisão do usuário (2026-10-27, no Design) | y |
+| Backup e visibilidade do repositório | O dump cifrado fica como **artefato do Actions do próprio repositório** (padrão LJS), com retenção de 30 dias. O `backup.yml` e o dump do `deploy.yml` **recusam rodar enquanto o repositório for público** (FUN-44) | Decisão do usuário (2026-10-27, no Design), que substitui o "destino privado separado" da versão aprovada da spec. Artefato de repositório público pode ser baixado por qualquer conta logada (pesquisa de 2026-10-27, confiança média), então a trava garante que nenhum dump real fique exposto | y |
 | Repositório público e documentos | `THREAT-MODEL.md`, runbook e ADRs ficam versionados, sem segredo, host interno, ID de recurso sensível ou dado pessoal; gitleaks no CI | Repositório público. O ID do Hyperdrive e o Project ID do Neon não são credenciais | y |
 | Banco | Projeto Neon já criado pelo usuário: Project ID `odd-voice-50267467` (sa-east-1 PREMISSA, conferir no Design). Branch `main` = produção, `dev` = desenvolvimento | Decisão do usuário (2026-10-27) | y |
 | Unidade de isolamento | `casa_id` (D-06). A conta da sessão só enxerga as casas em que tem vínculo de membro | D-06 | y |
@@ -150,7 +150,7 @@ O Tarefas da Casa nasce do zero no padrão LJS. Antes das regras de casa e taref
 
 1. WHEN há push ou PR THEN o `ci.yml` SHALL rodar lint, typecheck, testes, gitleaks, build do web, migrations do zero num Postgres de serviço, teste de isolamento, comparação visual e instalabilidade, e SHALL falhar se qualquer um falhar. [FUN-35]
 2. The `deploy.yml` SHALL ser disparável só por `workflow_dispatch` na `main`, no environment `producao`, com `concurrency` sem cancelamento. [FUN-36]
-3. WHEN o `deploy.yml` roda THEN ele SHALL executar, nesta ordem e parando no primeiro erro: (1) build do web; (2) branch de restauração no Neon, mantendo só as 2 mais recentes; (3) dump cifrado no destino privado do backup; (4) migração com `NEON_URL_MIGRACAO` (role `owner`); (5) `wrangler deploy --var URL_PUBLICA:<url>`; (6) `GET /api/health` = 200 com o SHA publicado. [FUN-37]
+3. WHEN o `deploy.yml` roda THEN ele SHALL executar, nesta ordem e parando no primeiro erro: (1) build do web; (2) branch de restauração no Neon, mantendo só as 2 mais recentes; (3) dump cifrado (FUN-44); (4) migração com `NEON_URL_MIGRACAO` (role `owner`); (5) `wrangler deploy --var URL_PUBLICA:<url>`; (6) `GET /api/health` = 200 com o SHA publicado. [FUN-37]
 4. IF o build do web falha THEN o `deploy.yml` SHALL parar antes de tocar o Neon ou o Worker. [FUN-38]
 5. IF a migração falha THEN o `deploy.yml` SHALL não executar o `wrangler deploy`, e o runbook SHALL descrever como restaurar pela branch de restauração. [FUN-39]
 6. The repositório SHALL ter `wrangler deploy` em um único lugar (o `deploy.yml`), e um teste SHALL falhar se aparecer em outro arquivo. [FUN-40]
@@ -163,15 +163,15 @@ O Tarefas da Casa nasce do zero no padrão LJS. Antes das regras de casa e taref
 
 ### P1: Backup e restauração ⭐ MVP
 
-**User Story**: Como dono da LJS, quero backup diário cifrado, guardado fora do alcance público, e uma restauração testada, para recuperar os dados da família se algo der errado.
+**User Story**: Como dono da LJS, quero backup diário cifrado, que nunca fique num repositório público, e uma restauração testada, para recuperar os dados da família se algo der errado.
 
 **Why P1**: Perder os dados é o risco principal do uso próprio. Padrão LJS.
 
 **Acceptance Criteria**:
 
 1. The `backup.yml` SHALL rodar todo dia às 04:00 de Brasília (07:00 UTC) e manualmente, fazendo `pg_dump -Fc` com a role `backup_ro` e cifrando com `age` (chave pública em secret, chave privada fora do GitHub). [FUN-43]
-2. The `backup.yml` SHALL guardar o dump cifrado num destino privado (não acessível sem credencial), com retenção de 30 dias, e SHALL não publicá-lo como artefato do repositório público. [FUN-44]
-3. IF o dump, a cifragem ou o envio falha THEN o `backup.yml` SHALL falhar visivelmente (job vermelho) e não deixar dump parcial no destino. [FUN-45]
+2. IF o repositório está público THEN o `backup.yml` e o passo de dump do `deploy.yml` SHALL falhar antes de executar o `pg_dump`, com a mensagem "Torne o repositório privado antes do backup"; com o repositório privado, o dump cifrado SHALL ser guardado como artefato do Actions com retenção de 30 dias. [FUN-44]
+3. IF o dump ou a cifragem falha THEN o `backup.yml` SHALL falhar visivelmente (job vermelho) e não publicar artefato parcial. [FUN-45]
 4. WHEN o procedimento de restauração do runbook é seguido (baixar o dump, decifrar com a chave privada, `pg_restore` num Postgres local limpo ou numa branch Neon nova) THEN a contagem de linhas por tabela SHALL bater com a origem, e a execução SHALL ficar registrada no runbook com data e contagens. [FUN-46]
 
 **Independent Test**: rodar o `backup.yml` manualmente, restaurar o dump num Postgres local limpo e conferir a contagem de linhas por tabela contra a produção.
@@ -215,7 +215,7 @@ O Tarefas da Casa nasce do zero no padrão LJS. Antes das regras de casa e taref
 | Concorrência e ordem | FUN-37, FUN-53 |
 | Ciclo de vida dos dados | FUN-44 (retenção de 30 dias), FUN-37 (2 branches de restauração) |
 | Observabilidade | FUN-17, FUN-22, FUN-24 |
-| Falha de dependência externa | FUN-23 (Sentry ausente), FUN-39 (Neon), FUN-45 (destino do backup) |
+| Falha de dependência externa | FUN-23 (Sentry ausente), FUN-39 (Neon), FUN-45 (dump ou cifragem) |
 | Integridade de transições de estado | N/A because a fundação não tem máquina de estados de negócio |
 
 ---
