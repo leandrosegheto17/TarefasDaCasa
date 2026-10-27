@@ -31,3 +31,18 @@
 ### AD-006 — Instalabilidade por Playwright no lugar do Lighthouse PWA (2026-10-27)
 
 - **Decisão**: o teste de instalabilidade (manifest, SW controlando a página, ícones e página offline) substitui o "Lighthouse PWA ≥ 90" do padrão LJS. A categoria PWA saiu do Lighthouse (mesma decisão do AD-005 do GestaoDaPelada_LJS).
+
+### AD-007 — Tarefas da fundação aprovadas (2026-10-27)
+
+- **Decisão**: `.specs/features/fundacao/tasks.md` aprovado com 86 tarefas (T1 a T86) em 11 fases, matriz de testes e gates do padrão LJS. A execução fica para uma sessão nova, por decisão do usuário, e as ações externas da fase 11 pedem confirmação uma a uma.
+
+## Retomada
+
+- **Fluxo**: 2 Uso próprio — skill `uso-proprio`
+- **Item**: `.specs/features/fundacao/`
+- **Fase aprovada**: 5, Tarefas (tasks.md T1 a T86) em 2026-10-27
+- **Próxima fase**: 6, Construção (Execute do `tlc-spec-driven`) — modelo indicado: sonnet
+- **Construção**: ainda não iniciada. Antes de começar, o tlc oferece despachar subagentes por lote (~7 tarefas, fases inteiras).
+- **Progresso**: Plano: faltam 5 de 5 features (0%); Projeto: faltam 86 de 86 tarefas (0%), conferido em 2026-10-27
+- **Combinado na conversa e não registrado em artefato**: o usuário pediu parar antes de executar. Ações externas da fase 11 (Hyperdrive/secrets, push, tornar o repositório privado, deploy, restauração, instalação do PWA) pedem confirmação uma a uma.
+- **Gravada em**: 2026-10-27

@@ -10,7 +10,7 @@ Implemente estas tarefas com a skill `tlc-spec-driven`: **acione-a pelo nome e s
 
 **Design**: `.specs/features/fundacao/design.md`
 **Spec**: `.specs/features/fundacao/spec.md`
-**Status**: Draft (aguardando aprovação do usuário)
+**Status**: Approved (usuário, 2026-10-27; execução ainda não iniciada)
 
 > Premissas desta lista:
 > - O código nasce na raiz deste repositório. Os caminhos `pelada:` são relativos a `C:\Leandro\Projetos\GestaoDaPelada_LJS` (commit `9a4afab`) e são somente leitura (AD-002).
