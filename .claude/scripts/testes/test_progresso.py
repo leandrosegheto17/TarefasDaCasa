@@ -459,10 +459,15 @@ class TestLotes(unittest.TestCase):
         return [(primeira + i, [False], estimativa) for i in range(quantas)]
 
     def test_junta_phases_inteiras_ate_a_capacidade(self):
-        # 6h = capacidade: duas Phases de 4h fecham o lote 1 (8h); a terceira abre o lote 2
-        lotes = self.lotes(self.fase(1, 2), self.fase(3, 2), self.fase(5, 2), self.fase(7, 2))
-        self.assertEqual([(l["fases"], len(l["tarefas"])) for l in lotes], [([1, 2], 4), ([3, 4], 4)])
+        # 6h = teto: Phases de 2h, 4h, 2h e 4h formam os lotes [2h+4h] e [2h+4h]; nenhum passa de 6h
+        lotes = self.lotes(self.fase(1, 1), self.fase(2, 2), self.fase(4, 1), self.fase(5, 2))
+        self.assertEqual([(l["fases"], len(l["tarefas"]), l["horas"]) for l in lotes], [([1, 2], 3, 6.0), ([3, 4], 3, 6.0)])
         self.assertEqual([l["numero"] for l in lotes], [1, 2])
+
+    def test_phase_que_nao_cabe_abre_o_proximo_lote(self):
+        # duas Phases de 4h somariam 8h: cada uma fica no seu lote
+        lotes = self.lotes(self.fase(1, 2), self.fase(3, 2), self.fase(5, 3))
+        self.assertEqual([(l["fases"], l["horas"]) for l in lotes], [([1], 4.0), ([2], 4.0), ([3], 6.0)])
 
     def test_nunca_parte_uma_phase(self):
         lotes = self.lotes(self.fase(1, 10), self.fase(11, 3))  # 20h na Phase 1: passa da capacidade, mas fica inteira

@@ -29,7 +29,7 @@ intervalo acima de PAUSA_MIN conta como pausa e a tarefa fica sem tempo medido. 
 some e o resto continua.
 
 Lote: Phases inteiras seguidas que somam até LOTE_HORAS de `**Estimativa**` (tarefa sem
-estimativa conta 1h). Serve para o resumo, os marcos de troca de sessão e o V2 do lote.
+estimativa conta 1h; a Phase que faria passar do limite abre o lote seguinte). Serve para o resumo, os marcos de troca de sessão e o V2 do lote.
 
 Avisos: tarefa com `**Estimativa**` acima de 2h (LIMITE_HORAS) e, em tasks.md que já usa o campo,
 tarefa sem estimativa. Não há limite de quantidade de tarefas; o limite é o tamanho de cada uma.
@@ -225,16 +225,17 @@ def lotes_de(tarefas: list[dict], fases: list[dict]) -> list[dict]:
 
     lotes: list[dict] = []
     atual: dict | None = None
-    for posicao, (numero, ids) in enumerate(unidades):
+    for numero, ids in unidades:
+        horas = peso(ids)
+        if atual is not None and atual["horas"] + horas > LOTE_HORAS:
+            lotes.append(atual)  # a Phase não cabe: abre o lote seguinte, em vez de passar de LOTE_HORAS
+            atual = None
         if atual is None:
             atual = {"fases": [], "tarefas": [], "horas": 0.0}
         if numero is not None:
             atual["fases"].append(numero)
         atual["tarefas"] += ids
-        atual["horas"] += peso(ids)
-        if atual["horas"] >= LOTE_HORAS and posicao < len(unidades) - 1:
-            lotes.append(atual)
-            atual = None
+        atual["horas"] += horas
     if atual is not None:
         lotes.append(atual)
     if len(lotes) > 1 and len(lotes[-1]["tarefas"]) <= 2:
