@@ -1,6 +1,6 @@
 {
   "origem": "C:\\Leandro\\Projetos\\Rascunho\\.claude",
-  "commit": "c3ef71f",
+  "commit": "35e3eea",
   "data": "2026-11-02",
   "modo": "projeto",
   "arquivos": {
@@ -31,10 +31,10 @@
     "scripts/testes/test_progresso.py": "40eb15f318a5037d37770ed9f43d97e31d4e5bdf5ae6f6873114a33e33df4c51",
     "scripts/testes/test_propriedade_git.py": "b818e50f36e4c82c7d43148764a133d3cc64d2d7c8583470b56414e23d552de2",
     "scripts/testes/test_skills.py": "666cba5d7a38c707df00007e223a8bc986f452ba0ceacd789888b295a0cf9f9c",
-    "scripts/testes/test_trava_testes.py": "5462e074c1e3c5c742db991178d587e61ec41385adf41f5410467d1202328b03",
+    "scripts/testes/test_trava_testes.py": "19ded7da8fd011a123ec46743ad30f33b4dd48af4b6a52e41bd26483b5459fa3",
     "scripts/testes/test_varredura_seguranca.py": "de346ebf972b36d29c22995cda3804c2df50854bc4e28a215066f59492247290",
     "scripts/testes/test_verificar_atualizacoes.py": "276fd0f48e17d35a6b2bffd17addd9343d5e04d96cfc58488c73219ec81b9066",
-    "scripts/trava-testes.py": "e821e04dcdd5275eb563b67744e00eee48e31e9a851725629d33f6101404be53",
+    "scripts/trava-testes.py": "5608dc7c59c6323e27126f383a9659c0f506710daa8801a3af5174fd4f6d75af",
     "scripts/varredura-seguranca.py": "de9c713e5f2e28bb2581fb4bdc4102e1eb38b241a8c96da0e6f2369673ace940",
     "scripts/verificar-atualizacoes.py": "06bbfae881d09f487206f9eca994e6bdcb3148af3417e9b0eb5316e23c89ea17",
     "settings.json": "03551f0ef1c84d4fad30dccb25309160f94f47e1674d17a7181ec27b18ee24cf",
