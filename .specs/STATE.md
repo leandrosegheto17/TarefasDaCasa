@@ -36,13 +36,20 @@
 
 - **Decisão**: `.specs/features/fundacao/tasks.md` aprovado com 86 tarefas (T1 a T86) em 11 fases, matriz de testes e gates do padrão LJS. A execução fica para uma sessão nova, por decisão do usuário, e as ações externas da fase 11 pedem confirmação uma a uma.
 
+### AD-008 — Tarefas da fundação ajustadas ao fluxo novo (2026-11-02)
+
+- **Decisão**: as 86 tarefas ganharam `**Risco**` (50 alto, 36 baixo) e `**Domínio**` (6 sim: T22, T23, T24, T37, T72, T74), conforme as regras novas do `CLAUDE.md`. Risco baixo que toca SQL, migração, CI, deploy, Docker, dependência, segredo ou log foi tratado como alto. Domínio "sim" só onde errar é caro e exige raciocínio (função `SECURITY DEFINER` e RLS, transação com contexto de usuário, restauração e deploy entre Neon, Hyperdrive e Wrangler).
+- **Lotes de até 6h**: as 11 Phases (de 6h a 16h cada) foram divididas em 23 Phases menores, sem mudar tarefa, ordem nem estimativa. O `progresso.py --lote` dá 22 lotes, todos com até 6h (a Phase 21 e a 22 dividem o lote 21). Lotes com tarefa de Domínio sim, que vão para `implementador-dominio` (Opus): 5 (T22), 6 (T23, T24), 9 (T37), 18 (T72) e 19 (T74). Os outros 17 vão para `implementador` (Sonnet).
+- **Correção no script**: `lotes_de` em `.claude/scripts/progresso.py` fechava o lote só depois de passar de 6h (chegava a 7,5h). Agora a Phase que não cabe abre o lote seguinte; Phase maior que 6h continua inteira. Teste ajustado em `test_progresso.py` (239 testes verdes). Essa mudança precisa ir para o Rascunho (origem dos fluxos), senão o próximo `instalar.py --atualizar` a desfaz.
+- **Não mudou**: escopo, critérios e estimativas. Modo enxuto não se aplica (a feature já tem spec, design e tarefas aprovados).
+
 ## Retomada
 
 - **Fluxo**: 2 Uso próprio — skill `uso-proprio`
 - **Item**: `.specs/features/fundacao/`
 - **Fase aprovada**: 5, Tarefas (tasks.md T1 a T86) em 2026-10-27
 - **Próxima fase**: 6, Construção (Execute do `tlc-spec-driven`) — modelo indicado: sonnet
-- **Construção**: ainda não iniciada. Antes de começar, o tlc oferece despachar subagentes por lote (~7 tarefas, fases inteiras).
-- **Progresso**: Plano: faltam 5 de 5 features (0%); Projeto: faltam 86 de 86 tarefas (0%), conferido em 2026-10-27
+- **Construção**: ainda não iniciada. Execução sempre por subagente, um lote por vez (até 6h de Estimativa, Phases inteiras; 22 lotes). O lote 1 é a Phase 1 (T1 a T5).
+- **Progresso**: Produto: faltam 5 de 5 features (0%); Feature: faltam 86 de 86 tarefas (0%), conferido em 2026-11-02
 - **Combinado na conversa e não registrado em artefato**: o usuário pediu parar antes de executar. Ações externas da fase 11 (Hyperdrive/secrets, push, tornar o repositório privado, deploy, restauração, instalação do PWA) pedem confirmação uma a uma.
-- **Gravada em**: 2026-10-27
+- **Gravada em**: 2026-11-02 (tarefas ajustadas ao fluxo novo, AD-008)

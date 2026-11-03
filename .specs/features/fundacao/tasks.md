@@ -17,7 +17,7 @@ Implemente estas tarefas com a skill `tlc-spec-driven`: **acione-a pelo nome e s
 > - **Teste copiado do Pelada só entra ligado a um `FUN-NN`**, indicado em cada tarefa. O verificador recusa ligação sem asserção correspondente.
 > - Cada tarefa tem **Estimativa** de até 2 h de trabalho humano (regra de Tarefas do `CLAUDE.md`). Tarefa que estourar a estimativa é dividida, não prorrogada.
 > - Nomes de pacote: `@tarefas/contrato`, `@tarefas/dominio`, `@tarefas/api`, `@tarefas/web`. `backend/scripts` não tem `package.json` próprio: roda com o Vitest da raiz.
-> - **A execução desta lista começa só depois de aprovada. A fase 11 tem ações externas (Cloudflare, GitHub, produção): cada uma exige confirmação específica do usuário no momento, mesmo com a lista aprovada.**
+> - **A execução desta lista começa só depois de aprovada. As fases 22 e 23 têm ações externas (Cloudflare, GitHub, produção): cada uma exige confirmação específica do usuário no momento, mesmo com a lista aprovada.**
 > - `git push`, mudar a visibilidade do repositório e `wrangler deploy` nunca rodam sem essa confirmação.
 
 ---
@@ -55,27 +55,25 @@ O comando de `.specs/projeto/testes.json` é `pnpm test` (T10); a checagem final
 
 As fases rodam em ordem; dentro da fase, as tarefas rodam na ordem numérica.
 
-### Phase 1: Repositório e ferramentas
+### Phase 1: Repositório e ferramentas (parte 1 de 2)
 
 ```
 T1 → T2
 T2 → T3
 T2 → T4
 T2 → T5
-T2 → T6
-T1 → T7
-T3 → T8
-T5 → T8
-T3 → T9
-T4 → T9
-T5 → T9
+```
+
+### Phase 2: Repositório e ferramentas (parte 2 de 2)
+
+```
 T6 → T9
 T8 → T9
 T7 → T9
 T9 → T10
 ```
 
-### Phase 2: Checagens do CI
+### Phase 3: Checagens do CI
 
 ```
 T11 → T12
@@ -84,116 +82,155 @@ T11 → T14
 T11 → T15
 ```
 
-### Phase 3: Banco: migrations e roles
+### Phase 4: Banco: migrations e roles (parte 1 de 2)
 
 ```
 T16 → T18
 T17 → T18
-T18 → T19
+```
+
+### Phase 5: Banco: migrations e roles (parte 2 de 2)
+
+```
 T19 → T20
 T20 → T21
 T21 → T22
 ```
 
-### Phase 4: Banco: RLS, isolamento e seed
+### Phase 6: Banco: RLS, isolamento e seed (parte 1 de 2)
 
 ```
 T23 → T24
 T24 → T25
-T25 → T26
-T25 → T27
-T25 → T28
-T26 → T29
-T27 → T29
-T24 → T30
 ```
 
-### Phase 5: API (Worker, Hono, contexto de banco)
+### Phase 7: Banco: RLS, isolamento e seed (parte 2 de 2)
+
+```
+T26 → T29
+T27 → T29
+T28
+T30
+```
+
+### Phase 8: API (Worker, Hono, contexto de banco) (parte 1 de 2)
 
 ```
 T32 → T33
 T33 → T34
 T31 → T34
 T33 → T35
-T33 → T36
-T36 → T37
-T32 → T38
-T33 → T39
 ```
 
-### Phase 6: Front base
+### Phase 9: API (Worker, Hono, contexto de banco) (parte 2 de 2)
+
+```
+T36 → T37
+T38
+T39
+```
+
+### Phase 10: Front base (parte 1 de 2)
 
 ```
 T40 → T41
 T41 → T42
-T42 → T43
-T43 → T44
-T40 → T45
 ```
 
-### Phase 7: Componentes do guia de estilo
+### Phase 11: Front base (parte 2 de 2)
+
+```
+T43 → T44
+T45
+```
+
+### Phase 12: Componentes do guia de estilo (parte 1 de 2)
 
 ```
 T46 → T47
 T46 → T48
 T46 → T49
 T46 → T50
-T46 → T51
-T46 → T52
-T46 → T53
-T46 → T54
 ```
 
-### Phase 8: Shell PWA e ferramentas de execução local
+### Phase 13: Componentes do guia de estilo (parte 2 de 2)
+
+```
+T51
+T52
+T53
+T54
+```
+
+### Phase 14: Shell PWA e ferramentas de execução local (parte 1 de 3)
 
 ```
 T55 → T56
 T57 → T58
-T58 → T59
-T59 → T60
-T55 → T62
-T62 → T63
-T59 → T63
-T63 → T64
-T60 → T64
-T57 → T64
-T63 → T65
-T55 → T65
-T60 → T65
-T61
 ```
 
-### Phase 9: CI, deploy e backup
+### Phase 15: Shell PWA e ferramentas de execução local (parte 2 de 3)
+
+```
+T59 → T60
+T61
+T62
+```
+
+### Phase 16: Shell PWA e ferramentas de execução local (parte 3 de 3)
+
+```
+T63 → T64
+T63 → T65
+```
+
+### Phase 17: CI, deploy e backup (parte 1 de 3)
 
 ```
 T66 → T69
 T67 → T69
-T66 → T70
-T70 → T71
-T72 → T73
-T69 → T74
-T72 → T74
-T73 → T74
-T70 → T74
-T74 → T75
 T68
 ```
 
-### Phase 10: Documentação
+### Phase 18: CI, deploy e backup (parte 2 de 3)
 
 ```
-T78 → T79
-T76 → T80
+T70 → T71
+T72
+```
+
+### Phase 19: CI, deploy e backup (parte 3 de 3)
+
+```
+T73 → T74
+T74 → T75
+```
+
+### Phase 20: Documentação (parte 1 de 2)
+
+```
+T76
 T77
+T78
 ```
 
-### Phase 11: Entrega (ações externas, cada uma com confirmação)
+### Phase 21: Documentação (parte 2 de 2)
+
+```
+T79
+T80
+```
+
+### Phase 22: Entrega (ações externas, cada uma com confirmação) (parte 1 de 2)
 
 ```
 T81 → T82
 T82 → T83
-T83 → T84
-T83 → T85
+```
+
+### Phase 23: Entrega (ações externas, cada uma com confirmação) (parte 2 de 2)
+
+```
 T84 → T85
 T84 → T86
 ```
@@ -202,12 +239,14 @@ T84 → T86
 
 ## Task Breakdown
 
-### Phase 1: Repositório e ferramentas (tarefas)
+### Phase 1: Repositório e ferramentas (parte 1 de 2) (tarefas)
 
 ### T1: package.json e workspace da raiz
 
 **What**: Criar o `package.json` da raiz (`type: module`, `engines` Node >=24 <25, `packageManager` pnpm 11), o `pnpm-workspace.yaml` com os cinco pacotes e o `.nvmrc` com 24.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `package.json`
 **Depends on**: None
 **Reuses**: pelada:package.json, pnpm-workspace.yaml (`minimumReleaseAge`, `trustPolicy`)
@@ -235,6 +274,8 @@ T84 → T86
 
 **What**: Criar `tsconfig.base.json` com `strict`, `noUncheckedIndexedAccess`, `module: NodeNext` e as demais opções do Pelada.
 **Estimativa**: 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `tsconfig.base.json`
 **Depends on**: T1
 **Reuses**: pelada:tsconfig.base.json
@@ -261,6 +302,8 @@ T84 → T86
 
 **What**: Criar os dois pacotes (`@tarefas/contrato`, `@tarefas/dominio`) com `package.json`, `tsconfig.json`, `src/index.ts` vazio e um teste de fumaça cada.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `backend/dominio/package.json`
 **Depends on**: T2
 **Reuses**: pelada:backend/contrato, backend/dominio
@@ -287,6 +330,8 @@ T84 → T86
 
 **What**: Criar o pacote `@tarefas/api` com `package.json`, `tsconfig.json`, `vitest.config.ts` (`@cloudflare/vitest-plugin`) e um teste de fumaça no pool workerd.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/vitest.config.ts`
 **Depends on**: T2
 **Reuses**: pelada:backend/api/vitest.config.ts, package.json
@@ -313,6 +358,8 @@ T84 → T86
 
 **What**: Criar `backend/scripts/` (sem `package.json` próprio, roda com o Vitest da raiz) com `tsconfig.json` e um teste de fumaça; criar o script raiz `test:checagens`.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `backend/scripts/tsconfig.json`
 **Depends on**: T2
 **Reuses**: pelada:backend/scripts/tsconfig.json, package.json (`test:checagens`)
@@ -335,10 +382,14 @@ T84 → T86
 
 ---
 
+### Phase 2: Repositório e ferramentas (parte 2 de 2) (tarefas)
+
 ### T6: Esqueleto de frontend/web
 
 **What**: Criar o pacote `@tarefas/web` com `package.json`, `tsconfig.json`, `vite.config.ts` (Vitest com jsdom, `vitest` declarado no pacote) e um teste de fumaça.
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/vite.config.ts`
 **Depends on**: T2
 **Reuses**: pelada:frontend/web/package.json, vite.config.ts
@@ -365,6 +416,8 @@ T84 → T86
 
 **What**: Criar `.prettierrc.json`, `.prettierignore`, `.gitattributes` com `* text=auto eol=lf` e `.gitignore` (node_modules, dist, .wrangler, .env).
 **Estimativa**: 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `.gitattributes`
 **Depends on**: T1
 **Reuses**: pelada:.prettierrc.json, .gitattributes
@@ -391,6 +444,8 @@ T84 → T86
 
 **What**: Criar `eslint.config.mjs` (typescript-eslint, import-x) e o plugin local com a regra que proíbe `node:fs`, rede e banco em `backend/dominio`, com teste de fixture.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `eslint.config.mjs`
 **Depends on**: T3, T5
 **Reuses**: pelada:eslint.config.mjs, eslint/
@@ -418,6 +473,8 @@ T84 → T86
 
 **What**: Definir `lint`, `typecheck`, `test` e `test:checagens` na raiz, executando todos os pacotes (`pnpm -r`), e provar que saem com código 0 na base limpa.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `package.json`
 **Depends on**: T3, T4, T5, T6, T8, T7
 **Reuses**: pelada:package.json (scripts)
@@ -444,6 +501,8 @@ T84 → T86
 
 **What**: Trocar `{"dispensado": true}` por `{"comando": "pnpm test"}` em `.specs/projeto/testes.json` e rodar `python .claude/scripts/trava-testes.py --rodar`.
 **Estimativa**: 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `.specs/projeto/testes.json`
 **Depends on**: T9
 **Reuses**: —
@@ -466,12 +525,14 @@ T84 → T86
 
 ---
 
-### Phase 2: Checagens do CI (tarefas)
+### Phase 3: Checagens do CI (tarefas)
 
 ### T11: Helpers das checagens (arquivos e YAML)
 
 **What**: Copiar `arquivos.mjs` (lista arquivos versionados) e `yaml-estrutura.mjs` (lê a estrutura dos workflows) com testes.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/arquivos.mjs`
 **Depends on**: T5
 **Reuses**: pelada:backend/scripts/checagens/arquivos.mjs, yaml-estrutura.mjs
@@ -498,6 +559,8 @@ T84 → T86
 
 **What**: Copiar `checar-urls-absolutas.mjs`: falha se `ljssoftware.com.br` ou `workers.dev` aparecer fora de `wrangler.jsonc` e `deploy.yml`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/checar-urls-absolutas.mjs`
 **Depends on**: T11
 **Reuses**: pelada:backend/scripts/checagens/checar-urls-absolutas.mjs
@@ -524,6 +587,8 @@ T84 → T86
 
 **What**: Copiar `checar-wrangler-deploy.mjs`: falha se `wrangler deploy` aparecer em qualquer arquivo que não seja o `deploy.yml`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/checar-wrangler-deploy.mjs`
 **Depends on**: T11
 **Reuses**: pelada:backend/scripts/checagens/checar-wrangler-deploy.mjs
@@ -550,6 +615,8 @@ T84 → T86
 
 **What**: Copiar `checar-acoes-fixadas.mjs`: falha se um `uses:` de workflow não estiver fixado por SHA de 40 caracteres.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/checar-acoes-fixadas.mjs`
 **Depends on**: T11
 **Reuses**: pelada:backend/scripts/checagens/checar-acoes-fixadas.mjs
@@ -576,6 +643,8 @@ T84 → T86
 
 **What**: Copiar `checar-migracao-aditiva.mjs` e `sql-normalizado.mjs` ajustando ao nome de arquivo do `node-pg-migrate`: falha em `DROP COLUMN`/`DROP TABLE` sem exceção declarada em ADR.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/checar-migracao-aditiva.mjs`
 **Depends on**: T11
 **Reuses**: pelada:backend/scripts/checagens/checar-migracao-aditiva.mjs, sql-normalizado.mjs
@@ -598,12 +667,14 @@ T84 → T86
 
 ---
 
-### Phase 3: Banco: migrations e roles (tarefas)
+### Phase 4: Banco: migrations e roles (parte 1 de 2) (tarefas)
 
 ### T16: docker-compose.yml com Postgres 16
 
 **What**: Criar `docker-compose.yml` com um serviço Postgres 16 (porta 5433 no host) e script de init que garante `pgcrypto` disponível.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docker-compose.yml`
 **Depends on**: T9
 **Reuses**: pelada:docker-compose.yml
@@ -631,6 +702,8 @@ T84 → T86
 
 **What**: Copiar `exigirHostPermitido` e a leitura de `.env`: recusa operar fora de `localhost`/`127.0.0.1` (usado por `seed` e `migrar --alvo local`).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/comum/host.ts`
 **Depends on**: T5
 **Reuses**: pelada:backend/scripts/comum/
@@ -657,6 +730,8 @@ T84 → T86
 
 **What**: Criar `migrar.ts` sobre `node-pg-migrate` 9 com `--no-single-transaction` e advisory lock; se o Postgres não responde, aborta com 'Rode docker compose up -d'.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/migrar.ts`
 **Depends on**: T16, T17
 **Reuses**: pelada:backend/scripts/migrar.ts
@@ -680,10 +755,14 @@ T84 → T86
 
 ---
 
+### Phase 5: Banco: migrations e roles (parte 2 de 2) (tarefas)
+
 ### T19: Migration 001: extensões
 
 **What**: Criar a migration `001_extensoes` com `CREATE EXTENSION IF NOT EXISTS pgcrypto`.
 **Estimativa**: 30 min
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/infraestrutura/db/migracoes/001_extensoes.sql`
 **Depends on**: T18
 **Reuses**: pelada:migrações SQL (formato `-- Up Migration`)
@@ -710,6 +789,8 @@ T84 → T86
 
 **What**: Criar `002_roles` com `tarefas_app NOLOGIN NOBYPASSRLS` e `tarefas_backup NOLOGIN` (idempotente); as senhas ficam fora do repositório.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/infraestrutura/db/migracoes/002_roles.sql`
 **Depends on**: T19
 **Reuses**: pelada:migração de roles do Pelada (`pelada_app`, `pelada_backup`)
@@ -737,6 +818,8 @@ T84 → T86
 
 **What**: Criar `003_casa_membro_usuario` com as três tabelas do design (`membro.usuario_id` nulo = perfil sem login; `UNIQUE (casa_id, usuario_id)`).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/infraestrutura/db/migracoes/003_casa_membro_usuario.sql`
 **Depends on**: T20
 **Reuses**: design.md (Data Models)
@@ -764,6 +847,8 @@ T84 → T86
 
 **What**: Criar `004_funcoes_contexto` com `app_usuario_id()` e `casas_visiveis()` (`SECURITY DEFINER`, `search_path = public, pg_temp`, `REVOKE ALL FROM PUBLIC`, `GRANT EXECUTE` a `tarefas_app`).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `backend/api/src/infraestrutura/db/migracoes/004_funcoes_contexto.sql`
 **Depends on**: T21
 **Reuses**: pelada:`grupos_visiveis()`
@@ -787,12 +872,14 @@ T84 → T86
 
 ---
 
-### Phase 4: Banco: RLS, isolamento e seed (tarefas)
+### Phase 6: Banco: RLS, isolamento e seed (parte 1 de 2) (tarefas)
 
 ### T23: Migration 005: RLS forçada em casa e membro
 
 **What**: Criar `005_rls` com `ENABLE` + `FORCE ROW LEVEL SECURITY` e as policies de leitura e escrita (`WITH CHECK` com `app_usuario_id() IS NOT NULL`) em `casa` e `membro`.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `backend/api/src/infraestrutura/db/migracoes/005_rls.sql`
 **Depends on**: T22
 **Reuses**: pelada:migração `…_rls.sql`
@@ -820,6 +907,8 @@ T84 → T86
 
 **What**: Criar `006_grants` com os grants de `tarefas_app` (`SELECT/INSERT/UPDATE` em `casa` e `membro`, `DELETE` em `membro`), RLS de `usuario` (`id = app_usuario_id()`, sem grant ainda) e `SELECT` + policy `USING (true)` para `tarefas_backup`.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `backend/api/src/infraestrutura/db/migracoes/006_grants.sql`
 **Depends on**: T23
 **Reuses**: pelada:grants do Pelada
@@ -847,6 +936,8 @@ T84 → T86
 
 **What**: Copiar o apoio (banco temporário por suíte, conexão como `tarefas_app`, contagem de linhas por tabela) e criar o cenário com duas casas, um usuário adulto e um perfil sem login cada.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/test/apoio/cenario-casas.ts`
 **Depends on**: T24
 **Reuses**: pelada:backend/api/test/apoio/
@@ -870,10 +961,14 @@ T84 → T86
 
 ---
 
+### Phase 7: Banco: RLS, isolamento e seed (parte 2 de 2) (tarefas)
+
 ### T26: Isolamento: leitura
 
 **What**: Teste de isolamento no banco, como `tarefas_app`, para `casa` e `membro`: o usuário A lê só os próprios dados e o usuário B não lê nada da casa A.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/test/isolamento/leitura.test.ts`
 **Depends on**: T25
 **Reuses**: pelada:backend/api/test/isolamento/
@@ -901,6 +996,8 @@ T84 → T86
 
 **What**: Teste de isolamento: o usuário B não insere, não altera e não apaga linhas da casa A (zero linhas afetadas ou erro de policy).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/test/isolamento/escrita.test.ts`
 **Depends on**: T25
 **Reuses**: pelada:backend/api/test/isolamento/
@@ -928,6 +1025,8 @@ T84 → T86
 
 **What**: Teste: transação de `tarefas_app` sem `app.usuario_id` lê zero linhas e não escreve em nenhuma tabela de negócio (inclui `usuario`).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/test/isolamento/sem-contexto.test.ts`
 **Depends on**: T25
 **Reuses**: pelada:backend/api/test/isolamento/
@@ -955,6 +1054,8 @@ T84 → T86
 
 **What**: Teste que lista as tabelas com coluna `casa_id` no catálogo e falha se alguma não tiver `FORCE ROW LEVEL SECURITY` ou caso de isolamento.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/test/isolamento/meta.test.ts`
 **Depends on**: T26, T27
 **Reuses**: pelada:backend/api/test/isolamento/meta
@@ -981,6 +1082,8 @@ T84 → T86
 
 **What**: Criar `seed-local.ts`: define a senha de login das roles a partir do `.env`, cria duas casas de exemplo (nomes fictícios), cada uma com um adulto e um perfil sem login; recusa host não local.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/seed-local.ts`
 **Depends on**: T17, T24
 **Reuses**: pelada:backend/scripts/seed-local.ts
@@ -1004,12 +1107,14 @@ T84 → T86
 
 ---
 
-### Phase 5: API (Worker, Hono, contexto de banco) (tarefas)
+### Phase 8: API (Worker, Hono, contexto de banco) (parte 1 de 2) (tarefas)
 
 ### T31: Contrato: esquema da resposta de saúde
 
 **What**: Criar em `@tarefas/contrato` o schema Zod `{status:'ok', versao:string}` e o tipo exportado.
 **Estimativa**: 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `backend/contrato/src/saude.ts`
 **Depends on**: T3
 **Reuses**: design.md (C4)
@@ -1036,6 +1141,8 @@ T84 → T86
 
 **What**: Criar `wrangler.jsonc` (nome `tarefasdacasa`, assets SPA, `run_worker_first: ["/api/*"]`, `nodejs_compat`, Hyperdrive, ratelimits 4001 a 4003, rota com `custom_domain`, um único cron) e o teste que fixa a lista de chaves.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `wrangler.jsonc`
 **Depends on**: T4
 **Reuses**: pelada:wrangler.jsonc, backend/api/test/wrangler.test.ts
@@ -1063,6 +1170,8 @@ T84 → T86
 
 **What**: Criar `app.ts` e os middlewares `semCache` e `semSniff`: toda resposta de `/api/*` leva `Cache-Control: no-store` e `X-Content-Type-Options: nosniff`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/entrada/app.ts`
 **Depends on**: T32
 **Reuses**: pelada:backend/api/src/entrada/app.ts, middlewares/
@@ -1089,6 +1198,8 @@ T84 → T86
 
 **What**: Criar `rotas/health.ts` respondendo 200 `{"status":"ok","versao":env.VERSAO}` sem abrir conexão com o banco.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/entrada/rotas/health.ts`
 **Depends on**: T33, T31
 **Reuses**: pelada:backend/api/src/entrada/rotas/health.ts
@@ -1116,6 +1227,8 @@ T84 → T86
 
 **What**: Copiar `limite-taxa.ts` ligado aos bindings `LIMITE_ENTRAR`, `LIMITE_PUBLICO` e `LIMITE_WEBHOOK`; sem rota que o use na fundação, só o middleware e o teste.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/entrada/middlewares/limite-taxa.ts`
 **Depends on**: T33
 **Reuses**: pelada:backend/api/src/entrada/middlewares/limite-taxa.ts
@@ -1139,10 +1252,14 @@ T84 → T86
 
 ---
 
+### Phase 9: API (Worker, Hono, contexto de banco) (parte 2 de 2) (tarefas)
+
 ### T36: Cliente pg por requisição via Hyperdrive
 
 **What**: Copiar `cliente.ts`: abre `pg.Client` pela connection string do Hyperdrive na primeira consulta e fecha com `waitUntil`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/infraestrutura/db/cliente.ts`
 **Depends on**: T33
 **Reuses**: pelada:backend/api/src/infraestrutura/db/cliente.ts
@@ -1169,6 +1286,8 @@ T84 → T86
 
 **What**: Criar `comBanco`: `BEGIN` (`READ ONLY` em GET/HEAD), `set_config('app.usuario_id', $1, true)` com parâmetro, `COMMIT` se status < 400 ou `ROLLBACK`.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `backend/api/src/entrada/middlewares/com-banco.ts`
 **Depends on**: T36
 **Reuses**: pelada:backend/api/src/entrada/middlewares/
@@ -1196,6 +1315,8 @@ T84 → T86
 
 **What**: Criar `agendado.ts` e exportar `scheduled()` no worker: registra uma linha de log e retorna, sem tocar banco nem rede.
 **Estimativa**: 30 min
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/entrada/agendado.ts`
 **Depends on**: T32
 **Reuses**: design.md (C4)
@@ -1222,6 +1343,8 @@ T84 → T86
 
 **What**: Ligar `@sentry/hono/cloudflare` só quando há `SENTRY_DSN`, com `release = VERSAO` e `beforeSend` removendo corpo, cookies, `authorization` e e-mails.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/api/src/entrada/worker.ts`
 **Depends on**: T33
 **Reuses**: pelada:backend/api/src/entrada/worker.ts
@@ -1245,12 +1368,14 @@ T84 → T86
 
 ---
 
-### Phase 6: Front base (tarefas)
+### Phase 10: Front base (parte 1 de 2) (tarefas)
 
 ### T40: Casca do front: main, App e roteador
 
-**What**: Criar `index.html`, `main.tsx`, `App.tsx` com React Router e o `QueryClient` do TanStack Query; rota `/` aponta para a página provisória (placeholder até a fase 8).
+**What**: Criar `index.html`, `main.tsx`, `App.tsx` com React Router e o `QueryClient` do TanStack Query; rota `/` aponta para a página provisória (placeholder até a fase 14).
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/app/App.tsx`
 **Depends on**: T6
 **Reuses**: pelada:frontend/web/src/app/App.tsx, dados/cliente.ts
@@ -1278,6 +1403,8 @@ T84 → T86
 
 **What**: Colocar Sora e Source Sans 3 (OFL) em `frontend/web/public/fontes/` e criar `fontes.css` com `@font-face` (`font-display: swap`) e a licença junto.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/estilos/fontes.css`
 **Depends on**: T40
 **Reuses**: .specs/mockup/tokens.css (@import a remover)
@@ -1305,6 +1432,8 @@ T84 → T86
 
 **What**: Copiar as fontes para `.specs/mockup/fontes/`, trocar o `@import` do `tokens.css` por `@font-face` locais, e republicar a galeria do mockup.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `.specs/mockup/tokens.css`
 **Depends on**: T41
 **Reuses**: .specs/mockup/tokens.css
@@ -1328,10 +1457,14 @@ T84 → T86
 
 ---
 
+### Phase 11: Front base (parte 2 de 2) (tarefas)
+
 ### T43: tokens.css idêntico ao do mockup
 
 **What**: Copiar `.specs/mockup/tokens.css` para `frontend/web/src/estilos/tokens.css` e criar o teste que compara os bytes.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/estilos/tokens.css`
 **Depends on**: T42, T7
 **Reuses**: .specs/mockup/tokens.css
@@ -1358,6 +1491,8 @@ T84 → T86
 
 **What**: Configurar o Stylelint 17 para recusar cor, `font-family` e `box-shadow` literais fora de `tokens.css` e ligar `lint:css` ao `pnpm lint`.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/.stylelintrc.json`
 **Depends on**: T43
 **Reuses**: pelada:frontend/web/.stylelintrc.json
@@ -1385,6 +1520,8 @@ T84 → T86
 
 **What**: Criar `observabilidade.ts` com `@sentry/react` ligado só se `VITE_SENTRY_DSN` existir, `release` = SHA e `beforeSend` limpando e-mails e cookies.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `frontend/web/src/app/observabilidade.ts`
 **Depends on**: T40
 **Reuses**: pelada:frontend/web/src/app/observabilidade.ts
@@ -1407,12 +1544,14 @@ T84 → T86
 
 ---
 
-### Phase 7: Componentes do guia de estilo (tarefas)
+### Phase 12: Componentes do guia de estilo (parte 1 de 2) (tarefas)
 
 ### T46: Componentes Botão e Selo
 
 **What**: Criar `Botao` (primário, secundário, texto, desabilitado) e `Selo` (alerta, sucesso, neutro) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (botões e selos), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/botao-selo/`
 **Depends on**: T44
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1440,6 +1579,8 @@ T84 → T86
 
 **What**: Criar `Marcar` (`aria-pressed`, desabilitado) e `ItemTarefa` (feita, atrasada) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (marcar e lista de tarefas), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/marcar-item/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1467,6 +1608,8 @@ T84 → T86
 
 **What**: Criar `Campo` (normal, ajuda, erro) e `Opcoes` (rádio e caixa em pílula) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (campos e escolhas), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/campo-opcoes/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1494,6 +1637,8 @@ T84 → T86
 
 **What**: Criar `Faixa` (título e apoio) e `Anel` (progresso `N de M`, `aria-live`) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (faixa e anel), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/faixa-anel/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1521,6 +1666,8 @@ T84 → T86
 
 **What**: Criar `Abas` (`role=tab`, seleção por teclado) e `Coluna` (quadro de pessoas) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (abas e quadro), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/abas-coluna/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1544,10 +1691,14 @@ T84 → T86
 
 ---
 
+### Phase 13: Componentes do guia de estilo (parte 2 de 2) (tarefas)
+
 ### T51: Componentes Cartao e Aviso
 
 **What**: Criar `Cartao` e `Aviso` (sucesso, alerta, erro com `role` correto) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (cartão e avisos), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/cartao-aviso/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1575,6 +1726,8 @@ T84 → T86
 
 **What**: Criar `Estado` (vazio, erro) e `Esqueleto` (respeita `prefers-reduced-motion`) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (estados), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/estado-esqueleto/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1602,6 +1755,8 @@ T84 → T86
 
 **What**: Criar `NavPrincipal` (rodapé com `aria-current`, área de toque de 44 px) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (navegação), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/nav-principal/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1629,6 +1784,8 @@ T84 → T86
 
 **What**: Criar `TabelaSemana` (cabeçalho fixo na coluna de nomes, rolagem horizontal acessível) como CSS Modules com os mesmos nomes de classe de `.specs/mockup/componentes.css` (tabela da semana), com teste de renderização e axe.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/componentes/tabela-semana/`
 **Depends on**: T46
 **Reuses**: .specs/mockup/componentes.css, .specs/mockup/guia.html
@@ -1652,12 +1809,14 @@ T84 → T86
 
 ---
 
-### Phase 8: Shell PWA e ferramentas de execução local (tarefas)
+### Phase 14: Shell PWA e ferramentas de execução local (parte 1 de 3) (tarefas)
 
 ### T55: Página provisória em /
 
 **What**: Criar a página provisória com `Faixa` e `Estado` ('Em breve'), no visual de `telas/provisoria.html`.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/paginas/Provisoria.tsx`
 **Depends on**: T49, T52, T40
 **Reuses**: .specs/mockup/telas/provisoria.html
@@ -1684,6 +1843,8 @@ T84 → T86
 
 **What**: Criar `dev.ts`: sobe o `wrangler dev` com `localConnectionString` do Hyperdrive apontando para o Postgres local e o Vite com proxy de `/api`; se o Postgres está fora do ar, aborta com 'Rode docker compose up -d'.
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `backend/scripts/dev.ts`
 **Depends on**: T16, T55, T34
 **Reuses**: pelada:backend/scripts/dev.ts
@@ -1711,6 +1872,8 @@ T84 → T86
 
 **What**: Desenhar o ícone em SVG com as cores dos tokens e criar o script que gera `icone-192.png`, `icone-512.png` e `icone-maskable-512.png`.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/scripts/gerar-icones.mjs`
 **Depends on**: T43
 **Reuses**: pelada:frontend/web/public/icones/
@@ -1738,6 +1901,8 @@ T84 → T86
 
 **What**: Criar `config/manifesto.ts` gerando o manifest: nome 'Tarefas da Casa', `display: standalone`, `lang: pt-BR`, cores dos tokens, ícones 192 e 512 (um `maskable`).
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/config/manifesto.ts`
 **Depends on**: T57
 **Reuses**: pelada:frontend/web/src/config/manifesto.ts
@@ -1760,10 +1925,14 @@ T84 → T86
 
 ---
 
+### Phase 15: Shell PWA e ferramentas de execução local (parte 2 de 3) (tarefas)
+
 ### T59: Service worker: precache e handlers push
 
 **What**: Criar o SW (`injectManifest`, Workbox 7) com precache do shell e handlers vazios de `push` e `notificationclick` registrados.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `frontend/web/src/pwa/sw.ts`
 **Depends on**: T58
 **Reuses**: pelada:frontend/web/src/pwa/
@@ -1791,6 +1960,8 @@ T84 → T86
 
 **What**: Criar `public/offline.html` no visual de `telas/offline.html` (CSS inline copiado dos tokens) e o fallback de navegação no SW.
 **Estimativa**: 1h 30 min
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/public/offline.html`
 **Depends on**: T59
 **Reuses**: .specs/mockup/telas/offline.html
@@ -1818,6 +1989,8 @@ T84 → T86
 
 **What**: Copiar `pwa/instalacao.ts` e o aviso: no Safari do iOS fora do modo standalone aparece a instrução de adicionar à tela inicial; no standalone, não.
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/src/pwa/instalacao.ts`
 **Depends on**: T40, T51
 **Reuses**: pelada:frontend/web/src/pwa/instalacao.ts
@@ -1844,6 +2017,8 @@ T84 → T86
 
 **What**: Criar `public/_headers` com `Content-Security-Policy` (`default-src 'self'`), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` e `Strict-Transport-Security`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `frontend/web/public/_headers`
 **Depends on**: T55
 **Reuses**: pelada:frontend/web/public/_headers
@@ -1867,10 +2042,14 @@ T84 → T86
 
 ---
 
+### Phase 16: Shell PWA e ferramentas de execução local (parte 3 de 3) (tarefas)
+
 ### T63: Playwright e e2e de cabeçalhos
 
 **What**: Configurar o Playwright (só Chromium) contra `vite preview` e escrever o e2e que confere os cabeçalhos de `/` no build.
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/e2e/playwright.config.ts`
 **Depends on**: T62, T59
 **Reuses**: pelada:frontend/web/e2e/playwright.config.ts
@@ -1897,6 +2076,8 @@ T84 → T86
 
 **What**: Escrever o e2e: manifest válido, SW ativo controlando a página, ícones 192 e 512 (um `maskable`) acessíveis e `offline.html` servida sem rede.
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/e2e/instalabilidade.spec.ts`
 **Depends on**: T63, T60, T57
 **Reuses**: pelada:frontend/web/e2e/
@@ -1923,6 +2104,8 @@ T84 → T86
 
 **What**: Ligar `.claude/scripts/comparar-visual.mjs` ao `pnpm --filter @tarefas/web visual` com `.specs/mockup/telas.json` (T1 provisória, T2 offline; 1280×800 e 390×844; limite de 1%).
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `frontend/web/package.json`
 **Depends on**: T63, T55, T60
 **Reuses**: .claude/scripts/comparar-visual.mjs, .specs/mockup/telas.json
@@ -1945,12 +2128,14 @@ T84 → T86
 
 ---
 
-### Phase 9: CI, deploy e backup (tarefas)
+### Phase 17: CI, deploy e backup (parte 1 de 3) (tarefas)
 
 ### T66: Action preparar-node
 
 **What**: Copiar `.github/actions/preparar-node` (Node 24, pnpm 11, cache do pnpm) fixando as actions por SHA.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `.github/actions/preparar-node/action.yml`
 **Depends on**: T14
 **Reuses**: pelada:.github/actions/preparar-node/
@@ -1977,6 +2162,8 @@ T84 → T86
 
 **What**: Copiar `.gitleaks.toml` e ajustar as regras permitidas (IDs de recurso não são segredo).
 **Estimativa**: 30 min
+**Risco**: alto
+**Domínio**: não
 **Where**: `.gitleaks.toml`
 **Depends on**: T1
 **Reuses**: pelada:.gitleaks.toml
@@ -2003,6 +2190,8 @@ T84 → T86
 
 **What**: Criar `.env.example` listando cada variável com obrigatoriedade, formato e se é segredo (`DATABASE_URL_TESTE`, `CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE`, `TARGET`, senhas das roles, `SENTRY_DSN`, `URL_PUBLICA`, `VERSAO`).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `.env.example`
 **Depends on**: T30, T39
 **Reuses**: pelada:.env.example
@@ -2029,6 +2218,8 @@ T84 → T86
 
 **What**: Copiar `ci.yml`: lint, typecheck, testes, gitleaks, build do web, migrations do zero num Postgres de serviço, isolamento, comparação visual e instalabilidade; `pull_request` (nunca `pull_request_target`) e sem secrets.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `.github/workflows/ci.yml`
 **Depends on**: T66, T67, T65, T64, T29, T15, T12, T13
 **Reuses**: pelada:.github/workflows/ci.yml
@@ -2052,10 +2243,14 @@ T84 → T86
 
 ---
 
+### Phase 18: CI, deploy e backup (parte 2 de 3) (tarefas)
+
 ### T70: Action dump-cifrado com a trava de repositório público
 
 **What**: Copiar a action `dump-cifrado` (`pg_dump -Fc --enable-row-security` + `age`) e acrescentar o primeiro passo: se `github.event.repository.private != true`, falhar com 'Torne o repositório privado antes do backup' antes de qualquer `pg_dump`.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `.github/actions/dump-cifrado/dump-cifrado.sh`
 **Depends on**: T66, T24
 **Reuses**: pelada:.github/actions/dump-cifrado/
@@ -2083,6 +2278,8 @@ T84 → T86
 
 **What**: Copiar `backup.yml`: todo dia às 07:00 UTC (04:00 de Brasília) e manual, role `tarefas_backup`, artefato com `retention-days: 30`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `.github/workflows/backup.yml`
 **Depends on**: T70
 **Reuses**: pelada:.github/workflows/backup.yml
@@ -2110,6 +2307,8 @@ T84 → T86
 
 **What**: Copiar `restauracao-neon*.ts`: cria a branch de restauração antes do deploy e remove as antigas, mantendo só as 2 mais recentes.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `backend/scripts/ops/restauracao-neon.ts`
 **Depends on**: T17
 **Reuses**: pelada:backend/scripts/ops/restauracao-neon*.ts
@@ -2132,10 +2331,14 @@ T84 → T86
 
 ---
 
+### Phase 19: CI, deploy e backup (parte 3 de 3) (tarefas)
+
 ### T73: Conferência do cache do Hyperdrive
 
 **What**: Criar o script que consulta a configuração do Hyperdrive e falha se o cache estiver ligado (usado pelo deploy).
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/ops/checar-hyperdrive.ts`
 **Depends on**: T72
 **Reuses**: pelada:passo do `deploy.yml` do Pelada
@@ -2162,6 +2365,8 @@ T84 → T86
 
 **What**: Copiar `deploy.yml`: só `workflow_dispatch` na `main`, environment `producao`, `concurrency` sem cancelar; passos na ordem: build do web, branch de restauração, dump cifrado, migração com `NEON_URL_MIGRACAO`, `wrangler deploy --var URL_PUBLICA`, `GET /api/health` com `versao == github.sha`.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: sim
 **Where**: `.github/workflows/deploy.yml`
 **Depends on**: T69, T72, T73, T70
 **Reuses**: pelada:.github/workflows/deploy.yml
@@ -2189,6 +2394,8 @@ T84 → T86
 
 **What**: Escrever o teste (sobre `yaml-estrutura.mjs`) que prova: build antes de tocar o Neon, falha de migração impede o `wrangler deploy`, `URL_PUBLICA` vazia falha antes do deploy e o health confere a versão.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `backend/scripts/checagens/test/deploy-yml.test.mjs`
 **Depends on**: T74
 **Reuses**: pelada:backend/scripts/checagens/yaml-estrutura.mjs
@@ -2211,12 +2418,14 @@ T84 → T86
 
 ---
 
-### Phase 10: Documentação (tarefas)
+### Phase 20: Documentação (parte 1 de 2) (tarefas)
 
 ### T76: README
 
 **What**: Escrever o `README.md`: rodar local, variáveis, deploy e testes (em português).
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `README.md`
 **Depends on**: T56, T68, T74
 **Reuses**: pelada:README.md
@@ -2243,6 +2452,8 @@ T84 → T86
 
 **What**: Escrever `docs/runbook.md`: deploy, falha de migração (restaurar pela branch), restauração do backup, rotação de segredos, monitor do UptimeRobot, contagem de crons da conta e o primeiro passo da publicação ('tornar o repositório privado').
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T74
 **Reuses**: pelada:backend/DEPLOY.md
@@ -2270,6 +2481,8 @@ T84 → T86
 
 **What**: Escrever os ADRs em `.md/adr/`: 001 migrations e linha de base vazia, 002 isolamento por casa com RLS, 003 backup como artefato com trava de repositório público, 004 instalabilidade por Playwright, 005 fontes locais.
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `.md/adr/001-migrations-node-pg-migrate.md`
 **Depends on**: T24
 **Reuses**: pelada:.md/adr/024 a 028
@@ -2292,10 +2505,14 @@ T84 → T86
 
 ---
 
+### Phase 21: Documentação (parte 2 de 2) (tarefas)
+
 ### T79: Documentação consolidada em .md/
 
 **What**: Consolidar `PRD.md`, `PRD-TECNICO.md`, `SDD.md`, `GUARDRAILS.md` e `THREAT-MODEL.md` a partir de `.specs/` (necessidade, spec, design).
 **Estimativa**: 2h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `.md/SDD.md`
 **Depends on**: T78
 **Reuses**: pelada:.md/
@@ -2322,6 +2539,8 @@ T84 → T86
 
 **What**: Escrever o `CLAUDE.md` da raiz: stack, comandos, onde ficam regras e artefatos (nunca em `.claude/CLAUDE.md`).
 **Estimativa**: 1h
+**Risco**: baixo
+**Domínio**: não
 **Where**: `CLAUDE.md`
 **Depends on**: T76
 **Reuses**: pelada:CLAUDE.md
@@ -2344,12 +2563,14 @@ T84 → T86
 
 ---
 
-### Phase 11: Entrega (ações externas, cada uma com confirmação) (tarefas)
+### Phase 22: Entrega (ações externas, cada uma com confirmação) (parte 1 de 2) (tarefas)
 
 ### T81: Criar Hyperdrive e environment producao
 
 **What**: Com o usuário: criar o Hyperdrive (cache desligado) apontando para o Neon `odd-voice-50267467` e o environment `producao` com os secrets (`NEON_URL_MIGRACAO`, `NEON_*`, `BACKUP_CHAVE_PUBLICA`, `CLOUDFLARE_*`); definir a senha de login das roles.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T77, T75, T71, T76
 **Reuses**: —
@@ -2379,6 +2600,8 @@ T84 → T86
 
 **What**: Com o usuário: `git push` da branch de trabalho, abrir PR e conferir o `ci.yml` verde no GitHub.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T81, T80
 **Reuses**: —
@@ -2407,6 +2630,8 @@ T84 → T86
 
 **What**: Com o usuário: mudar o repositório para privado nas configurações do GitHub e conferir a trava do backup (job de backup passa a rodar).
 **Estimativa**: 30 min
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T82
 **Reuses**: —
@@ -2432,10 +2657,14 @@ T84 → T86
 
 ---
 
+### Phase 23: Entrega (ações externas, cada uma com confirmação) (parte 2 de 2) (tarefas)
+
 ### T84: Primeiro deploy em produção
 
 **What**: Com o usuário: disparar `deploy.yml` na `main`; migrar o banco de produção e publicar em `tarefasdacasa.ljssoftware.com.br`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T83
 **Reuses**: —
@@ -2465,6 +2694,8 @@ T84 → T86
 
 **What**: Rodar o `backup.yml` manualmente, restaurar o dump num Postgres local limpo (decifrando com a chave privada guardada fora do GitHub), conferir a contagem de linhas por tabela e registrar data e contagens no runbook.
 **Estimativa**: 2h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T83, T84
 **Reuses**: pelada:backend/scripts/ops/restaurar-cli.ts
@@ -2494,6 +2725,8 @@ T84 → T86
 
 **What**: Com o usuário: instalar no Chrome do Android e no Safari do iOS, abrir sem rede e ver `offline.html`; criar o monitor do UptimeRobot em `/api/health`.
 **Estimativa**: 1h
+**Risco**: alto
+**Domínio**: não
 **Where**: `docs/runbook.md`
 **Depends on**: T84
 **Reuses**: —
@@ -2521,10 +2754,10 @@ T84 → T86
 
 ## Phase Execution Map
 
-Execução estritamente sequencial: um agente (ou worker de lote) faz uma tarefa por vez, em ordem. Lotes de ~7 tarefas respeitam as fronteiras de fase (ver `sub-agents.md` do tlc).
+Execução estritamente sequencial: um agente (ou worker de lote) faz uma tarefa por vez, em ordem. Cada Phase soma até 6h de Estimativa e é um lote (`python .claude/scripts/progresso.py --lote`).
 
 ```
-Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6 → Phase 7 → Phase 8 → Phase 9 → Phase 10 → Phase 11
+Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6 → Phase 7 → Phase 8 → Phase 9 → Phase 10 → Phase 11 → Phase 12 → Phase 13 → Phase 14 → Phase 15 → Phase 16 → Phase 17 → Phase 18 → Phase 19 → Phase 20 → Phase 21 → Phase 22 → Phase 23
 ```
 
 ## Cobertura de requisitos
